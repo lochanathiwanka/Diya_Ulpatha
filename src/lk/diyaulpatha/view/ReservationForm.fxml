@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import java.lang.String?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Pagination?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane" prefHeight="736.0" prefWidth="1204.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.diyaulpatha.controller.ReservationFormController">
+   <children>
+      <TextField fx:id="txtCustomerID" editable="false" layoutX="96.0" layoutY="134.0" prefHeight="32.0" prefWidth="148.0" style="-fx-background-radius: 30; -fx-background-color: #e0e0e0;">
+         <font>
+            <Font size="16.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </TextField>
+      <JFXTextField fx:id="txtName" cache="true" labelFloat="true" layoutX="36.0" layoutY="194.0" promptText="Name">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="txtNIC" labelFloat="true" layoutX="36.0" layoutY="262.0" onKeyPressed="#txtNICOnKeyPressed" onKeyReleased="#txtNICOnKeyReleased" onKeyTyped="#txtNICOnKeyTyped" promptText="NIC">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="txtAddress" labelFloat="true" layoutX="36.0" layoutY="325.0" promptText="Address">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="txtContact" labelFloat="true" layoutX="36.0" layoutY="394.0" promptText="Contact">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="txtGender" editable="false" labelFloat="true" layoutX="36.0" layoutY="461.0" promptText="Gender">
+         <font>
+            <Font size="16.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </JFXTextField>
+      <JFXComboBox fx:id="cmbGender" layoutX="244.0" layoutY="467.0" onAction="#cmbGenderOnAction" promptText="Select">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXComboBox>
+      <Pagination fx:id="pagination" layoutX="352.0" layoutY="152.0" pageCount="10" prefHeight="299.0" prefWidth="443.0">
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
+      </Pagination>
+      <JFXComboBox fx:id="cmbRoom" layoutX="848.0" layoutY="150.0" onAction="#cmbRoomOnAction" promptText="Select Room">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXComboBox>
+      <TextField fx:id="txtRoomID" editable="false" layoutX="948.0" layoutY="213.0" prefHeight="32.0" prefWidth="182.0" style="-fx-background-color: #e0e0e0; -fx-background-radius: 30;">
+         <font>
+            <Font size="16.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </TextField>
+      <TextField fx:id="txtDescription" editable="false" layoutX="948.0" layoutY="257.0" prefHeight="32.0" prefWidth="182.0" style="-fx-background-color: #e0e0e0; -fx-background-radius: 30;">
+         <font>
+            <Font size="16.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </TextField>
+      <TextField fx:id="txtPrice" editable="false" layoutX="948.0" layoutY="301.0" prefHeight="32.0" prefWidth="182.0" style="-fx-background-color: #e0e0e0; -fx-background-radius: 30;">
+         <font>
+            <Font size="16.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </TextField>
+      <TextField fx:id="txtAvailability" editable="false" layoutX="948.0" layoutY="345.0" prefHeight="32.0" prefWidth="182.0" style="-fx-background-color: #e0e0e0; -fx-background-radius: 30;">
+         <font>
+            <Font size="16.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </TextField>
+      <JFXDatePicker fx:id="startDatePicker" defaultColor="#626b69" editable="false" layoutX="970.0" layoutY="400.0" onAction="#startDatePickerOnAction" prefHeight="32.0" prefWidth="182.0" style="-fx-font-size: 16;">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXDatePicker>
+      <Label layoutX="840.0" layoutY="416.0" text="Start Date">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tblRoom" layoutX="158.0" layoutY="563.0" onMouseClicked="#tblRoomOnClicked" prefHeight="164.0" prefWidth="603.0">
+         <columns>
+            <TableColumn fx:id="clmRoomID" prefWidth="84.0" text="Room ID" />
+            <TableColumn fx:id="clmDescription" prefWidth="197.0" text="Description" />
+            <TableColumn fx:id="clmStartDate" prefWidth="115.0" text="Start Date" />
+            <TableColumn fx:id="clmEndDate" prefWidth="104.0" text="End Date" />
+            <TableColumn fx:id="clmTotAmount" prefWidth="100.0" text="Tot Amount" />
+         </columns>
+      </TableView>
+      <JFXButton fx:id="btnBook" buttonType="RAISED" layoutX="941.0" layoutY="608.0" onAction="#btnBookOnAction" prefHeight="27.0" prefWidth="80.0" stylesheets="@../css/ReservationFormStyle.css" text="Book" textFill="WHITE">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <JFXButton fx:id="btnAdd" buttonType="RAISED" layoutX="1128.0" layoutY="493.0" onAction="#btnAddOnAction" prefHeight="43.0" prefWidth="47.0" style="-fx-background-radius: 30;" stylesheets="@../css/SetButtonIcons.css" text=" " textFill="WHITE">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <styleClass>
+            <String fx:value="btnAdd" />
+            <String fx:value="button" />
+         </styleClass>
+      </JFXButton>
+      <JFXButton fx:id="btnRemove" buttonType="RAISED" layoutX="952.0" layoutY="648.0" onAction="#btnRemoveOnAction" prefHeight="27.0" prefWidth="95.0" stylesheets="@../css/ReservationFormStyle.css" text="Remove" textFill="WHITE">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <JFXButton fx:id="btnCancel" buttonType="RAISED" layoutX="963.0" layoutY="687.0" onAction="#btnCancelOnAction" prefHeight="27.0" prefWidth="88.0" stylesheets="@../css/ReservationFormStyle.css" text="Cancel" textFill="WHITE">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <TextField fx:id="txtDate" editable="false" layoutX="907.0" layoutY="89.0" prefHeight="28.0" prefWidth="118.0" style="-fx-text-fill: red;">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </TextField>
+      <TextField fx:id="txtTime" editable="false" layoutX="1062.0" layoutY="89.0" prefHeight="28.0" prefWidth="118.0" style="-fx-text-fill: red;">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </TextField>
+      <Pane layoutX="830.0" layoutY="213.0" prefHeight="32.0" prefWidth="118.0" style="-fx-background-color: #377D6A; -fx-background-radius: 30;">
+         <children>
+            <Label layoutX="29.0" layoutY="7.0" text="Room ID" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="830.0" layoutY="257.0" prefHeight="32.0" prefWidth="118.0" style="-fx-background-color: #377D6A; -fx-background-radius: 30;">
+         <children>
+            <Label layoutX="19.0" layoutY="7.0" text="Description" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="830.0" layoutY="301.0" prefHeight="32.0" prefWidth="118.0" style="-fx-background-color: #377D6A; -fx-background-radius: 30;">
+         <children>
+            <Label layoutX="7.0" layoutY="7.0" text="Price (per Day)" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="830.0" layoutY="345.0" prefHeight="32.0" prefWidth="118.0" style="-fx-background-color: #377D6A; -fx-background-radius: 30;">
+         <children>
+            <Label layoutX="20.0" layoutY="7.0" text="Availability" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <JFXTextField fx:id="txtTotalAmount" editable="false" layoutX="969.0" layoutY="499.0" onAction="#txtTotalAmountOnAction" prefHeight="32.0" prefWidth="148.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </JFXTextField>
+      <Label layoutX="839.0" layoutY="506.0" text="Total Amount">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <AnchorPane fx:id="titlePane" prefHeight="79.0" prefWidth="1204.0">
+         <children>
+            <Pane prefHeight="79.0" prefWidth="651.0" style="-fx-background-color: #6ec55d;">
+               <children>
+                  <Label layoutX="43.0" layoutY="6.0" text="Reservation" textFill="WHITE">
+                     <font>
+                        <Font name="Dyuthi Regular" size="40.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane layoutX="651.0" prefHeight="79.0" prefWidth="407.0" style="-fx-background-color: #7c8785;" />
+            <Pane layoutX="1048.0" prefHeight="79.0" prefWidth="158.0" style="-fx-background-color: #bdbdbd;" />
+         </children>
+      </AnchorPane>
+      <Pane layoutX="36.0" layoutY="134.0" prefHeight="32.0" prefWidth="60.0" style="-fx-background-color: #377D6A; -fx-background-radius: 30;">
+         <children>
+            <Label layoutX="20.0" layoutY="7.0" text="ID" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Line endX="794.0" layoutX="412.0" layoutY="546.0" startX="-412.0" />
+      <AnchorPane fx:id="finalTotalPane" layoutX="772.0" layoutY="595.0" prefHeight="97.0" prefWidth="158.0" style="-fx-background-color: #6c7a89;">
+         <children>
+            <Label layoutX="59.0" layoutY="14.0" text="Total" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblFinalTotal" alignment="CENTER" layoutX="37.0" layoutY="63.0" prefHeight="25.0" prefWidth="118.0" text="0.0" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblFinalTotal1" alignment="CENTER" layoutX="5.0" layoutY="63.0" prefHeight="25.0" prefWidth="32.0" text="rs." textFill="WHITE" wrapText="true">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <JFXRadioButton fx:id="rbCash" layoutX="1062.0" layoutY="611.0" onAction="#rbCashOnAction" text="Cash" />
+      <JFXRadioButton fx:id="rbDebit" layoutX="1062.0" layoutY="643.0" onAction="#rbDebitOnAction" text="Debit / Credit" />
+      <JFXTextField fx:id="txtSelectPayment" editable="false" layoutX="1057.0" layoutY="563.0" prefHeight="26.0" prefWidth="61.0" text="Select">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </JFXTextField>
+      <JFXButton fx:id="btnPay" buttonType="RAISED" layoutX="1104.0" layoutY="681.0" onAction="#btnPayOnAction" prefHeight="27.0" prefWidth="61.0" styleClass="btnChangeDate" stylesheets="@../css/ReservationFormStyle.css" text="Pay">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <JFXTextField fx:id="txtStartDate" labelFloat="true" layoutX="22.0" layoutY="581.0" onAction="#txtStartDateOnAction" prefHeight="32.0" prefWidth="118.0" promptText="Start Date">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </JFXTextField>
+      <JFXButton fx:id="btnChangeDate" buttonType="RAISED" layoutX="22.0" layoutY="687.0" onAction="#btnChangeDateOnAction" prefHeight="27.0" prefWidth="118.0" styleClass="btnChangeDate" stylesheets="@../css/ReservationFormStyle.css" text="Change Date">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <JFXDatePicker fx:id="endDatePicker" defaultColor="#626b69" editable="false" layoutX="970.0" layoutY="450.0" onAction="#endDatePickerOnAction" prefHeight="32.0" prefWidth="182.0" style="-fx-font-size: 16;">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXDatePicker>
+      <Label layoutX="840.0" layoutY="466.0" text="End Date">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="txtEndDate" labelFloat="true" layoutX="22.0" layoutY="631.0" onAction="#txtEndDateOnAction" prefHeight="32.0" prefWidth="118.0" promptText="End Date">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </JFXTextField>
+   </children>
+</AnchorPane>

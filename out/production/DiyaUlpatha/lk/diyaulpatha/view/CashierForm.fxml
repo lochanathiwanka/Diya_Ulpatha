@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="750.0" prefWidth="1400.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.diyaulpatha.controller.CashierFormController">
+   <children>
+      <AnchorPane layoutY="200.0" prefHeight="372.0" prefWidth="170.0" style="-fx-background-color: #6ec55d; -fx-background-radius: 0 600 0 500;">
+         <children>
+            <JFXButton buttonType="RAISED" layoutX="19.0" layoutY="131.0" onAction="#btnReservationOnAction" prefHeight="32.0" prefWidth="132.0" ripplerFill="WHITE" stylesheets="@../css/ButtonStyle.css" text="Reservation">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="16.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+            <JFXButton buttonType="RAISED" layoutX="19.0" layoutY="207.0" onAction="#btnReturnRoomOnAction" prefHeight="32.0" prefWidth="132.0" ripplerFill="WHITE" stylesheets="@../css/ButtonStyle.css" text="Return Room">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="16.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="137.0" fitWidth="120.0" layoutX="25.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../asserts/Untitled.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="39.0" fitWidth="80.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#btnBackOnAction" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../asserts/blackArrowBack.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <AnchorPane fx:id="childPane" layoutX="188.0" layoutY="7.0" prefHeight="736.0" prefWidth="1204.0" />
+   </children>
+</AnchorPane>

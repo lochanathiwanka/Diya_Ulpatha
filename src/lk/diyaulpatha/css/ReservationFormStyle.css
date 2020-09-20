@@ -1,0 +1,38 @@
+.button
+{
+    -fx-background-color: linear-gradient(to right top, #cf3dde, #bd48d1, #ac50c3, #9d55b4, #8e58a4, #835d9f, #796099, #716391, #6b6991, #676e8f, #67728b, #6a7687);
+    -fx-background-radius:  0 40 0 40;
+}
+
+.button:hover
+{
+    -fx-background-color: #cdc9c9;
+    -fx-background-radius:  0 40 0 40;
+}
+
+.button:pressed
+{
+    -fx-background-color: #524A7B;
+    -fx-background-radius:  0 40 0 40;
+}
+
+/*------------------------------------------------------------------------------------*/
+
+.btnChangeDate
+{
+    -fx-background-color: #3FE84D;
+    -fx-background-radius:  0 40 0 40;
+}
+
+.btnChangeDate:hover
+{
+    -fx-background-color: #11883F;
+    -fx-background-radius:  0 40 0 40;
+}
+
+.btnChangeDate:pressed
+{
+    -fx-background-color: #46DB70;
+    -fx-background-radius:  0 40 0 40;
+    -fx-text-fill: white;
+}

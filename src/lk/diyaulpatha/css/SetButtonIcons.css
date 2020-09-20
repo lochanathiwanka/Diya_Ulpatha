@@ -1,0 +1,6 @@
+.btnAdd{
+    -fx-background-image: url("../asserts/addToCart3.png");
+    -fx-background-size: 50px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 90%;
+}
