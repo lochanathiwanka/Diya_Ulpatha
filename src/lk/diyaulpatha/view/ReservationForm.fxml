@@ -27,12 +27,12 @@
             <Cursor fx:constant="DEFAULT" />
          </cursor>
       </TextField>
-      <JFXTextField fx:id="txtName" cache="true" labelFloat="true" layoutX="36.0" layoutY="194.0" promptText="Name">
+      <JFXTextField fx:id="txtName" cache="true" labelFloat="true" layoutX="36.0" layoutY="262.0" promptText="Name">
          <font>
             <Font size="16.0" />
          </font>
       </JFXTextField>
-      <JFXTextField fx:id="txtNIC" labelFloat="true" layoutX="36.0" layoutY="262.0" onKeyPressed="#txtNICOnKeyPressed" onKeyReleased="#txtNICOnKeyReleased" onKeyTyped="#txtNICOnKeyTyped" promptText="NIC">
+      <JFXTextField fx:id="txtNIC" labelFloat="true" layoutX="36.0" layoutY="194.0" onKeyPressed="#txtNICOnKeyPressed" onKeyReleased="#txtNICOnKeyReleased" onKeyTyped="#txtNICOnKeyTyped" promptText="NIC">
          <font>
             <Font size="16.0" />
          </font>
@@ -112,13 +112,13 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TableView fx:id="tblRoom" layoutX="158.0" layoutY="563.0" onMouseClicked="#tblRoomOnClicked" prefHeight="164.0" prefWidth="603.0">
+      <TableView fx:id="tblRoom" layoutX="180.0" layoutY="563.0" onMouseClicked="#tblRoomOnClicked" prefHeight="164.0" prefWidth="590.0">
          <columns>
             <TableColumn fx:id="clmRoomID" prefWidth="84.0" text="Room ID" />
             <TableColumn fx:id="clmDescription" prefWidth="197.0" text="Description" />
-            <TableColumn fx:id="clmStartDate" prefWidth="115.0" text="Start Date" />
-            <TableColumn fx:id="clmEndDate" prefWidth="104.0" text="End Date" />
-            <TableColumn fx:id="clmTotAmount" prefWidth="100.0" text="Tot Amount" />
+            <TableColumn fx:id="clmStartDate" prefWidth="104.0" text="Start Date" />
+            <TableColumn fx:id="clmEndDate" prefWidth="100.0" text="End Date" />
+            <TableColumn fx:id="clmTotAmount" prefWidth="115.0" text="Tot Amount" />
          </columns>
       </TableView>
       <JFXButton fx:id="btnBook" buttonType="RAISED" layoutX="941.0" layoutY="608.0" onAction="#btnBookOnAction" prefHeight="27.0" prefWidth="80.0" stylesheets="@../css/ReservationFormStyle.css" text="Book" textFill="WHITE">

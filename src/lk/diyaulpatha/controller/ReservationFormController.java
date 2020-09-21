@@ -14,6 +14,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Paint;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
 import lk.diyaulpatha.bo.BOFactory;
@@ -102,10 +103,21 @@ public class ReservationFormController implements Initializable {
 
     public void endDatePickerOnAction(ActionEvent actionEvent) {
         btnAdd.setDisable(false);
+        double tot = 0;
+        String totAmount = "";
         try {
-            String totAmount = setTotalAmount(startDatePicker.getValue().toString(), endDatePicker.getValue().toString());
-            txtTotalAmount.setText(totAmount+"");
+            totAmount = setTotalAmount(startDatePicker.getValue().toString(), endDatePicker.getValue().toString());
+            tot = Double.parseDouble(totAmount);
+            if (Double.parseDouble(totAmount)>0){
+                txtTotalAmount.setText(totAmount+"");
+                btnAdd.setDisable(false);
+            }
+            else if (Double.parseDouble(totAmount)<=0){
+                txtTotalAmount.setText("Check date!");
+                btnAdd.setDisable(true);
+            }
         }catch (NumberFormatException | NullPointerException ex){ }
+        System.out.println(tot);
     }
 
     public void btnBookOnAction(ActionEvent actionEvent) {
@@ -505,6 +517,19 @@ public class ReservationFormController implements Initializable {
                     txtEndDate.getText(),Double.parseDouble(totAmount)));
 
             setFinalTotal();
+            double tot = Double.parseDouble(setTotalAmount(txtStartDate.getText(),txtEndDate.getText()));
+            if (tot>0){
+                startDatePicker.getEditor().setText(txtStartDate.getText());
+                endDatePicker.getEditor().setText(txtEndDate.getText());
+                txtTotalAmount.setText(setTotalAmount(txtStartDate.getText(),txtEndDate.getText()));
+                txtStartDate.setText("");
+                txtEndDate.setText("");
+                finalTotalPane.requestFocus();
+            }
+            else if (tot<=0){
+                new Alert(Alert.AlertType.WARNING,"Check date!",ButtonType.OK).show();
+            }
+
         }catch (RuntimeException ex){}
     }
 
