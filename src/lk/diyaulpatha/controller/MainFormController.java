@@ -112,7 +112,6 @@ public class MainFormController extends StageList implements Initializable {
         lblAboutMe.setVisible(false);
         btnSignIn1.setVisible(false);
         txtOwnerName.setVisible(false);
-
     }
 
     public void btnSignInOnAction(ActionEvent actionEvent) throws Exception {

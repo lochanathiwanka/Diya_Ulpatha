@@ -8,13 +8,19 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Paint;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
 import lk.diyaulpatha.bo.BOFactory;
@@ -23,6 +29,7 @@ import lk.diyaulpatha.bo.custom.CustomerBO;
 import lk.diyaulpatha.bo.custom.RoomBO;
 import lk.diyaulpatha.dto.*;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -31,6 +38,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -320,6 +328,19 @@ public class ReservationFormController implements Initializable {
         btnAdd.setDisable(true);
         startDatePicker.setDisable(true);
         endDatePicker.setDisable(true);
+        setPagination();
+
+    }
+
+    public void setPagination() {
+        ArrayList<String> images = new ArrayList<>();
+        images.add("lk/diyaulpatha/asserts/rooms/luxuryRoom.png");
+        images.add("lk/diyaulpatha/asserts/rooms/deluxeRoom.png");
+        images.add("lk/diyaulpatha/asserts/rooms/singleRoom1.png");
+        images.add("lk/diyaulpatha/asserts/rooms/singleRoom2.png");
+
+        pagination.setPageCount(images.size());
+        pagination.setPageFactory(n-> new ImageView(images.get(n)));
     }
 
     public void generateDateTime(){

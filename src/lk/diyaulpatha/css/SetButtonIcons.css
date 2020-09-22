@@ -4,3 +4,39 @@
     -fx-background-repeat: no-repeat;
     -fx-background-position: 90%;
 }
+
+.btnRemoveBooking {
+    -fx-background-image: url("../asserts/removeBooking.png");
+    -fx-background-size: 40px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 90%;
+    -fx-background-radius: 30;
+}
+
+.btnRemoveBooking:hover
+{
+    -fx-background-color: #cdc9c9;
+}
+
+.btnRemoveBooking:pressed
+{
+    -fx-background-color: #cdc9c9;
+}
+
+.btnAddBooking {
+    -fx-background-image: url("../asserts/addBooking.png");
+    -fx-background-size: 45px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 90%;
+    -fx-background-radius: 30;
+}
+
+.btnAddBooking:hover
+{
+    -fx-background-color: #cdc9c9;
+}
+
+.btnAddBooking:pressed
+{
+    -fx-background-color: #cdc9c9;
+}
