@@ -1,9 +1,6 @@
 package lk.diyaulpatha.dao;
 
-import lk.diyaulpatha.dao.custom.impl.BookingDAOImpl;
-import lk.diyaulpatha.dao.custom.impl.BookingDetailDAOImpl;
-import lk.diyaulpatha.dao.custom.impl.CustomerDAOImpl;
-import lk.diyaulpatha.dao.custom.impl.RoomDAOImpl;
+import lk.diyaulpatha.dao.custom.impl.*;
 
 public class DAOFactory {
     private static DAOFactory daoFactory;
@@ -18,7 +15,7 @@ public class DAOFactory {
     }
 
     public enum DAOTypes{
-        CUSTOMER, ROOM, BOOKING, BOOKINGDETAIL;
+        CUSTOMER, ROOM, BOOKING, BOOKINGDETAIL, QUERY;
     }
 
     public SuperDAO getDAO(DAOTypes daoTypes){
@@ -27,6 +24,7 @@ public class DAOFactory {
             case ROOM: return new RoomDAOImpl();
             case BOOKING: return new BookingDAOImpl();
             case BOOKINGDETAIL: return new BookingDetailDAOImpl();
+            case QUERY: return new QueryDAOImpl();
             default: return null;
         }
     }

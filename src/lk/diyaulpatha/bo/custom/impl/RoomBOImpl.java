@@ -4,14 +4,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import lk.diyaulpatha.bo.custom.RoomBO;
 import lk.diyaulpatha.dao.DAOFactory;
+import lk.diyaulpatha.dao.custom.QueryDAO;
 import lk.diyaulpatha.dao.custom.RoomDAO;
+import lk.diyaulpatha.dto.CustomeDTO;
 import lk.diyaulpatha.dto.RoomDTO;
+import lk.diyaulpatha.entity.Custome;
 import lk.diyaulpatha.entity.Room;
 
 import java.sql.SQLException;
 
 public class RoomBOImpl implements RoomBO {
     RoomDAO roomDAO = (RoomDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.ROOM);
+    QueryDAO queryDAO = (QueryDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.QUERY);
 
     @Override
     public boolean addRoom(RoomDTO r) throws ClassNotFoundException, SQLException {
@@ -45,5 +49,11 @@ public class RoomBOImpl implements RoomBO {
                     r.getAvailable(),r.getStatus()));
         }
         return list;
+    }
+
+    @Override
+    public CustomeDTO getRoomAvailability(String id) throws ClassNotFoundException, SQLException {
+        Custome custome = queryDAO.getRoomAvailability(id);
+        return new CustomeDTO(custome.getAvailable(),custome.getEndTime());
     }
 }

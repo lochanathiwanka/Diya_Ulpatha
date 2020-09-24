@@ -2,8 +2,10 @@ package lk.diyaulpatha.bo.custom;
 
 import javafx.collections.ObservableList;
 import lk.diyaulpatha.bo.SuperBO;
+import lk.diyaulpatha.dto.CustomeDTO;
 import lk.diyaulpatha.dto.CustomerDTO;
 import lk.diyaulpatha.dto.RoomDTO;
+import lk.diyaulpatha.entity.Custome;
 
 import java.sql.SQLException;
 
@@ -13,4 +15,5 @@ public interface RoomBO extends SuperBO {
     boolean updateRoom(RoomDTO room) throws ClassNotFoundException,SQLException;
     RoomDTO searchRoom(String id) throws ClassNotFoundException,SQLException;
     ObservableList<RoomDTO> getAllRoom() throws ClassNotFoundException,SQLException;
+    public CustomeDTO getRoomAvailability(String id) throws ClassNotFoundException, SQLException;
 }

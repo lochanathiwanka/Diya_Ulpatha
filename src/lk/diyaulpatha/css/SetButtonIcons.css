@@ -7,7 +7,7 @@
 
 .btnRemoveBooking {
     -fx-background-image: url("../asserts/removeBooking.png");
-    -fx-background-size: 40px;
+    -fx-background-size: 48px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: 90%;
     -fx-background-radius: 30;
@@ -37,6 +37,24 @@
 }
 
 .btnAddBooking:pressed
+{
+    -fx-background-color: #cdc9c9;
+}
+
+.btnClose{
+    -fx-background-image: url("../asserts/close3.png");
+    -fx-background-size: 40px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 90%;
+    -fx-background-radius: 30;
+}
+
+.btnClose:hover
+{
+    -fx-background-color: #cdc9c9;
+}
+
+.btnClose:pressed
 {
     -fx-background-color: #cdc9c9;
 }

@@ -8,19 +8,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Paint;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
 import lk.diyaulpatha.bo.BOFactory;
@@ -29,7 +23,6 @@ import lk.diyaulpatha.bo.custom.CustomerBO;
 import lk.diyaulpatha.bo.custom.RoomBO;
 import lk.diyaulpatha.dto.*;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -107,6 +100,9 @@ public class ReservationFormController implements Initializable {
         try {
             setTotalAmount(startDatePicker.getValue().toString(),endDatePicker.getValue().toString());
         }catch (NumberFormatException | NullPointerException ex){ }
+        catch (ParseException ex){
+            new Alert(Alert.AlertType.WARNING,"Check Date",ButtonType.OK).show();
+        }
     }
 
     public void endDatePickerOnAction(ActionEvent actionEvent) {
@@ -125,7 +121,9 @@ public class ReservationFormController implements Initializable {
                 btnAdd.setDisable(true);
             }
         }catch (NumberFormatException | NullPointerException ex){ }
-        System.out.println(tot);
+        catch (ParseException e) {
+            new Alert(Alert.AlertType.WARNING,"Check Date",ButtonType.OK).show();
+        }
     }
 
     public void btnBookOnAction(ActionEvent actionEvent) {
@@ -199,10 +197,10 @@ public class ReservationFormController implements Initializable {
         finalTotalPane.setVisible(true);
     }
 
-    public String setTotalAmount(String startDate,String endDate){
+    public String setTotalAmount(String startDate,String endDate) throws ParseException{
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String totAmount = " ";
-        try {
+
             Date dateObj1 = sdf.parse(startDate);
             Date dateObj2 = sdf.parse(endDate);
 
@@ -216,9 +214,6 @@ public class ReservationFormController implements Initializable {
             //txtTotalAmount.setText(pricePerDay*(diffDays+1)+"");
             totAmount = String.format("%.2f",pricePerDay*(diffDays+1));
 
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
         return totAmount;
     }
 
@@ -257,6 +252,7 @@ public class ReservationFormController implements Initializable {
             setFinalTotal();
             txtStartDate.setText("");
             txtEndDate.setText("");
+            resetPaymentOption();
         }catch (RuntimeException ex){
             new Alert(Alert.AlertType.WARNING,"Select a room for delete",ButtonType.OK).show();
         }
@@ -267,7 +263,20 @@ public class ReservationFormController implements Initializable {
             resetRoomDetailFields();
             setValuesTocmbRoom();
             lblFinalTotal.setText("0.0");
+            resetCustomerDetailFields();
+            txtNIC.setText(null);
+            setValuesToCmbGender();
+            txtStartDate.setText("");
+            txtEndDate.setText("");
+            resetPaymentOption();
+            startDatePicker.setDisable(true);
+    }
 
+    public void resetPaymentOption(){
+        txtSelectPayment.setVisible(false);
+        rbCash.setVisible(false);
+        rbDebit.setVisible(false);
+        btnPay.setVisible(false);
     }
 
     public void cmbGenderOnAction(ActionEvent actionEvent) {
@@ -282,31 +291,12 @@ public class ReservationFormController implements Initializable {
         cmbGender.getItems().add("Female");
     }
 
-    public void cmbRoomOnAction(ActionEvent actionEvent) {
-        try {
-            startDatePicker.setDisable(false);
-            RoomDTO r = roomBO.searchRoom(cmbRoom.getSelectionModel().getSelectedItem().toString());
-            if (r!=null){
-                txtRoomID.setText(r.getRoomID());
-                txtDescription.setText(r.getDescription());
-                txtPrice.setText(r.getPrice()+"");
-                txtAvailability.setText(r.getAvailable());
-                txtTotalAmount.setText(setTotalAmount(startDatePicker.getValue().toString(),endDatePicker.getValue().toString())+"");
-            }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }catch (NullPointerException ex){
-        }
-    }
-
     public void resetRoomDetailFields(){
-        txtRoomID.setText("");
-        txtDescription.setText("");
-        txtPrice.setText("");
-        txtAvailability.setText("");
-        txtTotalAmount.setText("");
+        txtRoomID.setText(null);
+        txtDescription.setText(null);
+        txtPrice.setText(null);
+        txtAvailability.setText(null);
+        txtTotalAmount.setText(null);
         startDatePicker.setValue(null);
         startDatePicker.setDisable(true);
         endDatePicker.setValue(null);
@@ -320,11 +310,9 @@ public class ReservationFormController implements Initializable {
         setValuesTocmbRoom();
         setValuesToCmbGender();
         generateCustomerID();
+        generateBookingID();
         convertDatePicker();
-        txtSelectPayment.setVisible(false);
-        rbCash.setVisible(false);
-        rbDebit.setVisible(false);
-        btnPay.setVisible(false);
+        resetPaymentOption();
         btnAdd.setDisable(true);
         startDatePicker.setDisable(true);
         endDatePicker.setDisable(true);
@@ -371,6 +359,45 @@ public class ReservationFormController implements Initializable {
         }
     }
 
+    public void cmbRoomOnAction(ActionEvent actionEvent) {
+        try {
+            startDatePicker.setDisable(false);
+            RoomDTO r = roomBO.searchRoom(cmbRoom.getSelectionModel().getSelectedItem().toString());
+            if (r!=null){
+                txtRoomID.setText(r.getRoomID());
+                txtDescription.setText(r.getDescription());
+                txtPrice.setText(r.getPrice()+"");
+                //txtAvailability.setText(r.getAvailable());
+                getAvailabilityOfRooms(cmbRoom.getSelectionModel().getSelectedItem().toString());
+                try {
+                    txtTotalAmount.setText(setTotalAmount(startDatePicker.getValue().toString(),endDatePicker.getValue().toString())+"");
+                } catch (ParseException e) {
+                    new Alert(Alert.AlertType.WARNING,"Check Date",ButtonType.OK).show();
+                }
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }catch (NullPointerException ex){
+
+        }
+    }
+
+    public void getAvailabilityOfRooms(String id){
+        try {
+            CustomeDTO av = roomBO.getRoomAvailability(id);
+            if (av!=null){
+                txtAvailability.setText(av.getAvailable());
+            }
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
     public void generateCustomerID(){
         try {
             int count = custBO.getCustomerRowCount();
@@ -397,16 +424,16 @@ public class ReservationFormController implements Initializable {
         try {
             int count = bookingBO.getBookingRowCount();
             if (count==0){
-                return "C001";
+                return "B001";
             }
             if (count>0 && count<10){
-                return "C00"+(count+1);
+                return "B00"+(count+1);
             }
             if (count>=10 && count<=99){
-                return "C0"+(count+1);
+                return "B0"+(count+1);
             }
             if (count>=100){
-                return "C"+(count+1);
+                return "B"+(count+1);
             }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -453,13 +480,10 @@ public class ReservationFormController implements Initializable {
     }
 
     public void resetCustomerDetailFields(){
-        txtName.setText("");
-        txtAddress.setText("");
-        txtContact.setText("");
-        txtGender.setText("");
-    }
-
-    public void txtTotalAmountOnAction(ActionEvent actionEvent) {
+        txtName.setText(null);
+        txtAddress.setText(null);
+        txtContact.setText(null);
+        txtGender.setText(null);
     }
 
     public void btnPayOnAction(ActionEvent actionEvent) {
@@ -490,33 +514,46 @@ public class ReservationFormController implements Initializable {
         bookingDTO.setBookingDetailList(bookingDetailDTOList);
         bookingDTO.setRoomList(roomDTOList);
 
-        try {
-            boolean isBooked = bookingBO.makeBooking(bookingDTO);
-            if (isBooked){
-                new Alert(Alert.AlertType.CONFIRMATION,"Room(s) were succcessfully booked!",ButtonType.OK).show();
-                tblRoom.getItems().clear();
-                generateCustomerID();
-                generateBookingID();
-                resetRoomDetailFields();
-                setValuesTocmbRoom();
-                setValuesToCmbGender();
-                resetCustomerDetailFields();
-                txtNIC.setText(" ");
-                startDatePicker.setDisable(true);
-                lblFinalTotal.setText("0.0");
-                txtSelectPayment.setVisible(false);
-                rbCash.setVisible(false);
-                rbDebit.setVisible(false);
-                btnPay.setVisible(false);
+            try {
+                if (txtNIC.getText().length()>0 && txtName.getText().length()>0 && txtAddress.getText().length()>0 && txtContact.getText().length()>0 &&
+                        txtGender.getText().length()>0 && txtTotalAmount.getText().length()>0) {
+                    boolean isBooked = bookingBO.makeBooking(bookingDTO);
+                    if (isBooked) {
+                        new Alert(Alert.AlertType.CONFIRMATION, "Room(s) were succcessfully booked!", ButtonType.OK).show();
+                        tblRoom.getItems().clear();
+                        generateCustomerID();
+                        generateBookingID();
+                        resetRoomDetailFields();
+                        setValuesTocmbRoom();
+                        setValuesToCmbGender();
+                        resetCustomerDetailFields();
+                        txtNIC.setText(" ");
+                        startDatePicker.setDisable(true);
+                        lblFinalTotal.setText("0.0");
+                        txtSelectPayment.setVisible(false);
+                        rbCash.setVisible(false);
+                        rbDebit.setVisible(false);
+                        btnPay.setVisible(false);
+                        txtNIC.requestFocus();
 
-            }else if (!isBooked){
-                new Alert(Alert.AlertType.WARNING,"Error",ButtonType.OK).show();
+                    } else if (!isBooked) {
+                        new Alert(Alert.AlertType.WARNING, "Error", ButtonType.OK).show();
+                        txtNIC.requestFocus();
+                    }
+                }else {
+                    new Alert(Alert.AlertType.WARNING, "Fields cannot be empty!", ButtonType.OK).show();
+                    resetPaymentOption();
+                    txtNIC.requestFocus();
+                }
+
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }catch (NullPointerException ex){
+                new Alert(Alert.AlertType.WARNING, "Fields cannot be empty!", ButtonType.OK).show();
+                resetPaymentOption();
             }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
     }
 
     public void txtStartDateOnAction(ActionEvent actionEvent) {
@@ -529,29 +566,46 @@ public class ReservationFormController implements Initializable {
 
     public void setBtnChangeDate(){
         try {
-            int selectedRow = tblRoom.getSelectionModel().getSelectedIndex();
-            String roomID = tblRoom.getItems().get(selectedRow).getRoomID();
-            String description = tblRoom.getItems().get(selectedRow).getDescription();
 
-            String totAmount = setTotalAmount(txtStartDate.getText(),txtEndDate.getText());
-            tblRoom.getItems().set(selectedRow,new CustomeDTO(roomID,description,txtStartDate.getText(),
-                    txtEndDate.getText(),Double.parseDouble(totAmount)));
+            if (txtStartDate.getText().length()==10 && txtEndDate.getText().length()==10) {
+                double total = Double.parseDouble(setTotalAmount(txtStartDate.getText(),txtEndDate.getText()));
+                if (total>0) {
+                    int startDate = Integer.parseInt(txtStartDate.getText().substring(8,10));
+                    int endDate = Integer.parseInt(txtEndDate.getText().substring(8,10));
+                    if (startDate<=31 && endDate<=31) {
+                        int selectedRow = tblRoom.getSelectionModel().getSelectedIndex();
+                        String roomID = tblRoom.getItems().get(selectedRow).getRoomID();
+                        String description = tblRoom.getItems().get(selectedRow).getDescription();
 
-            setFinalTotal();
-            double tot = Double.parseDouble(setTotalAmount(txtStartDate.getText(),txtEndDate.getText()));
-            if (tot>0){
-                startDatePicker.getEditor().setText(txtStartDate.getText());
-                endDatePicker.getEditor().setText(txtEndDate.getText());
-                txtTotalAmount.setText(setTotalAmount(txtStartDate.getText(),txtEndDate.getText()));
-                txtStartDate.setText("");
-                txtEndDate.setText("");
-                finalTotalPane.requestFocus();
+                        String totAmount = setTotalAmount(txtStartDate.getText(), txtEndDate.getText());
+                        tblRoom.getItems().set(selectedRow, new CustomeDTO(roomID, description, txtStartDate.getText(),
+                                txtEndDate.getText(), Double.parseDouble(totAmount)));
+
+                        setFinalTotal();
+                        double tot = Double.parseDouble(setTotalAmount(txtStartDate.getText(), txtEndDate.getText()));
+                        if (tot > 0) {
+                            startDatePicker.getEditor().setText(txtStartDate.getText());
+                            endDatePicker.getEditor().setText(txtEndDate.getText());
+                            txtTotalAmount.setText(setTotalAmount(txtStartDate.getText(), txtEndDate.getText()));
+                            txtStartDate.setText("");
+                            txtEndDate.setText("");
+                            finalTotalPane.requestFocus();
+                        } else if (tot <= 0) {
+                            new Alert(Alert.AlertType.WARNING, "Check date!", ButtonType.OK).show();
+                        }
+                    }else {
+                        new Alert(Alert.AlertType.WARNING,"Check Date",ButtonType.OK).show();
+                    }
+                }else {
+                    new Alert(Alert.AlertType.WARNING,"Check Date",ButtonType.OK).show();
+                }
+            }else {
+                new Alert(Alert.AlertType.WARNING,"Check Date",ButtonType.OK).show();
             }
-            else if (tot<=0){
-                new Alert(Alert.AlertType.WARNING,"Check date!",ButtonType.OK).show();
-            }
 
-        }catch (RuntimeException ex){}
+        }catch (RuntimeException ex){ } catch (ParseException e) {
+            new Alert(Alert.AlertType.WARNING,"Check Date",ButtonType.OK).show();
+        }
     }
 
     public void btnChangeDateOnAction(ActionEvent actionEvent) {
