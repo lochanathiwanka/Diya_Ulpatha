@@ -306,6 +306,7 @@ public class ReservationFormController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        pane.setStyle("-fx-background-color:  #f1f2f6");
         generateDateTime();
         setValuesTocmbRoom();
         setValuesToCmbGender();
@@ -361,19 +362,16 @@ public class ReservationFormController implements Initializable {
 
     public void cmbRoomOnAction(ActionEvent actionEvent) {
         try {
-            startDatePicker.setDisable(false);
+            startDatePicker.getEditor().setText("");
+            endDatePicker.getEditor().setText("");
+            txtTotalAmount.setText(null);
             RoomDTO r = roomBO.searchRoom(cmbRoom.getSelectionModel().getSelectedItem().toString());
             if (r!=null){
                 txtRoomID.setText(r.getRoomID());
                 txtDescription.setText(r.getDescription());
                 txtPrice.setText(r.getPrice()+"");
-                //txtAvailability.setText(r.getAvailable());
                 getAvailabilityOfRooms(cmbRoom.getSelectionModel().getSelectedItem().toString());
-                try {
-                    txtTotalAmount.setText(setTotalAmount(startDatePicker.getValue().toString(),endDatePicker.getValue().toString())+"");
-                } catch (ParseException e) {
-                    new Alert(Alert.AlertType.WARNING,"Check Date",ButtonType.OK).show();
-                }
+                txtTotalAmount.setText(setTotalAmount(startDatePicker.getValue().toString(),endDatePicker.getValue().toString())+"");
             }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -381,6 +379,8 @@ public class ReservationFormController implements Initializable {
             throwables.printStackTrace();
         }catch (NullPointerException ex){
 
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
     }
 
@@ -389,6 +389,13 @@ public class ReservationFormController implements Initializable {
             CustomeDTO av = roomBO.getRoomAvailability(id);
             if (av!=null){
                 txtAvailability.setText(av.getAvailable());
+                if (av.getAvailable().equalsIgnoreCase("Available")) {
+                    startDatePicker.setDisable(false);
+                }else if (av.getAvailable().equalsIgnoreCase("Booked")){
+                    startDatePicker.setDisable(true);
+                    endDatePicker.setDisable(true);
+                    btnAdd.setDisable(true);
+                }
             }
 
         } catch (ClassNotFoundException e) {

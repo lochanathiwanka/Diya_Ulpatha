@@ -34,17 +34,17 @@ public class BookingBOImpl implements BookingBO {
 
         CustomerDTO c = b.getCustomerDTO();
         Customer customer = new Customer(c.getCustomerID(),c.getName(),c.getNic(),c.getAddress(),c.getContact(),c.getGender());
-        boolean isAddedCustomer = custDAO.add(customer);
+        Customer custSearch = custDAO.search(c.getCustomerID());
         try {
-            if (isAddedCustomer){
-                boolean isAddedBooking = bookingDAO.add(new Booking(b.getBookingID(),b.getCustomerID(),b.getDate(),b.getTime(),b.getPayment()));
-                if (isAddedBooking){
+            if (custSearch!=null) {
+                boolean isAddedBooking = bookingDAO.add(new Booking(b.getBookingID(), b.getCustomerID(), b.getDate(), b.getTime(), b.getPayment()));
+                if (isAddedBooking) {
                     boolean isAddedBookingDetail = false;
                     for (BookingDetailDTO bd : b.getBookingDetailList()) {
-                        isAddedBookingDetail = bdetailsDAO.add(new BookingDetail(bd.getBookingID(),bd.getRoomID(),bd.getStartDate(),
-                                bd.getEndDate(),bd.getEndTime(),bd.getTotalAmount()));
+                        isAddedBookingDetail = bdetailsDAO.add(new BookingDetail(bd.getBookingID(), bd.getRoomID(), bd.getStartDate(),
+                                bd.getEndDate(), bd.getEndTime(), bd.getTotalAmount()));
 
-                        if (!isAddedBookingDetail){
+                        if (!isAddedBookingDetail) {
                             connection.rollback();
                             return false;
                         }
@@ -52,7 +52,7 @@ public class BookingBOImpl implements BookingBO {
                     }
                     if (isAddedBookingDetail) {
                         for (RoomDTO r : b.getRoomList()) {
-                            boolean isUpdatedRoom = roomDAO.updateRoomStatus(r.getRoomID(),r.getAvailable());
+                            boolean isUpdatedRoom = roomDAO.updateRoomStatus(r.getRoomID(), r.getAvailable());
                             if (!isUpdatedRoom) {
                                 connection.rollback();
                                 return false;
@@ -62,10 +62,40 @@ public class BookingBOImpl implements BookingBO {
                         return true;
                     }
                 }
+
             }else {
-                connection.rollback();
-                System.out.println("Booking Error");
-                return false;
+                boolean isAddedCustomer = custDAO.add(customer);
+                if (isAddedCustomer) {
+                    boolean isAddedBooking = bookingDAO.add(new Booking(b.getBookingID(), b.getCustomerID(), b.getDate(), b.getTime(), b.getPayment()));
+                    if (isAddedBooking) {
+                        boolean isAddedBookingDetail = false;
+                        for (BookingDetailDTO bd : b.getBookingDetailList()) {
+                            isAddedBookingDetail = bdetailsDAO.add(new BookingDetail(bd.getBookingID(), bd.getRoomID(), bd.getStartDate(),
+                                    bd.getEndDate(), bd.getEndTime(), bd.getTotalAmount()));
+
+                            if (!isAddedBookingDetail) {
+                                connection.rollback();
+                                return false;
+                            }
+
+                        }
+                        if (isAddedBookingDetail) {
+                            for (RoomDTO r : b.getRoomList()) {
+                                boolean isUpdatedRoom = roomDAO.updateRoomStatus(r.getRoomID(), r.getAvailable());
+                                if (!isUpdatedRoom) {
+                                    connection.rollback();
+                                    return false;
+                                }
+                            }
+                            connection.commit();
+                            return true;
+                        }
+                    }
+                } else {
+                    connection.rollback();
+                    System.out.println("Booking Error");
+                    return false;
+                }
             }
         }catch (SQLException ex){
             connection.rollback();
