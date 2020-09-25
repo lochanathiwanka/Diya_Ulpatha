@@ -11,6 +11,11 @@ public class BookingDetailDTO {
     public BookingDetailDTO() {
     }
 
+    public BookingDetailDTO(String bookingID, String endTime) {
+        this.bookingID = bookingID;
+        this.endTime = endTime;
+    }
+
     public BookingDetailDTO(String bookingID, String roomID, String startDate, String endDate, double totalAmount) {
         this.bookingID = bookingID;
         this.roomID = roomID;

@@ -33,4 +33,10 @@ public class BookingDetailDAOImpl implements BookingDetailDAO {
     public ObservableList<BookingDetail> getAll() throws ClassNotFoundException, SQLException {
         return null;
     }
+
+    @Override
+    public boolean setEndTime(String endTime, String bookingID) throws ClassNotFoundException, SQLException {
+        String SQL = "UPDATE BookingDetail SET endTime=? WHERE bookingID=?";
+        return CrudUtil.executeUpdate(SQL,endTime,bookingID);
+    }
 }

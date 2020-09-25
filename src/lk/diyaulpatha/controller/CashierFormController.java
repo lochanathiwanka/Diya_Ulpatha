@@ -1,5 +1,6 @@
 package lk.diyaulpatha.controller;
 
+import animatefx.animation.FadeIn;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,6 +25,7 @@ import java.util.ResourceBundle;
 public class CashierFormController extends StageList implements Initializable {
 
     public AnchorPane childPane;
+    public AnchorPane menuPane;
     Parent root;
     double xOffset,yOffset;
 
@@ -40,13 +42,20 @@ public class CashierFormController extends StageList implements Initializable {
         childPane.getChildren().clear();
         AnchorPane pane = (AnchorPane) FXMLLoader.load(this.getClass().getResource("../view/ReservationForm.fxml"));
         childPane.getChildren().setAll(pane.getChildren());
+        menuPane.setStyle("-fx-background-color:  #6ec55d; -fx-background-radius: 0 600 0 500;");
+        new FadeIn(childPane).play();
     }
 
     public void btnReservationOnAction(ActionEvent actionEvent) throws IOException {
         setChildPane();
     }
 
-    public void btnReturnRoomOnAction(ActionEvent actionEvent) {
+    public void btnReturnRoomOnAction(ActionEvent actionEvent) throws IOException {
+        childPane.getChildren().clear();
+        AnchorPane pane = (AnchorPane) FXMLLoader.load(this.getClass().getResource("../view/ReturnRoomForm.fxml"));
+        childPane.getChildren().setAll(pane.getChildren());
+        menuPane.setStyle("-fx-background-color:  #B86F12; -fx-background-radius: 0 600 0 500;");
+        new FadeIn(childPane).play();
     }
 
     public void btnBackOnAction(MouseEvent mouseEvent) throws IOException {

@@ -5,6 +5,8 @@
     -fx-background-position: 90%;
 }
 
+/*******************************************************************/
+
 .btnRemoveBooking {
     -fx-background-image: url("../asserts/removeBooking.png");
     -fx-background-size: 48px;
@@ -27,6 +29,8 @@
     -fx-background-color: #cdc9c9;
 }
 
+/*******************************************************************/
+
 .btnAddBooking {
     -fx-background-image: url("../asserts/addBooking.png");
     -fx-background-size: 45px;
@@ -48,6 +52,8 @@
     -fx-background-color: #cdc9c9;
 }
 
+/*******************************************************************/
+
 .btnClose{
     -fx-background-image: url("../asserts/closeBooking.png");
     -fx-background-size: 40px;
@@ -67,4 +73,36 @@
 .btnClose:pressed
 {
     -fx-background-color: #cdc9c9;
+}
+
+/*******************************************************************/
+.btnClear{
+    -fx-background-image: url("../asserts/clear1.png");
+    -fx-background-size: 60px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 90%;
+    -fx-background-radius: 30;
+}
+
+.btnClear:hover
+{
+    -fx-background-color: #cdc9c9;
+    -fx-scale-x: 1.3;
+    -fx-scale-y: 1.3;
+    -fx-scale-z: 1.3;
+}
+
+.btnClear:pressed
+{
+    -fx-background-color: #cdc9c9;
+}
+
+
+/*******************************************************************/
+.btnSearch{
+    -fx-background-image: url("../asserts/search2.png");
+    -fx-background-size: 60px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 90%;
+    -fx-background-radius: 30;
 }

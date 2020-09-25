@@ -1,14 +1,182 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="lk.diyaulpatha.controller.ReturnRoomFormController"
-            prefHeight="736.0" prefWidth="1201.0">
-
+<AnchorPane prefHeight="736.0" prefWidth="1201.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.diyaulpatha.controller.ReturnRoomFormController">
+   <children>
+      <AnchorPane prefHeight="736.0" prefWidth="1201.0" style="-fx-background-color: #f1f2f6;">
+         <children>
+            <ImageView fitHeight="510.0" fitWidth="728.0" layoutX="410.0" layoutY="215.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../asserts/returnRoomImg.png" />
+               </image>
+            </ImageView>
+            <AnchorPane layoutX="19.0" layoutY="108.0" prefHeight="423.0" prefWidth="372.0" style="-fx-background-color: #e0e0e0; -fx-background-radius: 30;">
+               <children>
+                  <JFXTextField fx:id="txtName" editable="false" focusTraversable="false" labelFloat="true" layoutX="27.0" layoutY="172.0" promptText="Name">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </JFXTextField>
+                  <JFXTextField fx:id="txtAddress" editable="false" focusTraversable="false" labelFloat="true" layoutX="27.0" layoutY="233.0" promptText="Address">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </JFXTextField>
+                  <JFXTextField fx:id="txtContact" editable="false" focusTraversable="false" labelFloat="true" layoutX="27.0" layoutY="297.0" promptText="Contact">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </JFXTextField>
+                  <JFXTextField fx:id="txtGender" editable="false" focusTraversable="false" labelFloat="true" layoutX="27.0" layoutY="354.0" promptText="Gender">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </JFXTextField>
+                  <TextField fx:id="txtSearch" layoutX="92.0" layoutY="52.0" onAction="#txtSearchOnAction" onKeyReleased="#txtSearchKeyReleased" prefHeight="32.0" prefWidth="172.0" style="-fx-background-radius: 30; -fx-background-color: #9e9e9e;">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </TextField>
+                  <Label alignment="CENTER" layoutX="14.0" layoutY="52.0" prefHeight="32.0" prefWidth="78.0" style="-fx-background-color: #fb8c00; -fx-background-radius: 30;" text="Search" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <JFXButton fx:id="btnSearch" layoutX="272.0" layoutY="34.0" onMouseDragged="#btnSearchMouseDragged" onMouseEntered="#btnSearchMouseEntered" prefHeight="52.0" prefWidth="66.0" style="-fx-background-radius: 30;" text=" ">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <graphic>
+                        <ImageView fitHeight="67.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../asserts/search2.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXTextField fx:id="txtID" editable="false" focusTraversable="false" labelFloat="true" layoutX="27.0" layoutY="111.0" promptText="ID">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </JFXTextField>
+               </children>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </AnchorPane>
+            <TableView fx:id="tblRoom" layoutX="460.0" layoutY="184.0" onMouseClicked="#tblRoomOnClicked" prefHeight="149.0" prefWidth="602.0" style="-fx-font-size: 15;">
+               <columns>
+                  <TableColumn fx:id="clmRoomID" prefWidth="84.0" text="Room ID" />
+                  <TableColumn fx:id="clmDescription" prefWidth="197.0" text="Description" />
+                  <TableColumn fx:id="clmStartDate" prefWidth="104.0" text="Start Date" />
+                  <TableColumn fx:id="clmEndDate" prefWidth="100.0" text="End Date" />
+                  <TableColumn fx:id="clmTotAmount" prefWidth="115.0" text="Tot Amount" />
+               </columns>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </TableView>
+            <JFXButton fx:id="btnClear" layoutX="1079.0" layoutY="215.0" onAction="#btnClearOnAction" prefHeight="71.0" prefWidth="59.0" styleClass="btnClear" stylesheets="@../css/SetButtonIcons.css" text=" ">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+            <AnchorPane fx:id="titlePane" prefHeight="79.0" prefWidth="1204.0">
+               <children>
+                  <Pane layoutX="4.0" prefHeight="79.0" prefWidth="672.0" style="-fx-background-color: #B86F12; -fx-background-radius: 30;">
+                     <children>
+                        <Label layoutX="43.0" layoutY="6.0" text="Return Room" textFill="WHITE">
+                           <font>
+                              <Font name="Dyuthi Regular" size="40.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <Pane layoutX="1031.0" prefHeight="79.0" prefWidth="171.0" style="-fx-background-color: #E77A0E; -fx-background-radius: 30;" />
+                  <Pane layoutX="651.0" prefHeight="79.0" prefWidth="407.0" style="-fx-background-color: #F6B905;" />
+               </children>
+            </AnchorPane>
+            <TextField fx:id="txtBookingID" editable="false" layoutX="460.0" layoutY="139.0" prefHeight="26.0" prefWidth="107.0" style="-fx-text-fill: red;">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </TextField>
+            <Label layoutX="460.0" layoutY="120.0" text="Booking ID">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtBookingDate" editable="false" layoutX="609.0" layoutY="139.0" prefHeight="26.0" prefWidth="107.0">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </TextField>
+            <Label layoutX="609.0" layoutY="120.0" text="Booking Date">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtBookingTime" editable="false" layoutX="763.0" layoutY="139.0" prefHeight="29.0" prefWidth="119.0">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </TextField>
+            <Label layoutX="763.0" layoutY="120.0" text="Booking Time">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtPayment" editable="false" layoutX="930.0" layoutY="139.0" prefHeight="29.0" prefWidth="107.0">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </TextField>
+            <Label layoutX="930.0" layoutY="120.0" text="Paymnet">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
 </AnchorPane>

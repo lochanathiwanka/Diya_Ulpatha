@@ -1,14 +1,20 @@
 package lk.diyaulpatha.controller;
 
+import animatefx.animation.FadeIn;
+import animatefx.animation.FadeInUpBig;
+import animatefx.animation.ZoomIn;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
@@ -116,9 +122,11 @@ public class MainFormController extends StageList implements Initializable {
 
     public void btnSignInOnAction(ActionEvent actionEvent) throws Exception {
         if (txtUserName.getText().length()>0 && passWord.getText().length()>0){
-            cashierFormStage.setScene(new Scene(FXMLLoader.load(this.getClass().getResource("../view/CashierForm.fxml"))));
+            Parent cashierStage= FXMLLoader.load(this.getClass().getResource("../view/CashierForm.fxml"));
+            cashierFormStage.setScene(new Scene(cashierStage));
             cashierFormStage.setResizable(false);
             cashierFormStage.show();
+            new FadeIn(cashierStage).play();
             mainFormStage.close();
 
             TrayNotification tray = new TrayNotification();

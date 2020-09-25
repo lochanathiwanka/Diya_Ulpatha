@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 public class RoomDAOImpl implements RoomDAO {
     @Override
-    public boolean updateRoomStatus(String id,String av) throws ClassNotFoundException, SQLException {
+    public boolean updateRoomAvailable(String id,String av) throws ClassNotFoundException, SQLException {
         String SQL = "UPDATE Room SET available=? WHERE roomID=?";
         return CrudUtil.executeUpdate(SQL,av,id);
     }

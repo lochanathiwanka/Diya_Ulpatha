@@ -52,7 +52,7 @@ public class BookingBOImpl implements BookingBO {
                     }
                     if (isAddedBookingDetail) {
                         for (RoomDTO r : b.getRoomList()) {
-                            boolean isUpdatedRoom = roomDAO.updateRoomStatus(r.getRoomID(), r.getAvailable());
+                            boolean isUpdatedRoom = roomDAO.updateRoomAvailable(r.getRoomID(), r.getAvailable());
                             if (!isUpdatedRoom) {
                                 connection.rollback();
                                 return false;
@@ -81,7 +81,7 @@ public class BookingBOImpl implements BookingBO {
                         }
                         if (isAddedBookingDetail) {
                             for (RoomDTO r : b.getRoomList()) {
-                                boolean isUpdatedRoom = roomDAO.updateRoomStatus(r.getRoomID(), r.getAvailable());
+                                boolean isUpdatedRoom = roomDAO.updateRoomAvailable(r.getRoomID(), r.getAvailable());
                                 if (!isUpdatedRoom) {
                                     connection.rollback();
                                     return false;

@@ -7,5 +7,5 @@ import lk.diyaulpatha.entity.Room;
 import java.sql.SQLException;
 
 public interface RoomDAO extends CrudDAO<Room,String> {
-    boolean updateRoomStatus(String id, String av) throws ClassNotFoundException, SQLException;
+    boolean updateRoomAvailable(String id, String av) throws ClassNotFoundException, SQLException;
 }

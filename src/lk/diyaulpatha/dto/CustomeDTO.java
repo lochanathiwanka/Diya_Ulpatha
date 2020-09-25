@@ -1,6 +1,18 @@
 package lk.diyaulpatha.dto;
 
 public class CustomeDTO {
+    private String customerID;
+    private String name;
+    private String nic;
+    private String address;
+    private String contact;
+    private String gender;
+
+    private String bookingID;
+    private String date;
+    private String time;
+    private String payment;
+
     private String roomID;
     private String description;
     private double price;
@@ -42,6 +54,24 @@ public class CustomeDTO {
         this.startDate = startDate;
         this.endDate = endDate;
         this.endTime = endTime;
+        this.totAmount = totAmount;
+    }
+
+    public CustomeDTO(String customerID, String name, String nic, String address, String contact, String gender, String bookingID, String date, String time, String payment, String startDate, String endDate, String roomID, String description, double totAmount) {
+        this.customerID = customerID;
+        this.name = name;
+        this.nic = nic;
+        this.address = address;
+        this.contact = contact;
+        this.gender = gender;
+        this.bookingID = bookingID;
+        this.date = date;
+        this.time = time;
+        this.payment = payment;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.roomID = roomID;
+        this.description = description;
         this.totAmount = totAmount;
     }
 
@@ -107,5 +137,85 @@ public class CustomeDTO {
 
     public void setTotAmount(double totAmount) {
         this.totAmount = totAmount;
+    }
+
+    public String getCustomerID() {
+        return customerID;
+    }
+
+    public void setCustomerID(String customerID) {
+        this.customerID = customerID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getNic() {
+        return nic;
+    }
+
+    public void setNic(String nic) {
+        this.nic = nic;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getBookingID() {
+        return bookingID;
+    }
+
+    public void setBookingID(String bookingID) {
+        this.bookingID = bookingID;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getPayment() {
+        return payment;
+    }
+
+    public void setPayment(String payment) {
+        this.payment = payment;
     }
 }

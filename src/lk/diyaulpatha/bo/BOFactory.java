@@ -2,6 +2,7 @@ package lk.diyaulpatha.bo;
 
 import lk.diyaulpatha.bo.custom.impl.BookingBOImpl;
 import lk.diyaulpatha.bo.custom.impl.CustomerBOImpl;
+import lk.diyaulpatha.bo.custom.impl.ReturnRoomBOImpl;
 import lk.diyaulpatha.bo.custom.impl.RoomBOImpl;
 
 public class BOFactory {
@@ -17,7 +18,7 @@ public class BOFactory {
     }
 
     public enum BOTypes{
-        CUSTOMER, ROOM, BOOKING;
+        CUSTOMER, ROOM, BOOKING, RETURNROOM;
     }
 
     public SuperBO getBO (BOTypes boTypes){
@@ -25,6 +26,7 @@ public class BOFactory {
             case CUSTOMER: return new CustomerBOImpl();
             case ROOM: return new RoomBOImpl();
             case BOOKING: return new BookingBOImpl();
+            case RETURNROOM: return new ReturnRoomBOImpl();
             default: return null;
         }
     }

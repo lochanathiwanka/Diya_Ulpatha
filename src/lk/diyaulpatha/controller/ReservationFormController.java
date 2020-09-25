@@ -1,5 +1,6 @@
 package lk.diyaulpatha.controller;
 
+import animatefx.animation.ZoomIn;
 import com.jfoenix.controls.*;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -318,7 +319,7 @@ public class ReservationFormController implements Initializable {
         startDatePicker.setDisable(true);
         endDatePicker.setDisable(true);
         setPagination();
-
+        new ZoomIn(titlePane).setSpeed(0.6).play();
     }
 
     public void setPagination() {
