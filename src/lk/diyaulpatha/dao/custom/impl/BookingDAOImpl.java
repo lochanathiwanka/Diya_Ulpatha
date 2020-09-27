@@ -20,6 +20,16 @@ public class BookingDAOImpl implements BookingDAO {
     }
 
     @Override
+    public String getLastBookingID(String NIC) throws ClassNotFoundException, SQLException {
+        String SQL ="select bookingID from Booking b,Customer c where (b.customerID=c.customerID) and nic=? order by bookingID desc limit 1";
+        ResultSet rst = CrudUtil.executeQuery(SQL,NIC);
+        if (rst.next()){
+            return rst.getString("bookingID");
+        }
+        return null;
+    }
+
+    @Override
     public boolean add(Booking b) throws ClassNotFoundException, SQLException {
         String SQL = "INSERT INTO Booking VALUES (?,?,?,?,?)";
         return CrudUtil.executeUpdate(SQL,b.getBookingID(),b.getCustomerID(),b.getDate(),b.getTime(),b.getPayment());

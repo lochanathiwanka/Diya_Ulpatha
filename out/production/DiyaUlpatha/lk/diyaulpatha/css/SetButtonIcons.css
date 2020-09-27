@@ -84,14 +84,6 @@
     -fx-background-radius: 30;
 }
 
-.btnClear:hover
-{
-    -fx-background-color: #cdc9c9;
-    -fx-scale-x: 1.3;
-    -fx-scale-y: 1.3;
-    -fx-scale-z: 1.3;
-}
-
 .btnClear:pressed
 {
     -fx-background-color: #cdc9c9;
@@ -105,4 +97,51 @@
     -fx-background-repeat: no-repeat;
     -fx-background-position: 90%;
     -fx-background-radius: 30;
+}
+
+.btnSearch:pressed
+{
+    -fx-background-color: #cdc9c9;
+}
+/*******************************************************************/
+
+.btnReservation{
+    /*-fx-background-image: url("../asserts/reservation1.png");*/
+    -fx-background-size: 55px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 90%;
+    -fx-background-radius: 30;
+}
+
+.btnReservation:pressed
+{
+    -fx-background-color: #cdc9c9;
+}
+/*******************************************************************/
+
+.btnSignOut{
+    /*-fx-background-image: url("../asserts/signOut5.png");*/
+    -fx-background-size: 60px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 0%;
+    -fx-background-radius: 30;
+}
+
+.btnSignOut:pressed
+{
+    -fx-background-color: #cdc9c9;
+}
+/*******************************************************************/
+
+.btnReturnRoom{
+    /*-fx-background-image: url("../asserts/returnRoom1.png");*/
+    -fx-background-size: 60px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 90%;
+    -fx-background-radius: 30;
+}
+
+.btnReturnRoom:pressed
+{
+    -fx-background-color: #cdc9c9;
 }

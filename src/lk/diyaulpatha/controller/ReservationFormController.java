@@ -31,7 +31,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -99,7 +101,7 @@ public class ReservationFormController implements Initializable {
     public void startDatePickerOnAction(ActionEvent actionEvent) {
         endDatePicker.setDisable(false);
         try {
-            setTotalAmount(startDatePicker.getValue().toString(),endDatePicker.getValue().toString());
+            validateDatePicker();
         }catch (NumberFormatException | NullPointerException ex){ }
         catch (ParseException ex){
             new Alert(Alert.AlertType.WARNING,"Check Date",ButtonType.OK).show();
@@ -108,22 +110,23 @@ public class ReservationFormController implements Initializable {
 
     public void endDatePickerOnAction(ActionEvent actionEvent) {
         btnAdd.setDisable(false);
-        double tot = 0;
-        String totAmount = "";
         try {
-            totAmount = setTotalAmount(startDatePicker.getValue().toString(), endDatePicker.getValue().toString());
-            tot = Double.parseDouble(totAmount);
-            if (Double.parseDouble(totAmount)>0){
-                txtTotalAmount.setText(totAmount+"");
-                btnAdd.setDisable(false);
-            }
-            else if (Double.parseDouble(totAmount)<=0){
-                txtTotalAmount.setText("Check date!");
-                btnAdd.setDisable(true);
-            }
+           validateDatePicker();
         }catch (NumberFormatException | NullPointerException ex){ }
         catch (ParseException e) {
             new Alert(Alert.AlertType.WARNING,"Check Date",ButtonType.OK).show();
+        }
+    }
+
+    public void validateDatePicker() throws ParseException,NumberFormatException {
+        String totAmount = setTotalAmount(startDatePicker.getValue().toString(), endDatePicker.getValue().toString());
+        if (Double.parseDouble(totAmount)>0){
+            txtTotalAmount.setText(totAmount+"");
+            btnAdd.setDisable(false);
+        }
+        else if (Double.parseDouble(totAmount)<=0){
+            txtTotalAmount.setText("Check date!");
+            btnAdd.setDisable(true);
         }
     }
 
@@ -255,7 +258,6 @@ public class ReservationFormController implements Initializable {
             txtEndDate.setText("");
             resetPaymentOption();
         }catch (RuntimeException ex){
-            new Alert(Alert.AlertType.WARNING,"Select a room for delete",ButtonType.OK).show();
         }
     }
 
@@ -363,39 +365,62 @@ public class ReservationFormController implements Initializable {
 
     public void cmbRoomOnAction(ActionEvent actionEvent) {
         try {
-            startDatePicker.getEditor().setText("");
-            endDatePicker.getEditor().setText("");
-            txtTotalAmount.setText(null);
+            txtTotalAmount.setText("");
+            startDatePicker.getEditor().setText(null);
+            endDatePicker.getEditor().setText(null);
             RoomDTO r = roomBO.searchRoom(cmbRoom.getSelectionModel().getSelectedItem().toString());
             if (r!=null){
-                txtRoomID.setText(r.getRoomID());
-                txtDescription.setText(r.getDescription());
-                txtPrice.setText(r.getPrice()+"");
-                getAvailabilityOfRooms(cmbRoom.getSelectionModel().getSelectedItem().toString());
-                txtTotalAmount.setText(setTotalAmount(startDatePicker.getValue().toString(),endDatePicker.getValue().toString())+"");
+                if (r.getAvailable().equalsIgnoreCase("Available")) {
+                    txtRoomID.setText(r.getRoomID());
+                    txtDescription.setText(r.getDescription());
+                    txtPrice.setText(r.getPrice() + "");
+                    getAvailabilityOfRooms(r.getRoomID());
+                    //txtTotalAmount.setText(setTotalAmount(startDatePicker.getValue().toString(), endDatePicker.getValue().toString()) + "");
+                }if (r.getAvailable().equalsIgnoreCase("Booked")){
+                    txtRoomID.setText(r.getRoomID());
+                    txtDescription.setText(r.getDescription());
+                    txtPrice.setText(r.getPrice() + "");
+                    txtAvailability.setText("Booked");
+                    startDatePicker.setDisable(true);
+                }
             }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }catch (NullPointerException ex){
-
-        } catch (ParseException e) {
+            txtAvailability.setText("Available");
+        } /*catch (ParseException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     public void getAvailabilityOfRooms(String id){
+        startDatePicker.setDisable(false);
         try {
             CustomeDTO av = roomBO.getRoomAvailability(id);
             if (av!=null){
-                txtAvailability.setText(av.getAvailable());
-                if (av.getAvailable().equalsIgnoreCase("Available")) {
-                    startDatePicker.setDisable(false);
-                }else if (av.getAvailable().equalsIgnoreCase("Booked")){
-                    startDatePicker.setDisable(true);
-                    endDatePicker.setDisable(true);
-                    btnAdd.setDisable(true);
+                DateTimeFormatter dtf =  DateTimeFormatter.ofPattern("hh:mm:ss a");
+                LocalTime localTime = LocalTime.parse(av.getEndTime(), dtf);
+                if (av.getAvailable().equals("Available") && av.getEndTime()!=null) {
+                    Date date = new Date() ;
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm:ss a") ;
+                    dateFormat.format(date);
+
+                    String newTime = dtf.format(localTime.plusHours(2));
+                    try {
+                        if(dateFormat.parse(dateFormat.format(date)).after(dateFormat.parse(newTime))){
+                            txtAvailability.setText("Available");
+                            startDatePicker.setDisable(false);
+                        }else{
+                            txtAvailability.setText("at "+newTime);
+                            startDatePicker.setDisable(true);
+                            endDatePicker.setDisable(true);
+                            btnAdd.setDisable(true);
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 
@@ -403,6 +428,8 @@ public class ReservationFormController implements Initializable {
             e.printStackTrace();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }catch (DateTimeParseException ex){
+            ex.getStackTrace();
         }
     }
 
@@ -535,6 +562,7 @@ public class ReservationFormController implements Initializable {
                         setValuesTocmbRoom();
                         setValuesToCmbGender();
                         resetCustomerDetailFields();
+                        txtAvailability.setText("");
                         txtNIC.setText(" ");
                         startDatePicker.setDisable(true);
                         lblFinalTotal.setText("0.0");
@@ -635,7 +663,6 @@ public class ReservationFormController implements Initializable {
             txtStartDate.setText(tblRoom.getSelectionModel().getSelectedItem().getStartDate());
             txtEndDate.setText(tblRoom.getSelectionModel().getSelectedItem().getEndDate());
         }catch (NullPointerException ex){
-            new Alert(Alert.AlertType.WARNING,"Table is Empty!",ButtonType.OK).show();
         }
     }
 }

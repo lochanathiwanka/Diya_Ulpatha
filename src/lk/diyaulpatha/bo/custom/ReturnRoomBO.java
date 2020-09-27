@@ -9,6 +9,6 @@ import lk.diyaulpatha.dto.RoomDTO;
 import java.sql.SQLException;
 
 public interface ReturnRoomBO extends SuperBO {
-    ObservableList<CustomeDTO> getCustomerAndRoomBookingDetails(String NIC) throws ClassNotFoundException, SQLException;
+    ObservableList<CustomeDTO> getCustomerAndRoomBookingDetails(String id) throws ClassNotFoundException, SQLException;
     boolean returnRoom(ObservableList<RoomDTO> room , ObservableList<BookingDetailDTO> bd) throws ClassNotFoundException,SQLException;
 }

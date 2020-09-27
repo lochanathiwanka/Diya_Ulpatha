@@ -11,21 +11,50 @@
    <children>
       <AnchorPane fx:id="menuPane" layoutX="14.0" layoutY="223.0" prefHeight="372.0" prefWidth="170.0" style="-fx-background-color: #6ec55d; -fx-background-radius: 0 600 0 500;">
          <children>
-            <JFXButton buttonType="RAISED" layoutX="19.0" layoutY="131.0" onAction="#btnReservationOnAction" prefHeight="32.0" prefWidth="132.0" ripplerFill="WHITE" stylesheets="@../css/ButtonStyle.css" text="Reservation">
+            <JFXButton fx:id="btnReservation" buttonType="RAISED" layoutX="8.0" layoutY="77.0" onAction="#btnReservationOnAction" onMouseEntered="#btnReservationMouseEntered" onMouseExited="#btnReservationMouseExited" onMouseMoved="#btnReservationMouseMoved" prefHeight="58.0" prefWidth="120.0" ripplerFill="#003813" styleClass="btnReservation" stylesheets="@../css/SetButtonIcons.css" text="Home">
                <font>
                   <Font name="Arial Rounded MT Bold" size="16.0" />
                </font>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
+               <graphic>
+                  <ImageView fitHeight="49.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../asserts/reservation1.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="19.0" layoutY="207.0" onAction="#btnReturnRoomOnAction" prefHeight="32.0" prefWidth="132.0" ripplerFill="WHITE" stylesheets="@../css/ButtonStyle.css" text="Return Room">
+            <JFXButton fx:id="btnReturnRoom" buttonType="RAISED" layoutX="8.0" layoutY="142.0" onAction="#btnReturnRoomOnAction" onMouseMoved="#btnReturnRoomMouseMoved" prefHeight="72.0" prefWidth="129.0" ripplerFill="#003813" styleClass="btnReturnRoom" stylesheets="@../css/SetButtonIcons.css" text="         Return Room" wrapText="true">
                <font>
                   <Font name="Arial Rounded MT Bold" size="16.0" />
                </font>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
+               <graphic>
+                  <ImageView fitHeight="42.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../asserts/returnRoom1.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="btnSignOut" buttonType="RAISED" layoutX="8.0" layoutY="221.0" onAction="#btnSignOutOnAction" onMouseMoved="#btnSignOutMouseMoved" prefHeight="65.0" prefWidth="120.0" ripplerFill="#003813" styleClass="btnSignOut" stylesheets="@../css/SetButtonIcons.css" text="Sign Out" wrapText="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <graphic>
+                  <ImageView fitHeight="53.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../asserts/signOut4.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="16.0" />
+               </font>
             </JFXButton>
          </children>
       </AnchorPane>
@@ -33,14 +62,6 @@
          <image>
             <Image url="@../asserts/Untitled.png" />
          </image>
-      </ImageView>
-      <ImageView fitHeight="39.0" fitWidth="80.0" layoutX="34.0" layoutY="34.0" onMouseClicked="#btnBackOnAction" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../asserts/blackArrowBack.png" />
-         </image>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
       </ImageView>
       <AnchorPane fx:id="childPane" layoutX="198.0" layoutY="8.0" prefHeight="736.0" prefWidth="1201.0" style="-fx-background-color: #f1f2f6;" />
    </children>

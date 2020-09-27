@@ -1,6 +1,8 @@
 package lk.diyaulpatha.controller;
 
-import animatefx.animation.FadeIn;
+import animatefx.animation.*;
+import com.jfoenix.controls.JFXButton;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,12 +15,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 import lk.diyaulpatha.stages.StageList;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -26,6 +27,9 @@ public class CashierFormController extends StageList implements Initializable {
 
     public AnchorPane childPane;
     public AnchorPane menuPane;
+    public JFXButton btnReservation;
+    public JFXButton btnReturnRoom;
+    public JFXButton btnSignOut;
     Parent root;
     double xOffset,yOffset;
 
@@ -47,6 +51,7 @@ public class CashierFormController extends StageList implements Initializable {
     }
 
     public void btnReservationOnAction(ActionEvent actionEvent) throws IOException {
+        //new ZoomIn(btnReservation).play();
         setChildPane();
     }
 
@@ -58,7 +63,15 @@ public class CashierFormController extends StageList implements Initializable {
         new FadeIn(childPane).play();
     }
 
-    public void btnBackOnAction(MouseEvent mouseEvent) throws IOException {
+    public void btnReturnRoomMouseMoved(MouseEvent mouseEvent) {
+        new ZoomIn(btnReturnRoom).setCycleCount(1).setSpeed(0.8).play();
+    }
+
+    public void btnSignOutMouseMoved(MouseEvent mouseEvent) {
+        new ZoomIn(btnSignOut).setCycleCount(1).setSpeed(0.8).play();
+    }
+
+    public void btnSignOutOnAction(ActionEvent actionEvent) throws IOException {
         Alert alert = new Alert(Alert.AlertType.INFORMATION,"Do you want to go back ?",ButtonType.OK,ButtonType.CANCEL);
 
         Optional<ButtonType> result = alert.showAndWait();
@@ -88,5 +101,20 @@ public class CashierFormController extends StageList implements Initializable {
         }else if (result.get()==ButtonType.CANCEL){
             alert.close();
         }
+    }
+
+    public static ZoomIn z;
+    public void btnReservationMouseEntered(MouseEvent mouseEvent) {
+        z = new ZoomIn(btnReservation);
+        z.setCycleCount(1).setSpeed(0.8).play();
+    }
+
+    public void btnReservationMouseExited(MouseEvent mouseEvent) {
+        z.stop();
+    }
+
+    public void btnReservationMouseMoved(MouseEvent mouseEvent) {
+        //z = new ZoomIn(btnReservation);
+        //z.setCycleCount(1).setSpeed(0.8).play();
     }
 }

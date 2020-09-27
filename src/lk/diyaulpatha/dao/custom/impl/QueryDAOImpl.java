@@ -12,7 +12,7 @@ import java.sql.SQLException;
 public class QueryDAOImpl implements QueryDAO {
     @Override
     public Custome getRoomAvailability(String id) throws ClassNotFoundException, SQLException {
-        String SQL = "SELECT available,endTime FROM Room LEFT JOIN BookingDetail ON Room.roomID = BookingDetail.roomID WHERE Room.roomID = ?";
+        String SQL = "SELECT available,endTime FROM Room LEFT JOIN BookingDetail ON Room.roomID = BookingDetail.roomID WHERE Room.roomID = ? order by BookingDetail.bookingID desc limit 1";
         ResultSet rst = CrudUtil.executeQuery(SQL,id);
         if (rst.next()){
             return new Custome(rst.getString("available"),rst.getString("endTime"));
@@ -21,12 +21,12 @@ public class QueryDAOImpl implements QueryDAO {
     }
 
     @Override
-    public ObservableList<Custome> getCustomerAndRoomBookingDetails(String NIC) throws ClassNotFoundException, SQLException {
+    public ObservableList<Custome> getCustomerAndRoomBookingDetails(String id) throws ClassNotFoundException, SQLException {
         String SQL = "SELECT c.customerID,name,nic,address,contact,gender,b.bookingID,date,time,payment,startDate,endDate,r.roomID,description,bd.totAmount\n" +
                 "FROM Customer c, Booking b, BookingDetail bd, Room r\n" +
-                "WHERE (c.customerID=b.customerID && b.bookingID=bd.bookingID && r.roomID=bd.roomID) AND nic=? ORDER BY (b.date)";
+                "WHERE (c.customerID=b.customerID && b.bookingID=bd.bookingID && r.roomID=bd.roomID) AND (bd.bookingID=? && available=?) ORDER BY (b.date)";
 
-        ResultSet rst = CrudUtil.executeQuery(SQL,NIC);
+        ResultSet rst = CrudUtil.executeQuery(SQL,id,"Booked");
         ObservableList<Custome> list = FXCollections.observableArrayList();
         while (rst.next()){
             list.add(new Custome(rst.getString(1),rst.getString(2),rst.getString(3),rst.getString(4),

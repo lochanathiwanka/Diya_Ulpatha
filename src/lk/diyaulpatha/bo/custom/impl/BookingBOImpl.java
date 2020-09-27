@@ -111,4 +111,9 @@ public class BookingBOImpl implements BookingBO {
     public int getBookingRowCount() throws ClassNotFoundException, SQLException {
         return bookingDAO.getBookingRowCount();
     }
+
+    @Override
+    public String getLastBookingID(String NIC) throws ClassNotFoundException, SQLException {
+        return bookingDAO.getLastBookingID(NIC);
+    }
 }

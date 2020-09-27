@@ -15,6 +15,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import lk.diyaulpatha.bo.BOFactory;
+import lk.diyaulpatha.bo.custom.BookingBO;
 import lk.diyaulpatha.bo.custom.ReturnRoomBO;
 import lk.diyaulpatha.dto.BookingDetailDTO;
 import lk.diyaulpatha.dto.CustomeDTO;
@@ -62,6 +63,7 @@ public class ReturnRoomFormController implements Initializable {
     @FXML
     private TableColumn<CustomeDTO, String>  clmTotAmount;
 
+    BookingBO bookingBO = (BookingBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.BOOKING);
     ReturnRoomBO returnRoomBO = (ReturnRoomBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.RETURNROOM);
 
     @Override
@@ -72,25 +74,47 @@ public class ReturnRoomFormController implements Initializable {
     public void tblRoomOnClicked(MouseEvent mouseEvent) {
     }
 
-    public void btnSearchMouseEntered(MouseEvent mouseEvent) {
-        new ZoomIn(btnSearch).play();
+    public void btnSearchMouseMoved(MouseEvent mouseEvent) {
+        new ZoomIn(btnSearch).setCycleCount(1).setSpeed(0.8).play();
+    }
+
+    public void btnClearMouseMoved(MouseEvent mouseEvent) {
+        new ZoomIn(btnClear).setCycleCount(1).setSpeed(0.8).play();
+    }
+
+    public void btnSearchOnAction(ActionEvent actionEvent) {
+        new ZoomIn(btnSearch).setCycleCount(1).setSpeed(0.8).play();
+
+        try {
+            setSearchField();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }catch (IndexOutOfBoundsException ex){
+            resetCustomerFields();
+            resetBookingFields();
+        }
     }
 
     public void btnClearOnAction(ActionEvent actionEvent) {
+        new ZoomIn(btnClear).setCycleCount(1).setSpeed(0.8).play();
         ObservableList<RoomDTO> room = FXCollections.observableArrayList();
         ObservableList<BookingDetailDTO> list = FXCollections.observableArrayList();
 
         for (int i = 0; i < tblRoom.getItems().size(); i++) {
-            RoomDTO r = new RoomDTO();
             room.add(new RoomDTO(tblRoom.getItems().get(i).getRoomID(),"Available"));
             list.add(new BookingDetailDTO(txtBookingID.getText(), LocalTime.now().format(DateTimeFormatter.ofPattern("hh:mm:ss a"))));
         }
 
         try {
             boolean isReturnedRoom = returnRoomBO.returnRoom(room, list);
-            System.out.println(isReturnedRoom);
             if (isReturnedRoom){
                 new Alert(Alert.AlertType.CONFIRMATION,"Rooms cleared!", ButtonType.OK).show();
+                resetCustomerFields();
+                resetBookingFields();
+                tblRoom.getItems().clear();
+                txtSearch.setText("");
             }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -100,30 +124,38 @@ public class ReturnRoomFormController implements Initializable {
     }
 
     public void setSearchField() throws SQLException, ClassNotFoundException,IndexOutOfBoundsException {
-        ObservableList<CustomeDTO> list = returnRoomBO.getCustomerAndRoomBookingDetails(txtSearch.getText());
+        String bookingID = bookingBO.getLastBookingID(txtSearch.getText());
+        if (bookingID!=null) {
 
-        txtID.setText(list.get(0).getCustomerID());
-        txtName.setText(list.get(0).getName());
-        txtAddress.setText(list.get(0).getAddress());
-        txtContact.setText(list.get(0).getContact());
-        txtGender.setText(list.get(0).getGender());
+            ObservableList<CustomeDTO> list = returnRoomBO.getCustomerAndRoomBookingDetails(bookingID);
 
-        txtBookingID.setText(list.get(0).getBookingID());
-        txtBookingDate.setText(list.get(0).getDate());
-        txtBookingTime.setText(list.get(0).getTime());
-        txtPayment.setText(list.get(0).getPayment());
+            txtID.setText(list.get(0).getCustomerID());
+            txtName.setText(list.get(0).getName());
+            txtAddress.setText(list.get(0).getAddress());
+            txtContact.setText(list.get(0).getContact());
+            txtGender.setText(list.get(0).getGender());
 
-        ObservableList<CustomeDTO> rows = FXCollections.observableArrayList();
-        for (CustomeDTO c : list) {
-            rows.add(new CustomeDTO(c.getRoomID(),c.getDescription(),c.getStartDate(),c.getEndDate(),c.getTotAmount()));
+            txtBookingID.setText(list.get(0).getBookingID());
+            txtBookingDate.setText(list.get(0).getDate());
+            txtBookingTime.setText(list.get(0).getTime());
+            txtPayment.setText(list.get(0).getPayment());
+
+            ObservableList<CustomeDTO> rows = FXCollections.observableArrayList();
+            for (CustomeDTO c : list) {
+                rows.add(new CustomeDTO(c.getRoomID(), c.getDescription(), c.getStartDate(), c.getEndDate(), c.getTotAmount()));
+            }
+            tblRoom.setItems(rows);
+
+            clmRoomID.setCellValueFactory(new PropertyValueFactory<CustomeDTO, String>("roomID"));
+            clmDescription.setCellValueFactory(new PropertyValueFactory<CustomeDTO, String>("description"));
+            clmStartDate.setCellValueFactory(new PropertyValueFactory<CustomeDTO, String>("startDate"));
+            clmEndDate.setCellValueFactory(new PropertyValueFactory<CustomeDTO, String>("endDate"));
+            clmTotAmount.setCellValueFactory(new PropertyValueFactory<CustomeDTO, String>("totAmount"));
+        }else {
+            resetCustomerFields();
+            resetBookingFields();
+            tblRoom.getItems().clear();
         }
-        tblRoom.setItems(rows);
-
-        clmRoomID.setCellValueFactory(new PropertyValueFactory<CustomeDTO,String>("roomID"));
-        clmDescription.setCellValueFactory(new PropertyValueFactory<CustomeDTO,String>("description"));
-        clmStartDate.setCellValueFactory(new PropertyValueFactory<CustomeDTO,String>("startDate"));
-        clmEndDate.setCellValueFactory(new PropertyValueFactory<CustomeDTO,String>("endDate"));
-        clmTotAmount.setCellValueFactory(new PropertyValueFactory<CustomeDTO,String>("totAmount"));
     }
 
     public void resetCustomerFields(){
@@ -141,21 +173,6 @@ public class ReturnRoomFormController implements Initializable {
         txtPayment.setText(null);
     }
 
-    public void btnSearchMouseDragged(MouseEvent mouseEvent) {
-        new ZoomIn(btnSearch).play();
-
-        try {
-            setSearchField();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }catch (IndexOutOfBoundsException ex){
-            resetCustomerFields();
-            resetBookingFields();
-        }
-    }
-
     public void txtSearchOnAction(ActionEvent actionEvent) {
         try {
             setSearchField();
@@ -163,11 +180,7 @@ public class ReturnRoomFormController implements Initializable {
             throwables.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-        }catch (IndexOutOfBoundsException ex){
-            resetCustomerFields();
-            resetBookingFields();
-            tblRoom.getItems().clear();
-        }
+        }catch (IndexOutOfBoundsException ex){}
     }
 
     public void txtSearchKeyReleased(KeyEvent keyEvent) {
@@ -177,10 +190,6 @@ public class ReturnRoomFormController implements Initializable {
             throwables.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-        }catch (IndexOutOfBoundsException ex){
-            resetCustomerFields();
-            resetBookingFields();
-            tblRoom.getItems().clear();
-        }
+        }catch (IndexOutOfBoundsException ex){}
     }
 }

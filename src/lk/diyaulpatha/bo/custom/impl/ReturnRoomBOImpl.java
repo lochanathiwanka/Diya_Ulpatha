@@ -22,8 +22,8 @@ public class ReturnRoomBOImpl implements ReturnRoomBO {
     QueryDAO queryDAO = (QueryDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.QUERY);
 
     @Override
-    public ObservableList<CustomeDTO> getCustomerAndRoomBookingDetails(String NIC) throws ClassNotFoundException, SQLException {
-        ObservableList<Custome> list = queryDAO.getCustomerAndRoomBookingDetails(NIC);
+    public ObservableList<CustomeDTO> getCustomerAndRoomBookingDetails(String id) throws ClassNotFoundException, SQLException {
+        ObservableList<Custome> list = queryDAO.getCustomerAndRoomBookingDetails(id);
         ObservableList<CustomeDTO> detailList = FXCollections.observableArrayList();
         for (Custome c : list) {
             detailList.add(new CustomeDTO(c.getCustomerID(),c.getName(),c.getNic(),c.getAddress(),c.getContact(),c.getGender(),

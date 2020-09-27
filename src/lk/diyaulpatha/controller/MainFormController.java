@@ -65,7 +65,7 @@ public class MainFormController extends StageList implements Initializable {
     @FXML
     private AnchorPane slideLayer;
 
-    @FXML
+    /*@FXML
     void btnAboutMe1OnClicked(MouseEvent event) {
         TranslateTransition slide = new TranslateTransition();
         slide.setDuration(Duration.seconds(0.7));
@@ -87,9 +87,9 @@ public class MainFormController extends StageList implements Initializable {
         txtUserName.setVisible(false);
         passWord.setVisible(false);
         btnSignIn.setVisible(false);
-    }
+    }*/
 
-    @FXML
+    /*@FXML
     void btnSignIn1OnClicked(MouseEvent event) {
         TranslateTransition slide = new TranslateTransition();
         slide.setDuration(Duration.seconds(0.7));
@@ -111,13 +111,13 @@ public class MainFormController extends StageList implements Initializable {
         txtOwnerName.setVisible(false);
         btnSignIn1.setVisible(false);
         lblAboutMe.setVisible(false);
-    }
+    }*/
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        lblAboutMe.setVisible(false);
-        btnSignIn1.setVisible(false);
-        txtOwnerName.setVisible(false);
+        //lblAboutMe.setVisible(false);
+//        btnSignIn1.setVisible(false);
+//        txtOwnerName.setVisible(false);
     }
 
     public void btnSignInOnAction(ActionEvent actionEvent) throws Exception {

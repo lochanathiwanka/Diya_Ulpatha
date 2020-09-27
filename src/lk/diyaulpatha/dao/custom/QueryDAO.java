@@ -9,5 +9,5 @@ import java.sql.SQLException;
 
 public interface QueryDAO extends SuperDAO {
     Custome getRoomAvailability(String id) throws ClassNotFoundException, SQLException;
-    ObservableList<Custome> getCustomerAndRoomBookingDetails(String NIC) throws ClassNotFoundException, SQLException;
+    ObservableList<Custome> getCustomerAndRoomBookingDetails(String id) throws ClassNotFoundException, SQLException;
 }

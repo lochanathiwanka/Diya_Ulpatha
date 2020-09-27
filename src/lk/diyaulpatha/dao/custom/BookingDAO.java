@@ -7,4 +7,5 @@ import java.sql.SQLException;
 
 public interface BookingDAO extends CrudDAO <Booking,String> {
     int getBookingRowCount() throws ClassNotFoundException, SQLException;
+    String getLastBookingID(String NIC) throws ClassNotFoundException,SQLException;
 }
