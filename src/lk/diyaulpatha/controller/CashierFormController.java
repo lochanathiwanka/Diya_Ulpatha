@@ -42,7 +42,7 @@ public class CashierFormController extends StageList implements Initializable {
         }
     }
 
-    public void setChildPane() throws IOException {
+    private void setChildPane() throws IOException {
         childPane.getChildren().clear();
         AnchorPane pane = (AnchorPane) FXMLLoader.load(this.getClass().getResource("../view/ReservationForm.fxml"));
         childPane.getChildren().setAll(pane.getChildren());
@@ -51,11 +51,16 @@ public class CashierFormController extends StageList implements Initializable {
     }
 
     public void btnReservationOnAction(ActionEvent actionEvent) throws IOException {
-        //new ZoomIn(btnReservation).play();
+        new ZoomIn(btnReservation).setCycleCount(1).setSpeed(0.4).play();
         setChildPane();
     }
 
+    public void btnReservationMouseEntered(MouseEvent mouseEvent) {
+        new Pulse(btnReservation).setCycleCount(1).setSpeed(0.8).play();
+    }
+
     public void btnReturnRoomOnAction(ActionEvent actionEvent) throws IOException {
+        new ZoomIn(btnReturnRoom).setCycleCount(1).setSpeed(0.4).play();
         childPane.getChildren().clear();
         AnchorPane pane = (AnchorPane) FXMLLoader.load(this.getClass().getResource("../view/ReturnRoomForm.fxml"));
         childPane.getChildren().setAll(pane.getChildren());
@@ -63,15 +68,12 @@ public class CashierFormController extends StageList implements Initializable {
         new FadeIn(childPane).play();
     }
 
-    public void btnReturnRoomMouseMoved(MouseEvent mouseEvent) {
-        new ZoomIn(btnReturnRoom).setCycleCount(1).setSpeed(0.8).play();
-    }
-
-    public void btnSignOutMouseMoved(MouseEvent mouseEvent) {
-        new ZoomIn(btnSignOut).setCycleCount(1).setSpeed(0.8).play();
+    public void btnReturnRoomMouseEntered(MouseEvent mouseEvent) {
+        new Pulse(btnReturnRoom).setCycleCount(1).setSpeed(0.8).play();
     }
 
     public void btnSignOutOnAction(ActionEvent actionEvent) throws IOException {
+        new ZoomIn(btnSignOut).setCycleCount(1).setSpeed(0.4).play();
         Alert alert = new Alert(Alert.AlertType.INFORMATION,"Do you want to go back ?",ButtonType.OK,ButtonType.CANCEL);
 
         Optional<ButtonType> result = alert.showAndWait();
@@ -103,18 +105,7 @@ public class CashierFormController extends StageList implements Initializable {
         }
     }
 
-    public static ZoomIn z;
-    public void btnReservationMouseEntered(MouseEvent mouseEvent) {
-        z = new ZoomIn(btnReservation);
-        z.setCycleCount(1).setSpeed(0.8).play();
-    }
-
-    public void btnReservationMouseExited(MouseEvent mouseEvent) {
-        z.stop();
-    }
-
-    public void btnReservationMouseMoved(MouseEvent mouseEvent) {
-        //z = new ZoomIn(btnReservation);
-        //z.setCycleCount(1).setSpeed(0.8).play();
+    public void btnSignOutMouseEntered(MouseEvent mouseEvent) {
+        new Pulse(btnSignOut).setCycleCount(1).setSpeed(0.8).play();
     }
 }

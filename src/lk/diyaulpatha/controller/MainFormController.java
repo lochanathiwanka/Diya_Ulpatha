@@ -122,19 +122,43 @@ public class MainFormController extends StageList implements Initializable {
 
     public void btnSignInOnAction(ActionEvent actionEvent) throws Exception {
         if (txtUserName.getText().length()>0 && passWord.getText().length()>0){
-            Parent cashierStage= FXMLLoader.load(this.getClass().getResource("../view/CashierForm.fxml"));
-            cashierFormStage.setScene(new Scene(cashierStage));
-            cashierFormStage.setResizable(false);
-            cashierFormStage.show();
-            new FadeIn(cashierStage).play();
-            mainFormStage.close();
+            if (txtUserName.getText().equals("Admin") && passWord.getText().equals("1234")) {
+                Parent cashierStage = FXMLLoader.load(this.getClass().getResource("../view/AdminForm.fxml"));
+                cashierFormStage.setScene(new Scene(cashierStage));
+                cashierFormStage.setResizable(false);
+                cashierFormStage.show();
+                new FadeIn(cashierStage).play();
+                mainFormStage.close();
 
-            TrayNotification tray = new TrayNotification();
-            tray.setAnimationType(AnimationType.POPUP);
-            tray.setTitle("Sign In");
-            tray.setMessage("Successfull");
-            tray.setNotificationType(NotificationType.SUCCESS);
-            tray.showAndDismiss(Duration.millis(2000));
+                TrayNotification tray = new TrayNotification();
+                tray.setAnimationType(AnimationType.POPUP);
+                tray.setTitle("Sign In");
+                tray.setMessage("Successfull");
+                tray.setNotificationType(NotificationType.SUCCESS);
+                tray.showAndDismiss(Duration.millis(2000));
+            }else if (txtUserName.getText().equals("Lochana") && passWord.getText().equals("lochana")){
+                Parent cashierStage = FXMLLoader.load(this.getClass().getResource("../view/CashierForm.fxml"));
+                cashierFormStage.setScene(new Scene(cashierStage));
+                cashierFormStage.setResizable(false);
+                cashierFormStage.show();
+                new FadeIn(cashierStage).play();
+                mainFormStage.close();
+
+                TrayNotification tray = new TrayNotification();
+                tray.setAnimationType(AnimationType.POPUP);
+                tray.setTitle("Sign In");
+                tray.setMessage("Successfull");
+                tray.setNotificationType(NotificationType.SUCCESS);
+                tray.showAndDismiss(Duration.millis(2000));
+            }
+            else {
+                TrayNotification tray = new TrayNotification();
+                tray.setAnimationType(AnimationType.POPUP);
+                tray.setTitle("Sign In Error");
+                tray.setTitle("User Name or Password is wrong!");
+                tray.setNotificationType(NotificationType.WARNING);
+                tray.showAndDismiss(Duration.millis(2000));
+            }
         }else {
             TrayNotification tray = new TrayNotification();
             tray.setAnimationType(AnimationType.POPUP);

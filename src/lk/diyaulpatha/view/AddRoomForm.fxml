@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane" prefHeight="575.0" prefWidth="1184.0" style="-fx-background-color: #f1f2f6;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.diyaulpatha.controller.AddRoomForm">
+   <children>
+      <AnchorPane layoutX="60.0" layoutY="73.0" prefHeight="402.0" prefWidth="330.0" style="-fx-background-color: #e0e0e0; -fx-background-radius: 30;">
+         <children>
+            <TextField fx:id="txtRoomID" editable="false" layoutX="74.0" layoutY="14.0" prefHeight="32.0" prefWidth="148.0" style="-fx-background-radius: 30; -fx-background-color: #f5f6fa;">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </TextField>
+            <JFXTextField fx:id="txtPrice" cache="true" labelFloat="true" layoutX="20.0" layoutY="152.0" promptText="Price">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </JFXTextField>
+            <JFXTextField fx:id="txtDescription" labelFloat="true" layoutX="20.0" layoutY="82.0" promptText="Description">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </JFXTextField>
+            <Pane layoutX="14.0" layoutY="14.0" prefHeight="32.0" prefWidth="60.0" style="-fx-background-color: #377D6A; -fx-background-radius: 30;">
+               <children>
+                  <Label layoutX="20.0" layoutY="7.0" text="ID" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <JFXTextField fx:id="txtImage" editable="false" labelFloat="true" layoutX="19.0" layoutY="222.0" promptText="Image">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </JFXTextField>
+            <JFXButton fx:id="btnSelectPath" buttonType="RAISED" focusTraversable="false" layoutX="222.0" layoutY="225.0" onAction="#btnSelectPathOnAction" style="-fx-background-color: white;" text="Select Path">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="13.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></JFXButton>
+         </children>
+         <effect>
+            <DropShadow />
+         </effect>
+      </AnchorPane>
+      <JFXButton fx:id="btnAdd" buttonType="RAISED" focusTraversable="false" layoutX="460.0" layoutY="261.0" onAction="#btnAddOnAction" style="-fx-background-color: black; -fx-background-radius: 30;" text="Add" textFill="WHITE">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="13.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+   </children>
+</AnchorPane>

@@ -67,7 +67,7 @@
                         <Font name="Arial Rounded MT Bold" size="16.0" />
                      </font>
                   </Label>
-                  <JFXButton fx:id="btnSearch" layoutX="272.0" layoutY="34.0" onAction="#btnSearchOnAction" onMouseMoved="#btnSearchMouseMoved" prefHeight="52.0" prefWidth="66.0" style="-fx-background-radius: 30;" text=" ">
+                  <JFXButton fx:id="btnSearch" layoutX="272.0" layoutY="34.0" onAction="#btnSearchOnAction" onMouseEntered="#btnSearchMouseEntered" prefHeight="52.0" prefWidth="66.0" style="-fx-background-radius: 30;" text=" ">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -104,7 +104,7 @@
                   <DropShadow />
                </effect>
             </TableView>
-            <JFXButton fx:id="btnClear" layoutX="1079.0" layoutY="215.0" onAction="#btnClearOnAction" onMouseMoved="#btnClearMouseMoved" prefHeight="71.0" prefWidth="59.0" styleClass="btnClear" stylesheets="@../css/SetButtonIcons.css" text=" ">
+            <JFXButton fx:id="btnClear" layoutX="1079.0" layoutY="215.0" onAction="#btnClearOnAction" onMouseEntered="#btnClearMouseEntered" prefHeight="71.0" prefWidth="59.0" styleClass="btnClear" stylesheets="@../css/SetButtonIcons.css" text=" ">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

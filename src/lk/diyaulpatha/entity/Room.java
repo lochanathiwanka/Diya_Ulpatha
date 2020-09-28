@@ -6,16 +6,18 @@ public class Room {
     private double price;
     private String available;
     private String status;
+    private String image;
 
     public Room() {
     }
 
-    public Room(String roomID, String description, double price, String available, String status) {
+    public Room(String roomID, String description, double price, String available, String status,String image) {
         this.roomID = roomID;
         this.description = description;
         this.price = price;
         this.available = available;
         this.status = status;
+        this.image=image;
     }
 
     public String getRoomID() {
@@ -56,5 +58,13 @@ public class Room {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

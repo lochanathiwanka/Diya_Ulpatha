@@ -9,9 +9,9 @@
 
 <AnchorPane prefHeight="750.0" prefWidth="1400.0" style="-fx-background-color: #f1f2f6;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.diyaulpatha.controller.CashierFormController">
    <children>
-      <AnchorPane fx:id="menuPane" layoutX="14.0" layoutY="223.0" prefHeight="372.0" prefWidth="170.0" style="-fx-background-color: #6ec55d; -fx-background-radius: 0 600 0 500;">
+      <AnchorPane fx:id="menuPane" layoutX="14.0" layoutY="198.0" prefHeight="372.0" prefWidth="170.0" style="-fx-background-color: #6ec55d; -fx-background-radius: 0 600 0 500;">
          <children>
-            <JFXButton fx:id="btnReservation" buttonType="RAISED" layoutX="8.0" layoutY="77.0" onAction="#btnReservationOnAction" onMouseEntered="#btnReservationMouseEntered" onMouseExited="#btnReservationMouseExited" onMouseMoved="#btnReservationMouseMoved" prefHeight="58.0" prefWidth="120.0" ripplerFill="#003813" styleClass="btnReservation" stylesheets="@../css/SetButtonIcons.css" text="Home">
+            <JFXButton fx:id="btnReservation" buttonType="RAISED" focusTraversable="false" layoutX="8.0" layoutY="77.0" onAction="#btnReservationOnAction" onMouseEntered="#btnReservationMouseEntered" prefHeight="58.0" prefWidth="120.0" ripplerFill="#003813" styleClass="btnReservation" stylesheets="@../css/SetButtonIcons.css" text="Home">
                <font>
                   <Font name="Arial Rounded MT Bold" size="16.0" />
                </font>
@@ -26,7 +26,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="btnReturnRoom" buttonType="RAISED" layoutX="8.0" layoutY="142.0" onAction="#btnReturnRoomOnAction" onMouseMoved="#btnReturnRoomMouseMoved" prefHeight="72.0" prefWidth="129.0" ripplerFill="#003813" styleClass="btnReturnRoom" stylesheets="@../css/SetButtonIcons.css" text="         Return Room" wrapText="true">
+            <JFXButton fx:id="btnReturnRoom" buttonType="RAISED" focusTraversable="false" layoutX="8.0" layoutY="142.0" onAction="#btnReturnRoomOnAction" onMouseEntered="#btnReturnRoomMouseEntered" prefHeight="72.0" prefWidth="129.0" ripplerFill="#003813" styleClass="btnReturnRoom" stylesheets="@../css/SetButtonIcons.css" text="         Return Room" wrapText="true">
                <font>
                   <Font name="Arial Rounded MT Bold" size="16.0" />
                </font>
@@ -41,7 +41,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="btnSignOut" buttonType="RAISED" layoutX="8.0" layoutY="221.0" onAction="#btnSignOutOnAction" onMouseMoved="#btnSignOutMouseMoved" prefHeight="65.0" prefWidth="120.0" ripplerFill="#003813" styleClass="btnSignOut" stylesheets="@../css/SetButtonIcons.css" text="Sign Out" wrapText="true">
+            <JFXButton fx:id="btnSignOut" buttonType="RAISED" focusTraversable="false" layoutX="8.0" layoutY="221.0" onAction="#btnSignOutOnAction" onMouseEntered="#btnSignOutMouseEntered" prefHeight="65.0" prefWidth="120.0" ripplerFill="#003813" styleClass="btnSignOut" stylesheets="@../css/SetButtonIcons.css" text="Sign Out" wrapText="true">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -58,7 +58,7 @@
             </JFXButton>
          </children>
       </AnchorPane>
-      <ImageView fitHeight="137.0" fitWidth="120.0" layoutX="45.0" layoutY="72.0" pickOnBounds="true">
+      <ImageView fitHeight="137.0" fitWidth="120.0" layoutX="24.0" layoutY="23.0" pickOnBounds="true">
          <image>
             <Image url="@../asserts/Untitled.png" />
          </image>

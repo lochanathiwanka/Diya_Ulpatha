@@ -24,9 +24,9 @@ public class QueryDAOImpl implements QueryDAO {
     public ObservableList<Custome> getCustomerAndRoomBookingDetails(String id) throws ClassNotFoundException, SQLException {
         String SQL = "SELECT c.customerID,name,nic,address,contact,gender,b.bookingID,date,time,payment,startDate,endDate,r.roomID,description,bd.totAmount\n" +
                 "FROM Customer c, Booking b, BookingDetail bd, Room r\n" +
-                "WHERE (c.customerID=b.customerID && b.bookingID=bd.bookingID && r.roomID=bd.roomID) AND (bd.bookingID=? && available=?) ORDER BY (b.date)";
+                "WHERE (c.customerID=b.customerID && b.bookingID=bd.bookingID && r.roomID=bd.roomID) AND (bd.bookingID=? && available=? && status=?) ORDER BY (b.date)";
 
-        ResultSet rst = CrudUtil.executeQuery(SQL,id,"Booked");
+        ResultSet rst = CrudUtil.executeQuery(SQL,id,"Booked","Exists");
         ObservableList<Custome> list = FXCollections.observableArrayList();
         while (rst.next()){
             list.add(new Custome(rst.getString(1),rst.getString(2),rst.getString(3),rst.getString(4),

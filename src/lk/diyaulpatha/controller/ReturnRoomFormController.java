@@ -74,16 +74,8 @@ public class ReturnRoomFormController implements Initializable {
     public void tblRoomOnClicked(MouseEvent mouseEvent) {
     }
 
-    public void btnSearchMouseMoved(MouseEvent mouseEvent) {
-        new ZoomIn(btnSearch).setCycleCount(1).setSpeed(0.8).play();
-    }
-
-    public void btnClearMouseMoved(MouseEvent mouseEvent) {
-        new ZoomIn(btnClear).setCycleCount(1).setSpeed(0.8).play();
-    }
-
     public void btnSearchOnAction(ActionEvent actionEvent) {
-        new ZoomIn(btnSearch).setCycleCount(1).setSpeed(0.8).play();
+        new ZoomIn(btnSearch).setCycleCount(1).setSpeed(0.4).play();
 
         try {
             setSearchField();
@@ -97,8 +89,12 @@ public class ReturnRoomFormController implements Initializable {
         }
     }
 
+    public void btnSearchMouseEntered(MouseEvent mouseEvent) {
+        new Pulse(btnSearch).setCycleCount(1).setSpeed(0.8).play();
+    }
+
     public void btnClearOnAction(ActionEvent actionEvent) {
-        new ZoomIn(btnClear).setCycleCount(1).setSpeed(0.8).play();
+        new ZoomIn(btnClear).setCycleCount(1).setSpeed(0.4).play();
         ObservableList<RoomDTO> room = FXCollections.observableArrayList();
         ObservableList<BookingDetailDTO> list = FXCollections.observableArrayList();
 
@@ -121,6 +117,10 @@ public class ReturnRoomFormController implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    public void btnClearMouseEntered(MouseEvent mouseEvent) {
+        new Pulse(btnClear).setCycleCount(1).setSpeed(0.8).play();
     }
 
     public void setSearchField() throws SQLException, ClassNotFoundException,IndexOutOfBoundsException {

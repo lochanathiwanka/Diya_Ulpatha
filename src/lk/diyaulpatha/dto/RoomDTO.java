@@ -6,6 +6,7 @@ public class RoomDTO {
     private double price;
     private String available;
     private String status;
+    private String image;
 
     public RoomDTO() {
     }
@@ -15,12 +16,13 @@ public class RoomDTO {
         this.available = available;
     }
 
-    public RoomDTO(String roomID, String description, double price, String available, String status) {
+    public RoomDTO(String roomID, String description, double price, String available, String status,String image) {
         this.roomID = roomID;
         this.description = description;
         this.price = price;
         this.available = available;
         this.status = status;
+        this.image=image;
     }
 
     public String getRoomID() {
@@ -61,5 +63,13 @@ public class RoomDTO {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }
