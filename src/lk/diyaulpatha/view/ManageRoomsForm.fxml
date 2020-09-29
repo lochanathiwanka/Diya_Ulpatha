@@ -3,16 +3,18 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="736.0" prefWidth="1201.0" style="-fx-background-color: #f1f2f6;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.diyaulpatha.controller.ManageRoomsFormController">
    <children>
-      <AnchorPane fx:id="titlePane" prefHeight="79.0" prefWidth="1204.0">
+      <AnchorPane fx:id="titlePane" prefHeight="79.0" prefWidth="1184.0">
          <children>
-            <Pane layoutX="4.0" prefHeight="79.0" prefWidth="672.0" style="-fx-background-color: #B86F12; -fx-background-radius: 30;">
+            <Pane layoutX="4.0" prefHeight="79.0" prefWidth="672.0" style="-fx-background-color: #6ec55d; -fx-background-radius: 30;">
                <children>
                   <Label layoutX="43.0" layoutY="6.0" text="Manage Rooms" textFill="WHITE">
                      <font>
@@ -21,38 +23,69 @@
                   </Label>
                </children>
             </Pane>
-            <Pane layoutX="1031.0" prefHeight="79.0" prefWidth="171.0" style="-fx-background-color: #E77A0E; -fx-background-radius: 30;" />
-            <Pane layoutX="651.0" prefHeight="79.0" prefWidth="407.0" style="-fx-background-color: #F6B905;" />
+            <Pane layoutX="1031.0" prefHeight="79.0" prefWidth="163.0" style="-fx-background-color: #F6B905; -fx-background-radius: 30;" />
+            <Pane layoutX="651.0" prefHeight="79.0" prefWidth="407.0" style="-fx-background-color: #7c8785;" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="childPane" layoutX="11.0" layoutY="155.0" prefHeight="575.0" prefWidth="1184.0" />
-      <AnchorPane fx:id="menuPane" layoutX="377.0" layoutY="86.0" prefHeight="57.0" prefWidth="452.0" style="-fx-background-color: grey;">
-         <children>
-            <JFXButton fx:id="btnAddRoom" buttonType="RAISED" focusTraversable="false" layoutX="24.0" layoutY="15.0" onAction="#btnAddRoomOnAction" style="-fx-background-color: #f5f5f5;" text="Add Room" textFill="#030101">
-               <font>
-                  <Font name="Arial Rounded MT Bold" size="13.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </JFXButton>
-            <JFXButton fx:id="btnRemoveRoom" buttonType="RAISED" focusTraversable="false" layoutX="163.0" layoutY="14.0" onAction="#btnRemoveRoomOnAction" style="-fx-background-color: #f5f5f5;" text="Remove Room">
-               <font>
-                  <Font name="Arial Rounded MT Bold" size="13.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </JFXButton>
-            <JFXButton fx:id="btnUpdateRoom" buttonType="RAISED" focusTraversable="false" layoutX="323.0" layoutY="15.0" onAction="#btnUpdateRoomOnAction" style="-fx-background-color: #f5f5f5;" text="Update Room">
-               <font>
-                  <Font name="Arial Rounded MT Bold" size="13.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </JFXButton>
-         </children>
-      </AnchorPane>
+      <ImageView fitHeight="540.0" fitWidth="743.0" layoutX="444.0" layoutY="171.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../asserts/manageRoomFormImage.png" />
+         </image>
+      </ImageView>
+      <AnchorPane fx:id="childPane" layoutX="10.0" layoutY="156.0" prefHeight="575.0" prefWidth="1184.0" />
+      <JFXButton fx:id="btnAddRoom" buttonType="RAISED" focusTraversable="false" layoutX="433.0" layoutY="82.0" onAction="#btnAddRoomOnAction" prefHeight="65.0" prefWidth="84.0" style="-fx-background-radius: 30;" text=" " textFill="#030101">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="13.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <graphic>
+            <ImageView fitHeight="138.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../asserts/addRoom.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="btnRemoveRoom" buttonType="RAISED" focusTraversable="false" layoutX="556.0" layoutY="82.0" onAction="#btnRemoveRoomOnAction" prefHeight="67.0" prefWidth="68.0" style="-fx-background-radius: 30;" text=" ">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="13.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <graphic>
+            <ImageView fitHeight="138.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../asserts/removeRoom.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="btnUpdateRoom" buttonType="RAISED" focusTraversable="false" layoutX="679.0" layoutY="86.0" onAction="#btnUpdateRoomOnAction" prefHeight="45.0" prefWidth="61.0" style="-fx-background-radius: 30;" text=" ">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="13.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <graphic>
+            <ImageView fitHeight="68.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../asserts/updateRoom2.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+         </graphic>
+      </JFXButton>
    </children>
 </AnchorPane>

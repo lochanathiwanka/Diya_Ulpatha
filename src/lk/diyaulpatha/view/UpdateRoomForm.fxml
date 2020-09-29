@@ -6,14 +6,15 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="575.0" prefWidth="1184.0" style="-fx-background-color: #f1f2f6;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.diyaulpatha.controller.UpdateRoomFormController">
    <children>
-      <AnchorPane layoutX="80.0" layoutY="93.0" prefHeight="306.0" prefWidth="359.0" style="-fx-background-color: #e0e0e0; -fx-background-radius: 30;">
+      <AnchorPane layoutX="60.0" layoutY="73.0" prefHeight="306.0" prefWidth="321.0" style="-fx-background-color: #e0e0e0; -fx-background-radius: 30;">
          <children>
             <TextField fx:id="txtSearchField" layoutX="91.0" layoutY="14.0" onAction="#txtSearchFieldOnAction" onKeyReleased="#txtSearchFieldKeyReleased" prefHeight="32.0" prefWidth="148.0" style="-fx-background-radius: 30; -fx-background-color: #f5f6fa; -fx-border-color: black; -fx-border-radius: 30;">
                <font>
@@ -23,12 +24,12 @@
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
             </TextField>
-            <JFXTextField fx:id="txtPrice" cache="true" labelFloat="true" layoutX="53.0" layoutY="164.0" promptText="Price">
+            <JFXTextField fx:id="txtPrice" cache="true" labelFloat="true" layoutX="15.0" layoutY="162.0" promptText="Price">
                <font>
                   <Font size="16.0" />
                </font>
             </JFXTextField>
-            <JFXTextField fx:id="txtDescription" labelFloat="true" layoutX="53.0" layoutY="94.0" promptText="Description">
+            <JFXTextField fx:id="txtDescription" labelFloat="true" layoutX="15.0" layoutY="92.0" promptText="Description">
                <font>
                   <Font size="16.0" />
                </font>
@@ -42,31 +43,48 @@
                   </Label>
                </children>
             </Pane>
-            <JFXTextField fx:id="txtImage" labelFloat="true" layoutX="52.0" layoutY="234.0" promptText="Image">
+            <JFXTextField fx:id="txtImage" labelFloat="true" layoutX="14.0" layoutY="232.0" promptText="Image">
                <font>
                   <Font size="16.0" />
                </font>
             </JFXTextField>
-            <JFXButton fx:id="btnSelectPath" buttonType="RAISED" focusTraversable="false" layoutX="254.0" layoutY="251.0" onAction="#btnSelectPathOnAction" style="-fx-background-color: white;" text="Select Path">
+            <JFXButton fx:id="btnSelectPath" buttonType="RAISED" focusTraversable="false" layoutX="224.0" layoutY="222.0" onAction="#btnSelectPathOnAction" prefHeight="46.0" prefWidth="60.0" style="-fx-background-radius: 30;" text=" ">
                <font>
                   <Font name="Arial Rounded MT Bold" size="13.0" />
                </font>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
+               <graphic>
+                  <ImageView fitHeight="45.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../asserts/selectPath.png" />
+                     </image>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </ImageView>
+               </graphic>
             </JFXButton>
          </children>
          <effect>
             <DropShadow />
          </effect>
       </AnchorPane>
-      <JFXButton fx:id="btnUpdate" buttonType="RAISED" layoutX="475.0" layoutY="246.0" onAction="#btnUpdateOnAction" style="-fx-background-color: black; -fx-background-radius: 30;" text="Update" textFill="WHITE">
+      <JFXButton fx:id="btnUpdate" buttonType="RAISED" layoutX="437.0" layoutY="241.0" onAction="#btnUpdateOnAction" prefHeight="61.0" prefWidth="63.0" style="-fx-background-radius: 30;" text=" " textFill="WHITE">
          <font>
             <Font name="Arial Rounded MT Bold" size="16.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
+         <graphic>
+            <ImageView fitHeight="51.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../asserts/update.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </JFXButton>
    </children>
 </AnchorPane>
