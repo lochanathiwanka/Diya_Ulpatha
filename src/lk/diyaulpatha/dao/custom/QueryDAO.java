@@ -8,6 +8,6 @@ import lk.diyaulpatha.entity.Custome;
 import java.sql.SQLException;
 
 public interface QueryDAO extends SuperDAO {
-    Custome getRoomAvailability(String id) throws ClassNotFoundException, SQLException;
+    Custome getRoomAvailability(String id) throws ClassNotFoundException, SQLException, NullPointerException;
     ObservableList<Custome> getCustomerAndRoomBookingDetails(String id) throws ClassNotFoundException, SQLException;
 }

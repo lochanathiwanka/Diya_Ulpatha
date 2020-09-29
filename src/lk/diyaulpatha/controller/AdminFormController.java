@@ -18,7 +18,7 @@ import lk.diyaulpatha.stages.StageList;
 import java.io.IOException;
 import java.util.Optional;
 
-public class AdminForm extends StageList {
+public class AdminFormController extends StageList {
 
     public AnchorPane menuPane;
     public JFXButton btnHome;

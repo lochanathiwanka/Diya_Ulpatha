@@ -36,10 +36,17 @@ public class CashierFormController extends StageList implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            setChildPane();
+            setWelcomeHomePane();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void setWelcomeHomePane() throws IOException {
+        childPane.getChildren().clear();
+        AnchorPane pane = (AnchorPane) FXMLLoader.load(this.getClass().getResource("../view/CashierHomeForm.fxml"));
+        childPane.getChildren().setAll(pane.getChildren());
+        new FadeIn(childPane).play();
     }
 
     private void setChildPane() throws IOException {
@@ -107,5 +114,13 @@ public class CashierFormController extends StageList implements Initializable {
 
     public void btnSignOutMouseEntered(MouseEvent mouseEvent) {
         new Pulse(btnSignOut).setCycleCount(1).setSpeed(0.8).play();
+    }
+
+    public void logoOnClicked(MouseEvent mouseEvent) {
+        try {
+            setWelcomeHomePane();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

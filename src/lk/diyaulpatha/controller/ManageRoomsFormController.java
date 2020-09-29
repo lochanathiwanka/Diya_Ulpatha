@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ManageRoomsForm implements Initializable {
+public class ManageRoomsFormController implements Initializable {
     public AnchorPane titlePane;
     public AnchorPane childPane;
     public AnchorPane menuPane;

@@ -14,6 +14,7 @@ public class CustomeDTO {
     private String payment;
 
     private String roomID;
+    private String code;
     private String description;
     private double price;
     private String available;
@@ -30,24 +31,27 @@ public class CustomeDTO {
         this.endTime = endTime;
     }
 
-    public CustomeDTO(String roomID, String description, double price, String available, String endTime) {
+    public CustomeDTO(String roomID,String code, String description, double price, String available, String endTime) {
         this.roomID = roomID;
+        this.code = code;
         this.description = description;
         this.price = price;
         this.available = available;
         this.endTime = endTime;
     }
 
-    public CustomeDTO(String roomID, String description, String startDate, String endDate, double totAmount) {
+    public CustomeDTO(String roomID, String code, String description, String startDate, String endDate, double totAmount) {
         this.roomID = roomID;
+        this.code = code;
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
         this.totAmount = totAmount;
     }
 
-    public CustomeDTO(String roomID, String description, double price, String available, String startDate, String endDate, String endTime, double totAmount) {
+    public CustomeDTO(String roomID, String code, String description, double price, String available, String startDate, String endDate, String endTime, double totAmount) {
         this.roomID = roomID;
+        this.code = code;
         this.description = description;
         this.price = price;
         this.available = available;
@@ -57,7 +61,7 @@ public class CustomeDTO {
         this.totAmount = totAmount;
     }
 
-    public CustomeDTO(String customerID, String name, String nic, String address, String contact, String gender, String bookingID, String date, String time, String payment, String startDate, String endDate, String roomID, String description, double totAmount) {
+    public CustomeDTO(String customerID, String name, String nic, String address, String contact, String gender, String bookingID, String date, String time, String payment, String startDate, String endDate, String roomID, String code, String description, double totAmount) {
         this.customerID = customerID;
         this.name = name;
         this.nic = nic;
@@ -71,6 +75,7 @@ public class CustomeDTO {
         this.startDate = startDate;
         this.endDate = endDate;
         this.roomID = roomID;
+        this.code = code;
         this.description = description;
         this.totAmount = totAmount;
     }
@@ -217,5 +222,13 @@ public class CustomeDTO {
 
     public void setPayment(String payment) {
         this.payment = payment;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

@@ -113,7 +113,7 @@ public class BookingBOImpl implements BookingBO {
     }
 
     @Override
-    public String getLastBookingID(String NIC) throws ClassNotFoundException, SQLException {
-        return bookingDAO.getLastBookingID(NIC);
+    public String getLastBookingID(String NIC,String name,String contact) throws ClassNotFoundException, SQLException {
+        return bookingDAO.getLastBookingID(NIC,name,contact);
     }
 }

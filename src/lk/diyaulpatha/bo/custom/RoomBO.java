@@ -13,7 +13,7 @@ public interface RoomBO extends SuperBO {
     boolean updateRoom(RoomDTO room) throws ClassNotFoundException,SQLException;
     RoomDTO searchRoom(String id) throws ClassNotFoundException,SQLException;
     ObservableList<RoomDTO> getAllRoom() throws ClassNotFoundException,SQLException;
-    CustomeDTO getRoomAvailability(String id) throws ClassNotFoundException, SQLException;
+    CustomeDTO getRoomAvailability(String id) throws ClassNotFoundException, SQLException, NullPointerException;
     int getRoomCount() throws ClassNotFoundException, SQLException;
     int getRemovedRoomCount() throws ClassNotFoundException, SQLException;
 }

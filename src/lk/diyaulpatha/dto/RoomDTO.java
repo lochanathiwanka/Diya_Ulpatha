@@ -2,6 +2,7 @@ package lk.diyaulpatha.dto;
 
 public class RoomDTO {
     private String roomID;
+    private String code;
     private String description;
     private double price;
     private String available;
@@ -16,8 +17,18 @@ public class RoomDTO {
         this.available = available;
     }
 
-    public RoomDTO(String roomID, String description, double price, String available, String status,String image) {
+    public RoomDTO(String code, String description, double price, String available, String status,String image) {
+        this.code = code;
+        this.description = description;
+        this.price = price;
+        this.available = available;
+        this.status = status;
+        this.image=image;
+    }
+
+    public RoomDTO(String roomID, String code, String description, double price, String available, String status,String image) {
         this.roomID = roomID;
+        this.code = code;
         this.description = description;
         this.price = price;
         this.available = available;
@@ -71,5 +82,13 @@ public class RoomDTO {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

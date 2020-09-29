@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -24,6 +25,8 @@ import lk.diyaulpatha.bo.custom.CustomerBO;
 import lk.diyaulpatha.bo.custom.RoomBO;
 import lk.diyaulpatha.dto.*;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -53,6 +56,8 @@ public class ReservationFormController implements Initializable {
     public JFXTextField txtSelectPayment;
     public JFXDatePicker endDatePicker;
     public JFXTextField txtEndDate;
+    public ImageView roomImage;
+    public TextField txtCode;
 
     CustomerBO custBO = (CustomerBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.CUSTOMER);
     RoomBO roomBO = (RoomBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.ROOM);
@@ -85,6 +90,9 @@ public class ReservationFormController implements Initializable {
 
     @FXML
     private TableColumn<CustomeDTO, String> clmRoomID;
+
+    @FXML
+    private TableColumn<CustomeDTO, String> clmCode;
 
     @FXML
     private TableColumn<CustomeDTO, String> clmDescription;
@@ -120,12 +128,17 @@ public class ReservationFormController implements Initializable {
 
     private void validateDatePicker() throws ParseException,NumberFormatException {
         String totAmount = setTotalAmount(startDatePicker.getValue().toString(), endDatePicker.getValue().toString());
-        if (Double.parseDouble(totAmount)>0){
-            txtTotalAmount.setText(totAmount+"");
-            btnAdd.setDisable(false);
-        }
-        else if (Double.parseDouble(totAmount)<=0){
-            txtTotalAmount.setText("Check date!");
+
+        if (startDatePicker.getValue().toString().length()>3 && endDatePicker.getValue().toString().length()>3) {
+            if (Double.parseDouble(totAmount) > 0) {
+                txtTotalAmount.setText(totAmount + "");
+                btnAdd.setDisable(false);
+            } else if (Double.parseDouble(totAmount) <= 0) {
+                txtTotalAmount.setText("Check date!");
+                btnAdd.setDisable(true);
+            }
+        }else {
+            txtTotalAmount.setText(null);
             btnAdd.setDisable(true);
         }
     }
@@ -163,18 +176,25 @@ public class ReservationFormController implements Initializable {
             e.printStackTrace();
         }*/
 
-        CustomeDTO c = new CustomeDTO(txtRoomID.getText(),txtDescription.getText(),startDatePicker.getValue().toString(),
+        CustomeDTO c = new CustomeDTO(txtRoomID.getText(),txtCode.getText(),txtDescription.getText(),startDatePicker.getValue().toString(),
                 endDatePicker.getValue().toString(),Double.parseDouble(txtTotalAmount.getText()));
 
         int count = isExist(txtRoomID.getText());
         if (count==-1){
             tblRoom.getItems().add(c);
             setFinalTotal();
+            resetRoomDetailFields();
+            setValuesTocmbRoom();
+            setPagination("room.png");
         }else if (count!=-1){
             new Alert(Alert.AlertType.WARNING,"Room is already in List!",ButtonType.OK).show();
+            resetRoomDetailFields();
+            setValuesTocmbRoom();
+            setPagination("room.png");
         }
 
         clmRoomID.setCellValueFactory(new PropertyValueFactory<CustomeDTO,String>("roomID"));
+        clmCode.setCellValueFactory(new PropertyValueFactory<CustomeDTO,String>("code"));
         clmDescription.setCellValueFactory(new PropertyValueFactory<CustomeDTO,String>("description"));
         clmStartDate.setCellValueFactory(new PropertyValueFactory<CustomeDTO,String>("startDate"));
         clmEndDate.setCellValueFactory(new PropertyValueFactory<CustomeDTO,String>("endDate"));
@@ -215,7 +235,6 @@ public class ReservationFormController implements Initializable {
             int diffDays = (int) (diff / (24 * 60 * 60 * 1000));
 
             double pricePerDay = Double.parseDouble(txtPrice.getText());
-            //txtTotalAmount.setText(pricePerDay*(diffDays+1)+"");
             totAmount = String.format("%.2f",pricePerDay*(diffDays+1));
 
         return totAmount;
@@ -262,6 +281,7 @@ public class ReservationFormController implements Initializable {
     }
 
     public void btnCancelOnAction(ActionEvent actionEvent) {
+        try {
             tblRoom.getItems().clear();
             resetRoomDetailFields();
             setValuesTocmbRoom();
@@ -273,6 +293,9 @@ public class ReservationFormController implements Initializable {
             txtEndDate.setText("");
             resetPaymentOption();
             startDatePicker.setDisable(true);
+        }catch (NullPointerException ex){
+
+        }
     }
 
     private void resetPaymentOption(){
@@ -296,6 +319,7 @@ public class ReservationFormController implements Initializable {
 
     private void resetRoomDetailFields(){
         txtRoomID.setText(null);
+        txtCode.setText(null);
         txtDescription.setText(null);
         txtPrice.setText(null);
         txtAvailability.setText(null);
@@ -342,7 +366,7 @@ public class ReservationFormController implements Initializable {
             cmbRoom.getItems().clear();
             ObservableList<RoomDTO> list = roomBO.getAllRoom();
             for (RoomDTO r : list) {
-                cmbRoom.getItems().add(r.getRoomID());
+                cmbRoom.getItems().add(r.getCode());
             }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -351,16 +375,18 @@ public class ReservationFormController implements Initializable {
         }
     }
 
-    private void setPagination(String url) {
-        ArrayList<String> images = new ArrayList<>();
+    private void setPagination(String path) {
+        /*ArrayList<String> images = new ArrayList<>();
         images.add(url);
         pagination.setPageCount(images.size());
-        pagination.setPageFactory(n-> new ImageView(images.get(n)));
+        pagination.setPageFactory(n-> new ImageView(images.get(n)));*/
+
+        roomImage.setImage(new Image("/lk/diyaulpatha/asserts/rooms/"+path));
     }
 
     public void cmbRoomOnAction(ActionEvent actionEvent) {
+        txtTotalAmount.setText(null);
         try {
-            txtTotalAmount.setText("");
             startDatePicker.getEditor().setText(null);
             endDatePicker.getEditor().setText(null);
             RoomDTO r = roomBO.searchRoom(cmbRoom.getSelectionModel().getSelectedItem().toString());
@@ -368,13 +394,14 @@ public class ReservationFormController implements Initializable {
             if (r!=null){
                 if (r.getAvailable().equalsIgnoreCase("Available")) {
                     txtRoomID.setText(r.getRoomID());
+                    txtCode.setText(r.getCode());
                     txtDescription.setText(r.getDescription());
                     txtPrice.setText(r.getPrice() + "");
                     getAvailabilityOfRooms(r.getRoomID());
                     //txtTotalAmount.setText(setTotalAmount(startDatePicker.getValue().toString(), endDatePicker.getValue().toString()) + "");
-
                 }if (r.getAvailable().equalsIgnoreCase("Booked")){
                     txtRoomID.setText(r.getRoomID());
+                    txtCode.setText(r.getCode());
                     txtDescription.setText(r.getDescription());
                     txtPrice.setText(r.getPrice() + "");
                     txtAvailability.setText("Booked");
@@ -386,7 +413,7 @@ public class ReservationFormController implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }catch (NullPointerException ex){
-            txtAvailability.setText("Available");
+
         }catch (IllegalArgumentException ex){
         }
     }
@@ -426,6 +453,8 @@ public class ReservationFormController implements Initializable {
             throwables.printStackTrace();
         }catch (DateTimeParseException ex){
             ex.getStackTrace();
+        }catch (NullPointerException ex){
+            txtAvailability.setText("Available");
         }
     }
 
@@ -564,7 +593,7 @@ public class ReservationFormController implements Initializable {
                         tblRoom.getItems().clear();
                         generateCustomerID();
                         generateBookingID();
-                        setPagination("lk/diyaulpatha/asserts/rooms/room.png");
+                        setPagination("room.png");
                         resetRoomDetailFields();
                         setValuesTocmbRoom();
                         setValuesToCmbGender();
@@ -598,17 +627,16 @@ public class ReservationFormController implements Initializable {
             }
     }
 
-    public void txtStartDateOnAction(ActionEvent actionEvent) {
+   /* public void txtStartDateOnAction(ActionEvent actionEvent) {
         txtEndDate.requestFocus();
-    }
+    }*/
 
-    public void txtEndDateOnAction(ActionEvent actionEvent) {
+    /*public void txtEndDateOnAction(ActionEvent actionEvent) {
         setBtnChangeDate();
-    }
+    }*/
 
-    private void setBtnChangeDate(){
+    /*private void setBtnChangeDate(){
         try {
-
             if (txtStartDate.getText().length()==10 && txtEndDate.getText().length()==10) {
                 double total = Double.parseDouble(setTotalAmount(txtStartDate.getText(),txtEndDate.getText()));
                 if (total>0) {
@@ -617,10 +645,11 @@ public class ReservationFormController implements Initializable {
                     if (startDate<=31 && endDate<=31) {
                         int selectedRow = tblRoom.getSelectionModel().getSelectedIndex();
                         String roomID = tblRoom.getItems().get(selectedRow).getRoomID();
+                        String code = tblRoom.getItems().get(selectedRow).getCode();
                         String description = tblRoom.getItems().get(selectedRow).getDescription();
 
                         String totAmount = setTotalAmount(txtStartDate.getText(), txtEndDate.getText());
-                        tblRoom.getItems().set(selectedRow, new CustomeDTO(roomID, description, txtStartDate.getText(),
+                        tblRoom.getItems().set(selectedRow, new CustomeDTO(roomID, code, description, txtStartDate.getText(),
                                 txtEndDate.getText(), Double.parseDouble(totAmount)));
 
                         setFinalTotal();
@@ -648,11 +677,11 @@ public class ReservationFormController implements Initializable {
         }catch (RuntimeException ex){ } catch (ParseException e) {
             new Alert(Alert.AlertType.WARNING,"Check Date",ButtonType.OK).show();
         }
-    }
+    }*/
 
-    public void btnChangeDateOnAction(ActionEvent actionEvent) {
+    /*public void btnChangeDateOnAction(ActionEvent actionEvent) {
         setBtnChangeDate();
-    }
+    }*/
 
     public void rbCashOnAction(ActionEvent actionEvent) {
         paymentType = "via CASH";
@@ -666,9 +695,11 @@ public class ReservationFormController implements Initializable {
 
     public void tblRoomOnClicked(MouseEvent mouseEvent) {
         try {
-            txtStartDate.setText(tblRoom.getSelectionModel().getSelectedItem().getStartDate());
-            txtEndDate.setText(tblRoom.getSelectionModel().getSelectedItem().getEndDate());
+            //txtStartDate.setText(tblRoom.getSelectionModel().getSelectedItem().getStartDate());
+            //txtEndDate.setText(tblRoom.getSelectionModel().getSelectedItem().getEndDate());
+
         }catch (NullPointerException ex){
+
         }
     }
 }

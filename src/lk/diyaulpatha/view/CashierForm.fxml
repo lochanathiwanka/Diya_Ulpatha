@@ -58,11 +58,14 @@
             </JFXButton>
          </children>
       </AnchorPane>
-      <ImageView fitHeight="137.0" fitWidth="120.0" layoutX="24.0" layoutY="23.0" pickOnBounds="true">
+      <ImageView accessibleRole="BUTTON" fitHeight="137.0" fitWidth="120.0" layoutX="24.0" layoutY="23.0" onMouseClicked="#logoOnClicked" pickOnBounds="true">
          <image>
             <Image url="@../asserts/Untitled.png" />
          </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </ImageView>
-      <AnchorPane fx:id="childPane" layoutX="198.0" layoutY="8.0" prefHeight="736.0" prefWidth="1201.0" style="-fx-background-color: #f1f2f6;" />
+      <AnchorPane fx:id="childPane" layoutX="208.0" layoutY="6.0" prefHeight="736.0" prefWidth="1201.0" style="-fx-background-color: #f1f2f6;" />
    </children>
 </AnchorPane>

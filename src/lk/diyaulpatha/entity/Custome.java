@@ -14,6 +14,7 @@ public class Custome {
     private String payment;
 
     private String roomID;
+    private String code;
     private String description;
     private double price;
     private String available;
@@ -30,15 +31,16 @@ public class Custome {
         this.endTime = endTime;
     }
 
-    public Custome(String roomID, String description, double price, String available, String endTime) {
+    public Custome(String roomID,String code, String description, double price, String available, String endTime) {
         this.roomID = roomID;
+        this.code = code;
         this.description = description;
         this.price = price;
         this.available = available;
         this.endTime = endTime;
     }
 
-    public Custome(String customerID, String name, String nic, String address, String contact, String gender, String bookingID, String date, String time, String payment, String startDate, String endDate, String roomID, String description, double totAmount) {
+    public Custome(String customerID, String name, String nic, String address, String contact, String gender, String bookingID, String date, String time, String payment, String startDate, String endDate, String roomID, String code, String description, double totAmount) {
         this.customerID = customerID;
         this.name = name;
         this.nic = nic;
@@ -52,6 +54,7 @@ public class Custome {
         this.startDate = startDate;
         this.endDate = endDate;
         this.roomID = roomID;
+        this.code = code;
         this.description = description;
         this.totAmount = totAmount;
     }
@@ -198,5 +201,13 @@ public class Custome {
 
     public void setTotAmount(double totAmount) {
         this.totAmount = totAmount;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

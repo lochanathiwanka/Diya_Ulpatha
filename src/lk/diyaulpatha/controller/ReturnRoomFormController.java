@@ -1,13 +1,14 @@
 package lk.diyaulpatha.controller;
 
-import animatefx.animation.*;
+import animatefx.animation.Pulse;
+import animatefx.animation.ZoomIn;
+import com.jfoenix.controls.JFXAutoCompletePopup;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -16,13 +17,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import lk.diyaulpatha.bo.BOFactory;
 import lk.diyaulpatha.bo.custom.BookingBO;
+import lk.diyaulpatha.bo.custom.CustomerBO;
 import lk.diyaulpatha.bo.custom.ReturnRoomBO;
 import lk.diyaulpatha.dto.BookingDetailDTO;
 import lk.diyaulpatha.dto.CustomeDTO;
+import lk.diyaulpatha.dto.CustomerDTO;
 import lk.diyaulpatha.dto.RoomDTO;
-import lk.diyaulpatha.entity.BookingDetail;
-import lk.diyaulpatha.entity.Custome;
-import lk.diyaulpatha.entity.Room;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -52,6 +52,9 @@ public class ReturnRoomFormController implements Initializable {
     private TableColumn<CustomeDTO, String> clmRoomID;
 
     @FXML
+    private TableColumn<CustomeDTO, String> clmCode;
+
+    @FXML
     private TableColumn<CustomeDTO, String> clmDescription;
 
     @FXML
@@ -63,12 +66,46 @@ public class ReturnRoomFormController implements Initializable {
     @FXML
     private TableColumn<CustomeDTO, String>  clmTotAmount;
 
+    CustomerBO customerBO = (CustomerBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.CUSTOMER);
     BookingBO bookingBO = (BookingBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.BOOKING);
     ReturnRoomBO returnRoomBO = (ReturnRoomBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.RETURNROOM);
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         new ZoomIn(titlePane).setSpeed(0.6).play();
+        setTextSuggesionsToSearchField();
+    }
+
+    private void setTextSuggesionsToSearchField(){
+        JFXAutoCompletePopup<String> autoCompletePopup = new JFXAutoCompletePopup<>();
+
+        try {
+            ObservableList<CustomerDTO> list = getAllCustomerDetails();
+            for (CustomerDTO c : list){
+                autoCompletePopup.getSuggestions().addAll(c.getNic(),c.getContact(),c.getName());
+            }
+
+            autoCompletePopup.setSelectionHandler(event -> {
+                txtSearch.setText(event.getObject());
+            });
+
+            txtSearch.textProperty().addListener(observable -> {
+                autoCompletePopup.filter(String -> String.toLowerCase().contains(txtSearch.getText().toLowerCase()));
+                if (autoCompletePopup.getFilteredSuggestions().isEmpty() || txtSearch.getText().isEmpty()){
+                    autoCompletePopup.hide();
+                }else{
+                    autoCompletePopup.show(txtSearch);
+                }
+            });
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private ObservableList<CustomerDTO> getAllCustomerDetails() throws SQLException, ClassNotFoundException {
+        return customerBO.getAllCustomer();
     }
 
     public void tblRoomOnClicked(MouseEvent mouseEvent) {
@@ -124,7 +161,7 @@ public class ReturnRoomFormController implements Initializable {
     }
 
     public void setSearchField() throws SQLException, ClassNotFoundException,IndexOutOfBoundsException {
-        String bookingID = bookingBO.getLastBookingID(txtSearch.getText());
+        String bookingID = bookingBO.getLastBookingID(txtSearch.getText(),txtSearch.getText(),txtSearch.getText());
         if (bookingID!=null) {
 
             ObservableList<CustomeDTO> list = returnRoomBO.getCustomerAndRoomBookingDetails(bookingID);
@@ -142,11 +179,12 @@ public class ReturnRoomFormController implements Initializable {
 
             ObservableList<CustomeDTO> rows = FXCollections.observableArrayList();
             for (CustomeDTO c : list) {
-                rows.add(new CustomeDTO(c.getRoomID(), c.getDescription(), c.getStartDate(), c.getEndDate(), c.getTotAmount()));
+                rows.add(new CustomeDTO(c.getRoomID(), c.getCode(), c.getDescription(), c.getStartDate(), c.getEndDate(), c.getTotAmount()));
             }
             tblRoom.setItems(rows);
 
             clmRoomID.setCellValueFactory(new PropertyValueFactory<CustomeDTO, String>("roomID"));
+            clmCode.setCellValueFactory(new PropertyValueFactory<CustomeDTO, String>("code"));
             clmDescription.setCellValueFactory(new PropertyValueFactory<CustomeDTO, String>("description"));
             clmStartDate.setCellValueFactory(new PropertyValueFactory<CustomeDTO, String>("startDate"));
             clmEndDate.setCellValueFactory(new PropertyValueFactory<CustomeDTO, String>("endDate"));

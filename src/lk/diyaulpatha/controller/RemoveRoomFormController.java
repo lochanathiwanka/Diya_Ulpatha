@@ -16,7 +16,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class RemoveRoomForm implements Initializable {
+public class RemoveRoomFormController implements Initializable {
     public TextField txtSearchField;
     public JFXTextField txtPrice;
     public JFXTextField txtDescription;
@@ -35,6 +35,8 @@ public class RemoveRoomForm implements Initializable {
                 txtDescription.setText(null);
                 txtPrice.setText(null);
                 txtImage.setText(null);
+            }else {
+                new Alert(Alert.AlertType.WARNING,"Room was not removed!", ButtonType.OK).show();
             }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

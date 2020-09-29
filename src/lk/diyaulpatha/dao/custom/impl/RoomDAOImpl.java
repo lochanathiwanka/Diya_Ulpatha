@@ -38,8 +38,8 @@ public class RoomDAOImpl implements RoomDAO {
 
     @Override
     public boolean add(Room r) throws ClassNotFoundException, SQLException {
-        String SQL = "INSERT INTO Room (roomID, description, price,image) VALUES (?,?,?,?)";
-        return CrudUtil.executeUpdate(SQL,r.getRoomID(),r.getDescription(),r.getPrice(),r.getImage());
+        String SQL = "INSERT INTO Room (roomID, code, description, price,image) VALUES (?,?,?,?,?)";
+        return CrudUtil.executeUpdate(SQL,r.getRoomID(),r.getCode(),r.getDescription(),r.getPrice(),r.getImage());
     }
 
     @Override
@@ -63,22 +63,22 @@ public class RoomDAOImpl implements RoomDAO {
         if (removedRoomCount >= 99) {
             id = "X" + (removedRoomCount + 1);
         }
-        String SQL = "UPDATE Room SET roomID=?, description=?, price=?, status=?, image=? WHERE roomID=?";
-        return CrudUtil.executeUpdate(SQL,id,r.getDescription(),r.getPrice(),r.getStatus(),r.getImage(),r.getRoomID());
+        String SQL = "UPDATE Room SET roomID=?, code=?, description=?, price=?, status=?, image=? WHERE code=?";
+        return CrudUtil.executeUpdate(SQL,id,r.getCode(),r.getDescription(),r.getPrice(),r.getStatus(),r.getImage(),r.getCode());
     }
 
     @Override
     public boolean update(Room r) throws ClassNotFoundException, SQLException {
-        String SQL = "UPDATE Room SET description=?, price=?, status=?, image=? WHERE roomID=?";
-        return CrudUtil.executeUpdate(SQL,r.getDescription(), r.getPrice(), r.getStatus(), r.getImage(), r.getRoomID());
+        String SQL = "UPDATE Room SET code=?, description=?, price=?, status=?, image=? WHERE code=?";
+        return CrudUtil.executeUpdate(SQL,r.getCode(),r.getDescription(), r.getPrice(), r.getStatus(), r.getImage(), r.getCode());
     }
 
     @Override
-    public Room search(String id) throws ClassNotFoundException, SQLException {
-        String SQL = "SELECT * FROM Room WHERE (roomID=? && status=?)";
-        ResultSet rst = CrudUtil.executeQuery(SQL,id,"Exists");
+    public Room search(String code) throws ClassNotFoundException, SQLException {
+        String SQL = "SELECT * FROM Room WHERE (code=? && status=?)";
+        ResultSet rst = CrudUtil.executeQuery(SQL,code,"Exists");
         if (rst.next()){
-            return new Room(rst.getString("roomID"),rst.getString("description"),
+            return new Room(rst.getString("roomID"),rst.getString("code"),rst.getString("description"),
                     rst.getDouble("price"),rst.getString("available"),
                     rst.getString("status"),rst.getString("image"));
         }
@@ -91,7 +91,7 @@ public class RoomDAOImpl implements RoomDAO {
         ResultSet rst = CrudUtil.executeQuery(SQL,"Exists");
         ObservableList<Room> list = FXCollections.observableArrayList();
         while (rst.next()){
-            list.add(new Room(rst.getString("roomID"),rst.getString("description"),
+            list.add(new Room(rst.getString("roomID"),rst.getString("code"),rst.getString("description"),
                     rst.getDouble("price"),rst.getString("available"),
                     rst.getString("status"),rst.getString("image")));
         }

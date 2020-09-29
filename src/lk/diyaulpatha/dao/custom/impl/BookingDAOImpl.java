@@ -20,9 +20,9 @@ public class BookingDAOImpl implements BookingDAO {
     }
 
     @Override
-    public String getLastBookingID(String NIC) throws ClassNotFoundException, SQLException {
-        String SQL ="select bookingID from Booking b,Customer c where (b.customerID=c.customerID) and nic=? order by bookingID desc limit 1";
-        ResultSet rst = CrudUtil.executeQuery(SQL,NIC);
+    public String getLastBookingID(String NIC,String name,String contact) throws ClassNotFoundException, SQLException {
+        String SQL ="select bookingID from Booking b,Customer c where (b.customerID=c.customerID) and (nic=? or name=? or contact=?) order by bookingID desc limit 1";
+        ResultSet rst = CrudUtil.executeQuery(SQL,NIC,name,contact);
         if (rst.next()){
             return rst.getString("bookingID");
         }

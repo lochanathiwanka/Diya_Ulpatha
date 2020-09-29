@@ -28,7 +28,7 @@ public class ReturnRoomBOImpl implements ReturnRoomBO {
         for (Custome c : list) {
             detailList.add(new CustomeDTO(c.getCustomerID(),c.getName(),c.getNic(),c.getAddress(),c.getContact(),c.getGender(),
                     c.getBookingID(),c.getDate(),c.getTime(),c.getPayment(),c.getStartDate(),c.getEndDate(),
-                    c.getRoomID(),c.getDescription(),c.getTotAmount()));
+                    c.getRoomID(),c.getCode(),c.getDescription(),c.getTotAmount()));
         }
         return detailList;
     }

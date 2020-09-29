@@ -19,23 +19,23 @@ public class RoomBOImpl implements RoomBO {
 
     @Override
     public boolean addRoom(RoomDTO r) throws ClassNotFoundException, SQLException {
-        return roomDAO.add(new Room(r.getRoomID(),r.getDescription(),r.getPrice(),r.getAvailable(),r.getStatus(),r.getImage()));
+        return roomDAO.add(new Room(r.getRoomID(),r.getCode(),r.getDescription(),r.getPrice(),r.getAvailable(),r.getStatus(),r.getImage()));
     }
 
     @Override
     public boolean deleteRoom(RoomDTO r ) throws ClassNotFoundException, SQLException {
-        return roomDAO.deleteRoom(new Room(r.getRoomID(),r.getDescription(),r.getPrice(),r.getAvailable(),r.getStatus(),r.getImage()));
+        return roomDAO.deleteRoom(new Room(r.getRoomID(),r.getCode(),r.getDescription(),r.getPrice(),r.getAvailable(),r.getStatus(),r.getImage()));
     }
 
     @Override
     public boolean updateRoom(RoomDTO r) throws ClassNotFoundException, SQLException {
-        return roomDAO.update(new Room(r.getRoomID(),r.getDescription(),r.getPrice(),r.getAvailable(),r.getStatus(),r.getImage()));
+        return roomDAO.update(new Room(r.getRoomID(),r.getCode(),r.getDescription(),r.getPrice(),r.getAvailable(),r.getStatus(),r.getImage()));
     }
 
     @Override
     public RoomDTO searchRoom(String id) throws ClassNotFoundException, SQLException {
         Room room = roomDAO.search(id);
-        return new RoomDTO(room.getRoomID(),room.getDescription(),room.getPrice(),
+        return new RoomDTO(room.getRoomID(),room.getCode(),room.getDescription(),room.getPrice(),
                 room.getAvailable(),room.getStatus(),room.getImage());
 
     }
@@ -45,14 +45,14 @@ public class RoomBOImpl implements RoomBO {
         ObservableList<Room> rooms = roomDAO.getAll();
         ObservableList<RoomDTO> list = FXCollections.observableArrayList();
         for (Room r : rooms) {
-            list.add(new RoomDTO(r.getRoomID(),r.getDescription(),r.getPrice(),
+            list.add(new RoomDTO(r.getRoomID(),r.getCode(),r.getDescription(),r.getPrice(),
                     r.getAvailable(),r.getStatus(),r.getImage()));
         }
         return list;
     }
 
     @Override
-    public CustomeDTO getRoomAvailability(String id) throws ClassNotFoundException, SQLException {
+    public CustomeDTO getRoomAvailability(String id) throws ClassNotFoundException, SQLException,NullPointerException {
         Custome custome = queryDAO.getRoomAvailability(id);
         return new CustomeDTO(custome.getAvailable(),custome.getEndTime());
     }

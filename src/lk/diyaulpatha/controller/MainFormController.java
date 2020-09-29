@@ -21,6 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import lk.diyaulpatha.stages.StageList;
 import tray.animations.AnimationType;
@@ -124,9 +125,11 @@ public class MainFormController extends StageList implements Initializable {
         if (txtUserName.getText().length()>0 && passWord.getText().length()>0){
             if (txtUserName.getText().equals("Admin") && passWord.getText().equals("1234")) {
                 Parent cashierStage = FXMLLoader.load(this.getClass().getResource("../view/AdminForm.fxml"));
-                cashierFormStage.setScene(new Scene(cashierStage));
-                cashierFormStage.setResizable(false);
-                cashierFormStage.show();
+                Stage stage = new Stage();
+                stage.setScene(new Scene(FXMLLoader.load(this.getClass().getResource("../view/AdminForm.fxml"))));
+                stage.show();
+                stage.setResizable(false);
+                cashierFormStage = stage;
                 new FadeIn(cashierStage).play();
                 mainFormStage.close();
 
@@ -138,9 +141,11 @@ public class MainFormController extends StageList implements Initializable {
                 tray.showAndDismiss(Duration.millis(2000));
             }else if (txtUserName.getText().equals("Lochana") && passWord.getText().equals("lochana")){
                 Parent cashierStage = FXMLLoader.load(this.getClass().getResource("../view/CashierForm.fxml"));
-                cashierFormStage.setScene(new Scene(cashierStage));
-                cashierFormStage.setResizable(false);
-                cashierFormStage.show();
+                Stage stage = new Stage();
+                stage.setScene(new Scene(FXMLLoader.load(this.getClass().getResource("../view/CashierForm.fxml"))));
+                stage.show();
+                stage.setResizable(false);
+                cashierFormStage = stage;
                 new FadeIn(cashierStage).play();
                 mainFormStage.close();
 

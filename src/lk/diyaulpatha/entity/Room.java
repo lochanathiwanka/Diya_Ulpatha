@@ -2,6 +2,7 @@ package lk.diyaulpatha.entity;
 
 public class Room {
     private String roomID;
+    private String code;
     private String description;
     private double price;
     private String available;
@@ -11,8 +12,9 @@ public class Room {
     public Room() {
     }
 
-    public Room(String roomID, String description, double price, String available, String status,String image) {
+    public Room(String roomID, String code, String description, double price, String available, String status,String image) {
         this.roomID = roomID;
+        this.code = code;
         this.description = description;
         this.price = price;
         this.available = available;
@@ -66,5 +68,13 @@ public class Room {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }
