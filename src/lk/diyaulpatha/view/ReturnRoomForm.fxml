@@ -1,49 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
-
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <AnchorPane prefHeight="736.0" prefWidth="1201.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.diyaulpatha.controller.ReturnRoomFormController">
    <children>
       <AnchorPane prefHeight="736.0" prefWidth="1201.0" style="-fx-background-color: #f1f2f6;">
          <children>
-            <ImageView fitHeight="510.0" fitWidth="728.0" layoutX="410.0" layoutY="215.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="510.0" fitWidth="728.0" layoutX="410.0" layoutY="215.0" pickOnBounds="true"
+                       preserveRatio="true">
                <image>
-                  <Image url="@../asserts/returnRoomImg.png" />
+                  <Image url="@../asserts/returnRoomImg.png"/>
                </image>
             </ImageView>
-            <AnchorPane layoutX="19.0" layoutY="108.0" prefHeight="423.0" prefWidth="372.0" style="-fx-background-color: #e0e0e0; -fx-background-radius: 30;">
+            <AnchorPane layoutX="19.0" layoutY="108.0" prefHeight="503.0" prefWidth="372.0"
+                        style="-fx-background-color: #e0e0e0; -fx-background-radius: 30;">
                <children>
-                  <JFXTextField fx:id="txtName" editable="false" focusTraversable="false" labelFloat="true" layoutX="27.0" layoutY="172.0" promptText="Name">
+                  <JFXTextField fx:id="txtName" editable="false" focusTraversable="false" labelFloat="true"
+                                layoutX="27.0" layoutY="172.0" promptText="Name">
                      <font>
-                        <Font size="16.0" />
+                        <Font size="16.0"/>
                      </font>
                      <cursor>
-                        <Cursor fx:constant="DEFAULT" />
+                        <Cursor fx:constant="DEFAULT"/>
                      </cursor>
                   </JFXTextField>
-                  <JFXTextField fx:id="txtAddress" editable="false" focusTraversable="false" labelFloat="true" layoutX="27.0" layoutY="233.0" promptText="Address">
+                  <JFXTextField fx:id="txtAddress" editable="false" focusTraversable="false" labelFloat="true"
+                                layoutX="27.0" layoutY="233.0" promptText="Address">
                      <font>
-                        <Font size="16.0" />
+                        <Font size="16.0"/>
                      </font>
                      <cursor>
-                        <Cursor fx:constant="DEFAULT" />
+                        <Cursor fx:constant="DEFAULT"/>
                      </cursor>
                   </JFXTextField>
-                  <JFXTextField fx:id="txtContact" editable="false" focusTraversable="false" labelFloat="true" layoutX="27.0" layoutY="297.0" promptText="Contact">
+                  <JFXTextField fx:id="txtContact" editable="false" focusTraversable="false" labelFloat="true"
+                                layoutX="27.0" layoutY="297.0" promptText="Contact">
                      <font>
-                        <Font size="16.0" />
+                        <Font size="16.0"/>
                      </font>
                      <cursor>
                         <Cursor fx:constant="DEFAULT" />
@@ -69,50 +68,52 @@
                   </Label>
                   <JFXButton fx:id="btnSearch" layoutX="272.0" layoutY="34.0" onAction="#btnSearchOnAction" onMouseEntered="#btnSearchMouseEntered" prefHeight="52.0" prefWidth="66.0" style="-fx-background-radius: 30;" text=" ">
                      <cursor>
-                        <Cursor fx:constant="HAND" />
+                        <Cursor fx:constant="HAND"/>
                      </cursor>
                      <graphic>
                         <ImageView fitHeight="67.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../asserts/search2.png" />
+                              <Image url="@../asserts/search2.png"/>
                            </image>
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <JFXTextField fx:id="txtID" editable="false" focusTraversable="false" labelFloat="true" layoutX="27.0" layoutY="111.0" promptText="ID">
+                  <JFXTextField fx:id="txtID" editable="false" focusTraversable="false" labelFloat="true" layoutX="27.0"
+                                layoutY="111.0" promptText="ID">
                      <font>
-                        <Font size="16.0" />
+                        <Font size="16.0"/>
                      </font>
                      <cursor>
-                        <Cursor fx:constant="DEFAULT" />
+                        <Cursor fx:constant="DEFAULT"/>
                      </cursor>
                   </JFXTextField>
+                  <JFXButton fx:id="btnClear" layoutX="145.0" layoutY="410.0" onAction="#btnClearOnAction"
+                             onMouseEntered="#btnClearMouseEntered" prefHeight="92.0" prefWidth="67.0"
+                             styleClass="btnClear" stylesheets="@../css/SetButtonIcons.css" text=" ">
+                     <cursor>
+                        <Cursor fx:constant="HAND"/>
+                     </cursor>
+                     <effect>
+                        <DropShadow/>
+                     </effect>
+                  </JFXButton>
                </children>
                <effect>
-                  <DropShadow />
+                  <DropShadow/>
                </effect>
             </AnchorPane>
-            <TableView fx:id="tblRoom" layoutX="460.0" layoutY="184.0" onMouseClicked="#tblRoomOnClicked" prefHeight="149.0" prefWidth="720.0" style="-fx-font-size: 15;">
+            <TableView fx:id="tblRoom" layoutX="460.0" layoutY="184.0" onMouseClicked="#tblRoomOnClicked"
+                       prefHeight="149.0" prefWidth="720.0"
+                       style="-fx-font-size: 15; -fx-background-color: transparent;">
                <columns>
-                  <TableColumn fx:id="clmRoomID" prefWidth="84.0" text="Room ID" />
-                  <TableColumn fx:id="clmCode" prefWidth="124.0" text="Code" />
-                  <TableColumn fx:id="clmDescription" prefWidth="177.0" text="Description" />
-                  <TableColumn fx:id="clmStartDate" prefWidth="100.0" text="Start Date" />
-                  <TableColumn fx:id="clmEndDate" prefWidth="123.0" text="End Date" />
-                  <TableColumn fx:id="clmTotAmount" prefWidth="111.0" text="Tot Amount" />
+                  <TableColumn fx:id="clmRoomID" prefWidth="84.0" text="Room ID"/>
+                  <TableColumn fx:id="clmCode" prefWidth="124.0" text="Code"/>
+                  <TableColumn fx:id="clmDescription" prefWidth="177.0" text="Description"/>
+                  <TableColumn fx:id="clmStartDate" prefWidth="100.0" text="Start Date"/>
+                  <TableColumn fx:id="clmEndDate" prefWidth="123.0" text="End Date"/>
+                  <TableColumn fx:id="clmTotAmount" prefWidth="111.0" text="Tot Amount"/>
                </columns>
-               <effect>
-                  <DropShadow />
-               </effect>
             </TableView>
-            <JFXButton fx:id="btnClear" layoutX="123.0" layoutY="569.0" onAction="#btnClearOnAction" onMouseEntered="#btnClearMouseEntered" prefHeight="92.0" prefWidth="67.0" styleClass="btnClear" stylesheets="@../css/SetButtonIcons.css" text=" ">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <effect>
-                  <DropShadow />
-               </effect>
-            </JFXButton>
             <AnchorPane fx:id="titlePane" prefHeight="79.0" prefWidth="1204.0">
                <children>
                   <Pane layoutX="4.0" prefHeight="79.0" prefWidth="672.0" style="-fx-background-color: #B86F12; -fx-background-radius: 30;">

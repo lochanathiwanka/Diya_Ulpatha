@@ -20,13 +20,10 @@ public class Appinitializer extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        root = FXMLLoader.load(this.getClass().getResource("../view/MainForm.fxml"));
-        Scene scene = new Scene(root);
+        StageList.mainFormStage = primaryStage;
         primaryStage.initStyle(StageStyle.TRANSPARENT);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        root = FXMLLoader.load(this.getClass().getResource("../view/MainForm.fxml"));
 
-        scene.setFill(Color.TRANSPARENT);
 
         root.setOnMousePressed(event -> {
             xOffset = event.getSceneX();
@@ -38,6 +35,10 @@ public class Appinitializer extends Application {
             primaryStage.setY(event.getScreenY() - yOffset);
         });
 
-        StageList.mainFormStage = primaryStage;
+        Scene scene = new Scene(root);
+        scene.setFill(Color.TRANSPARENT);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+
     }
 }

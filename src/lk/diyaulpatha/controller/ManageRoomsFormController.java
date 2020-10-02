@@ -17,6 +17,7 @@ public class ManageRoomsFormController implements Initializable {
     public JFXButton btnAddRoom;
     public JFXButton btnRemoveRoom;
     public JFXButton btnUpdateRoom;
+    public JFXButton btnViewRooms;
 
     public void setAddRoomPane() throws IOException {
         childPane.getChildren().clear();
@@ -51,5 +52,11 @@ public class ManageRoomsFormController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void btnViewRoomsOnAction(ActionEvent actionEvent) throws IOException {
+        childPane.getChildren().clear();
+        AnchorPane pane = (AnchorPane) FXMLLoader.load(this.getClass().getResource("../view/ViewRoomsForm.fxml"));
+        childPane.getChildren().setAll(pane.getChildren());
     }
 }

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="575.0" prefWidth="1184.0"
+            style="-fx-background-color: #f1f2f6;" xmlns="http://javafx.com/javafx/8.0.171"
+            fx:controller="lk.diyaulpatha.controller.ViewRoomsFormController">
+    <children>
+        <TableView fx:id="tblRoom" layoutX="28.0" layoutY="136.0" onMouseClicked="#tblRoomOnAction" prefHeight="258.0"
+                   prefWidth="607.0" style="-fx-background-color: transparent; -fx-font-size: 14;">
+            <columns>
+                <TableColumn fx:id="clmCode" prefWidth="155.0" text="Code"/>
+                <TableColumn fx:id="clmDescription" prefWidth="302.0" text="Description"/>
+                <TableColumn fx:id="clmPrice" prefWidth="149.0" text="Price"/>
+            </columns>
+        </TableView>
+        <AnchorPane fx:id="imagePane" layoutX="680.0" layoutY="100.0" prefHeight="324.0" prefWidth="467.0"
+                    style="-fx-background-color: #f5f5f5; -fx-background-radius: 30;">
+            <children>
+                <ImageView fx:id="roomImage" fitHeight="299.0" fitWidth="443.0" layoutX="12.0" layoutY="13.0"
+                           pickOnBounds="true" preserveRatio="true"/>
+            </children>
+            <effect>
+                <DropShadow/>
+            </effect>
+        </AnchorPane>
+    </children>
+</AnchorPane>

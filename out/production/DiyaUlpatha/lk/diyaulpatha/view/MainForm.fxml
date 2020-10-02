@@ -46,7 +46,7 @@
                   </JFXPasswordField>
                   <ImageView fx:id="btnClose" accessibleRole="BUTTON" fitHeight="18.0" fitWidth="18.0" layoutX="366.0" layoutY="17.0" onMouseClicked="#btnCloseOnAction" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../asserts/exit.png" />
+                        <Image url="@../asserts/remove4.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />

@@ -1,29 +1,30 @@
 package lk.diyaulpatha.controller;
 
+import animatefx.animation.ZoomIn;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import lk.diyaulpatha.bo.BOFactory;
 import lk.diyaulpatha.bo.custom.RoomBO;
 import lk.diyaulpatha.dto.RoomDTO;
 
-import javax.imageio.*;
-import javax.imageio.stream.ImageOutputStream;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.Iterator;
 import java.util.ResourceBundle;
 
 public class AddRoomFormController implements Initializable {
@@ -35,6 +36,7 @@ public class AddRoomFormController implements Initializable {
     public JFXButton btnAdd;
     public AnchorPane pane;
     public JFXTextField txtCode;
+    public ImageView roomImage;
 
     RoomBO roomBO = (RoomBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.ROOM);
     JFileChooser openFileChooser;
@@ -44,16 +46,23 @@ public class AddRoomFormController implements Initializable {
     private BufferedImage newBI;
 
     private boolean addRoom() throws SQLException, ClassNotFoundException,NullPointerException {
-        return  roomBO.addRoom(new RoomDTO(txtRoomID.getText(), txtCode.getText(), txtDescription.getText(),
-                Double.parseDouble(txtPrice.getText()), "Available", "Exists",txtImage.getText()));
+        String path = "/home/locha/Documents/Projects/IdeaProjects/JDBC/DiyaUlpatha/src/lk/diyaulpatha/asserts/rooms/";
+        return roomBO.addRoom(new RoomDTO(txtRoomID.getText(), txtCode.getText(), txtDescription.getText(),
+                Double.parseDouble(txtPrice.getText()), "Available", "Exists", path + openFileChooser.getSelectedFile().getName()));
     }
 
     public void btnAddOnAction(ActionEvent actionEvent) {
         try {
-            convertImage();
-            saveImage();
-        }catch (NullPointerException ex){
-            new Alert(Alert.AlertType.WARNING,"Select an Image for Room!", ButtonType.OK).show();
+            if (txtCode.getText().length() > 0 && txtDescription.getText().length() > 0 && txtPrice.getText().length() > 0) {
+                convertImage();
+                saveImage();
+            } else {
+                new Alert(Alert.AlertType.WARNING, "Fields can not be empty!", ButtonType.OK).show();
+            }
+        } catch (NullPointerException ex) {
+            new Alert(Alert.AlertType.WARNING, "Select an Image for Room!", ButtonType.OK).show();
+        } catch (NumberFormatException ex) {
+            new Alert(Alert.AlertType.WARNING, "Fields can not be empty!", ButtonType.OK).show();
         }
     }
 
@@ -64,9 +73,14 @@ public class AddRoomFormController implements Initializable {
             try {
                 File file = openFileChooser.getSelectedFile();
                 img = ImageIO.read(file);
+                Image image = SwingFXUtils.toFXImage(img, null);
+                roomImage.setImage(image);
+                new ZoomIn(roomImage).setSpeed(4).play();
                 txtImage.setText(file.getName());
+
+                // roomImage.setImage(new Image(file.getAbsolutePath()));
                 System.out.println("Image Loaded!");
-                System.out.println(file.getAbsoluteFile().getName());
+                System.out.println(file.getAbsolutePath());
             }catch (IOException e) {
                 System.out.println("Failed to load image!");
             }
@@ -89,36 +103,39 @@ public class AddRoomFormController implements Initializable {
         }
     }
 
-    private void saveImage(){
+    private void saveImage() {
         initializeSaveFileChooser();
-        int returnValue = saveFileChooser.showSaveDialog(null);
-        if (returnValue==JFileChooser.APPROVE_OPTION) {
-            try {
-                ImageIO.write(img,"png", saveFileChooser.getSelectedFile());
-                System.out.println("Image successfully saved!");
-                boolean isAddedRoom = addRoom();
-                if (isAddedRoom){
-                    new Alert(Alert.AlertType.CONFIRMATION,"Room was successfully added", ButtonType.OK).show();
-                    generateRoomID();
-                    txtCode.setText(null);
-                    txtDescription.setText(null);
-                    txtPrice.setText(null);
-                    txtImage.setText(null);
-                }else {
-                    new Alert(Alert.AlertType.CONFIRMATION,"Room was not added", ButtonType.OK).show();
-                }
-            }catch (IOException e) {
-                System.out.println("Failed to save image!");
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }catch (NullPointerException ex){
+        //int returnValue = saveFileChooser.showSaveDialog(null);
+        //if (returnValue==JFileChooser.APPROVE_OPTION) {
+        try {
+            File file = new File("/home/locha/Documents/Projects/IdeaProjects/JDBC/DiyaUlpatha/src/lk/diyaulpatha/asserts/rooms/" + txtImage.getText());
+            ImageIO.write(img, "png", file);
+            System.out.println(saveFileChooser.getSelectedFile());
+            System.out.println("Image successfully saved!");
+            boolean isAddedRoom = addRoom();
+            if (isAddedRoom) {
+                new Alert(Alert.AlertType.CONFIRMATION, "Room was successfully added", ButtonType.OK).show();
+                generateRoomID();
+                txtCode.setText(null);
+                txtDescription.setText(null);
+                txtPrice.setText(null);
+                txtImage.setText(null);
+                roomImage.setVisible(false);
+            } else {
+                new Alert(Alert.AlertType.CONFIRMATION, "Room was not added", ButtonType.OK).show();
+            }
+        } catch (IOException e) {
+            System.out.println("Failed to save image!");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (NullPointerException ex) {
                 new Alert(Alert.AlertType.CONFIRMATION,"Room was not added", ButtonType.OK).show();
             }
-        }else {
+        /*}else {
             System.out.println("No image choosen!");
-        }
+        }*/
     }
 
     @Override

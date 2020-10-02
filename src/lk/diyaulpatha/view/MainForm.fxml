@@ -5,12 +5,10 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
-
 <StackPane fx:id="stackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="604.0" prefWidth="894.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.diyaulpatha.controller.MainFormController">
    <children>
       <AnchorPane fx:id="layer" prefHeight="604.0" prefWidth="894.0" style="-fx-background-color: transparent;">
@@ -46,7 +44,7 @@
                   </JFXPasswordField>
                   <ImageView fx:id="btnClose" accessibleRole="BUTTON" fitHeight="18.0" fitWidth="18.0" layoutX="366.0" layoutY="17.0" onMouseClicked="#btnCloseOnAction" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../asserts/exit.png" />
+                        <Image url="@../asserts/remove4.png"/>
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />

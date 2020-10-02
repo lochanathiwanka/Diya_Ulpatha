@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="575.0" prefWidth="1184.0"
+            style="-fx-background-color: #f1f2f6;" xmlns="http://javafx.com/javafx/8.0.171"
+            fx:controller="lk.diyaulpatha.controller.ViewCustomersFormController">
+    <children>
+        <TableView fx:id="tblCustomer" layoutX="42.0" layoutY="58.0" onMouseClicked="#tblCustomerOnAction"
+                   prefHeight="184.0" prefWidth="819.0" style="-fx-background-color: transparent;">
+            <columns>
+                <TableColumn fx:id="clmName" prefWidth="139.0" text="Name"/>
+                <TableColumn fx:id="clmNic" prefWidth="139.0" text="NIC"/>
+                <TableColumn fx:id="clmAddress" prefWidth="306.0" text="Address"/>
+                <TableColumn fx:id="clmContact" prefWidth="135.0" text="Contact"/>
+                <TableColumn fx:id="clmGender" prefWidth="99.0" text="Gender"/>
+            </columns>
+        </TableView>
+        <TableView fx:id="tblBooking" layoutX="941.0" layoutY="58.0" onMouseClicked="#tblBookingOnAction"
+                   prefHeight="184.0" prefWidth="200.0" style="-fx-background-color: transparent;">
+            <columns>
+                <TableColumn fx:id="clmBookingID" prefWidth="199.0" text="Booking ID"/>
+            </columns>
+        </TableView>
+        <TableView fx:id="tblBookingDetail" layoutX="42.0" layoutY="354.0" onMouseClicked="#tblBookingDetailOnAction"
+                   prefHeight="200.0" prefWidth="535.0" style="-fx-background-color: transparent;">
+            <columns>
+                <TableColumn fx:id="clmRoomCode" prefWidth="90.0" text="Room Code"/>
+                <TableColumn fx:id="clmStartDate" prefWidth="122.0" text="Start Date"/>
+                <TableColumn fx:id="clmEndDate" prefWidth="114.0" text="End Date"/>
+                <TableColumn fx:id="clmEndTime" prefWidth="105.0" text="End Time"/>
+                <TableColumn fx:id="clmTotAmount" prefWidth="104.0" text="Tot Amount"/>
+            </columns>
+        </TableView>
+        <ImageView fx:id="roomImage" fitHeight="299.0" fitWidth="443.0" layoutX="713.0" layoutY="266.0"
+                   pickOnBounds="true" preserveRatio="true"/>
+        <TextField fx:id="txtBookingDate" editable="false" layoutX="131.0" layoutY="321.0" prefHeight="26.0"
+                   prefWidth="109.0"/>
+        <TextField fx:id="txtBookingTime" editable="false" layoutX="256.0" layoutY="321.0" prefHeight="26.0"
+                   prefWidth="109.0"/>
+        <TextField fx:id="txtPayment" editable="false" layoutX="379.0" layoutY="321.0" prefHeight="26.0"
+                   prefWidth="109.0"/>
+        <TextField fx:id="txtSearch" layoutX="113.0" layoutY="23.0" onAction="#txtSearchOnAction"
+                   onKeyReleased="#txtSearchKeyReleased" style="-fx-background-radius: 30;">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </TextField>
+        <JFXButton buttonType="RAISED" layoutX="43.0" layoutY="24.0"
+                   style="-fx-background-color: black; -fx-background-radius: 30;" text="Search" textFill="WHITE">
+            <font>
+                <Font name="Arial Rounded MT Bold" size="14.0"/>
+            </font>
+            <cursor>
+                <Cursor fx:constant="DEFAULT"/>
+            </cursor>
+            <effect>
+                <DropShadow/>
+            </effect>
+        </JFXButton>
+        <JFXDatePicker fx:id="datePicker" layoutX="946.0" layoutY="25.0" onAction="#datePickerOnAction"/>
+    </children>
+</AnchorPane>

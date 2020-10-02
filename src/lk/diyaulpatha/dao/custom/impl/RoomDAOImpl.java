@@ -18,7 +18,7 @@ public class RoomDAOImpl implements RoomDAO {
 
     @Override
     public int getRoomCount() throws ClassNotFoundException, SQLException {
-        String SQL = "SELECT COUNT(roomID) FROM Room WHERE status='Exists'";
+        String SQL = "SELECT COUNT(roomID) FROM Room";
         ResultSet rst = CrudUtil.executeQuery(SQL);
         if (rst.next()){
             return rst.getInt(1);
@@ -39,7 +39,7 @@ public class RoomDAOImpl implements RoomDAO {
     @Override
     public boolean add(Room r) throws ClassNotFoundException, SQLException {
         String SQL = "INSERT INTO Room (roomID, code, description, price,image) VALUES (?,?,?,?,?)";
-        return CrudUtil.executeUpdate(SQL,r.getRoomID(),r.getCode(),r.getDescription(),r.getPrice(),r.getImage());
+        return CrudUtil.executeUpdate(SQL, r.getRoomID(), r.getCode(), r.getDescription(), r.getPrice(), r.getImage());
     }
 
     @Override
@@ -49,28 +49,24 @@ public class RoomDAOImpl implements RoomDAO {
 
     @Override
     public boolean deleteRoom(Room r) throws ClassNotFoundException, SQLException {
-        int removedRoomCount = getRemovedRoomCount();
-        String id = "";
-        if (removedRoomCount == 0) {
-            id = "X001";
+        String SQL = "UPDATE Room SET code=?, description=?, price=?, status=?, image=? WHERE code=?";
+        return CrudUtil.executeUpdate(SQL, r.getCode(), r.getDescription(), r.getPrice(), r.getStatus(), r.getImage(), r.getCode());
+    }
+
+    @Override
+    public String getRoomImage(String code) throws ClassNotFoundException, SQLException {
+        String SQL = "SELECT image FROM Room WHERE code = ?";
+        ResultSet rst = CrudUtil.executeQuery(SQL, code);
+        if (rst.next()) {
+            return rst.getString("image");
         }
-        if (removedRoomCount > 0 && removedRoomCount < 9) {
-            id = "X00" + (removedRoomCount + 1);
-        }
-        if (removedRoomCount >= 9 && removedRoomCount < 99) {
-            id = "X0" + (removedRoomCount + 1);
-        }
-        if (removedRoomCount >= 99) {
-            id = "X" + (removedRoomCount + 1);
-        }
-        String SQL = "UPDATE Room SET roomID=?, code=?, description=?, price=?, status=?, image=? WHERE code=?";
-        return CrudUtil.executeUpdate(SQL,id,r.getCode(),r.getDescription(),r.getPrice(),r.getStatus(),r.getImage(),r.getCode());
+        return null;
     }
 
     @Override
     public boolean update(Room r) throws ClassNotFoundException, SQLException {
         String SQL = "UPDATE Room SET code=?, description=?, price=?, status=?, image=? WHERE code=?";
-        return CrudUtil.executeUpdate(SQL,r.getCode(),r.getDescription(), r.getPrice(), r.getStatus(), r.getImage(), r.getCode());
+        return CrudUtil.executeUpdate(SQL, r.getCode(), r.getDescription(), r.getPrice(), r.getStatus(), r.getImage(), r.getCode());
     }
 
     @Override

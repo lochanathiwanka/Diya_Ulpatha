@@ -15,6 +15,23 @@ public class BookingDTO {
     public BookingDTO() {
     }
 
+    public BookingDTO(String bookingID) {
+        this.bookingID = bookingID;
+    }
+
+    public BookingDTO(String date, String time, String payment) {
+        this.date = date;
+        this.time = time;
+        this.payment = payment;
+    }
+
+    public BookingDTO(String bookingID, String date, String time, String payment) {
+        this.bookingID = bookingID;
+        this.date = date;
+        this.time = time;
+        this.payment = payment;
+    }
+
     public BookingDTO(String bookingID, String customerID, String date, String time, String payment, CustomerDTO customerDTO, ObservableList<BookingDetailDTO> bookingDetailList, ObservableList<RoomDTO> roomList) {
         this.bookingID = bookingID;
         this.customerID = customerID;

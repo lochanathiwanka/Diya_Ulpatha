@@ -74,6 +74,7 @@ public class ReturnRoomFormController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         new ZoomIn(titlePane).setSpeed(0.6).play();
         setTextSuggesionsToSearchField();
+        btnClear.setDisable(true);
     }
 
     private void setTextSuggesionsToSearchField(){
@@ -142,8 +143,9 @@ public class ReturnRoomFormController implements Initializable {
 
         try {
             boolean isReturnedRoom = returnRoomBO.returnRoom(room, list);
-            if (isReturnedRoom){
-                new Alert(Alert.AlertType.CONFIRMATION,"Rooms cleared!", ButtonType.OK).show();
+            if (isReturnedRoom) {
+                new Alert(Alert.AlertType.CONFIRMATION, "Rooms cleared!", ButtonType.OK).show();
+                btnClear.setDisable(true);
                 resetCustomerFields();
                 resetBookingFields();
                 tblRoom.getItems().clear();
@@ -163,33 +165,37 @@ public class ReturnRoomFormController implements Initializable {
     public void setSearchField() throws SQLException, ClassNotFoundException,IndexOutOfBoundsException {
         String bookingID = bookingBO.getLastBookingID(txtSearch.getText(),txtSearch.getText(),txtSearch.getText());
         if (bookingID!=null) {
-
             ObservableList<CustomeDTO> list = returnRoomBO.getCustomerAndRoomBookingDetails(bookingID);
+            if (list.size() > 0) {
+                btnClear.setDisable(false);
+                txtID.setText(list.get(0).getCustomerID());
+                txtName.setText(list.get(0).getName());
+                txtAddress.setText(list.get(0).getAddress());
+                txtContact.setText(list.get(0).getContact());
+                txtGender.setText(list.get(0).getGender());
 
-            txtID.setText(list.get(0).getCustomerID());
-            txtName.setText(list.get(0).getName());
-            txtAddress.setText(list.get(0).getAddress());
-            txtContact.setText(list.get(0).getContact());
-            txtGender.setText(list.get(0).getGender());
+                txtBookingID.setText(list.get(0).getBookingID());
+                txtBookingDate.setText(list.get(0).getDate());
+                txtBookingTime.setText(list.get(0).getTime());
+                txtPayment.setText(list.get(0).getPayment());
 
-            txtBookingID.setText(list.get(0).getBookingID());
-            txtBookingDate.setText(list.get(0).getDate());
-            txtBookingTime.setText(list.get(0).getTime());
-            txtPayment.setText(list.get(0).getPayment());
+                ObservableList<CustomeDTO> rows = FXCollections.observableArrayList();
+                for (CustomeDTO c : list) {
+                    rows.add(new CustomeDTO(c.getRoomID(), c.getCode(), c.getDescription(), c.getStartDate(), c.getEndDate(), c.getTotAmount()));
+                }
+                tblRoom.setItems(rows);
 
-            ObservableList<CustomeDTO> rows = FXCollections.observableArrayList();
-            for (CustomeDTO c : list) {
-                rows.add(new CustomeDTO(c.getRoomID(), c.getCode(), c.getDescription(), c.getStartDate(), c.getEndDate(), c.getTotAmount()));
+                clmRoomID.setCellValueFactory(new PropertyValueFactory<CustomeDTO, String>("roomID"));
+                clmCode.setCellValueFactory(new PropertyValueFactory<CustomeDTO, String>("code"));
+                clmDescription.setCellValueFactory(new PropertyValueFactory<CustomeDTO, String>("description"));
+                clmStartDate.setCellValueFactory(new PropertyValueFactory<CustomeDTO, String>("startDate"));
+                clmEndDate.setCellValueFactory(new PropertyValueFactory<CustomeDTO, String>("endDate"));
+                clmTotAmount.setCellValueFactory(new PropertyValueFactory<CustomeDTO, String>("totAmount"));
+            } else {
+                btnClear.setDisable(true);
             }
-            tblRoom.setItems(rows);
-
-            clmRoomID.setCellValueFactory(new PropertyValueFactory<CustomeDTO, String>("roomID"));
-            clmCode.setCellValueFactory(new PropertyValueFactory<CustomeDTO, String>("code"));
-            clmDescription.setCellValueFactory(new PropertyValueFactory<CustomeDTO, String>("description"));
-            clmStartDate.setCellValueFactory(new PropertyValueFactory<CustomeDTO, String>("startDate"));
-            clmEndDate.setCellValueFactory(new PropertyValueFactory<CustomeDTO, String>("endDate"));
-            clmTotAmount.setCellValueFactory(new PropertyValueFactory<CustomeDTO, String>("totAmount"));
-        }else {
+        } else {
+            btnClear.setDisable(true);
             resetCustomerFields();
             resetBookingFields();
             tblRoom.getItems().clear();

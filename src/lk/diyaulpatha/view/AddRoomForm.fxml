@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.scene.Cursor?>
+<?import com.jfoenix.controls.*?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
-
+<?import javafx.scene.text.*?>
 <AnchorPane fx:id="pane" prefHeight="575.0" prefWidth="1184.0" style="-fx-background-color: #f1f2f6;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.diyaulpatha.controller.AddRoomFormController">
    <children>
       <AnchorPane layoutX="60.0" layoutY="73.0" prefHeight="402.0" prefWidth="330.0" style="-fx-background-color: #e0e0e0; -fx-background-radius: 30;">
@@ -58,40 +56,43 @@
                <graphic>
                   <ImageView fitHeight="45.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../asserts/selectPath.png" />
+                        <Image url="@../asserts/selectPath.png"/>
                      </image>
                      <effect>
-                        <DropShadow />
+                        <DropShadow/>
                      </effect>
                   </ImageView>
-               </graphic></JFXButton>
+               </graphic>
+            </JFXButton>
             <JFXTextField fx:id="txtCode" labelFloat="true" layoutX="18.0" layoutY="90.0" promptText="Code">
                <font>
-                  <Font size="16.0" />
+                  <Font size="16.0"/>
                </font>
             </JFXTextField>
+            <JFXButton fx:id="btnAdd" buttonType="RAISED" focusTraversable="false" layoutX="123.0" layoutY="355.0"
+                       onAction="#btnAddOnAction" style="-fx-background-radius: 30; -fx-background-color: black;"
+                       text="Add Rome" textFill="WHITE">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="13.0"/>
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND"/>
+               </cursor>
+            </JFXButton>
          </children>
          <effect>
-            <DropShadow />
+            <DropShadow/>
          </effect>
       </AnchorPane>
-      <JFXButton fx:id="btnAdd" buttonType="RAISED" focusTraversable="false" layoutX="437.0" layoutY="241.0" onAction="#btnAddOnAction" style="-fx-background-radius: 30;" text=" " textFill="WHITE">
-         <font>
-            <Font name="Arial Rounded MT Bold" size="13.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-         <graphic>
-            <ImageView fitHeight="67.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../asserts/add.png" />
-               </image>
-               <effect>
-                  <DropShadow height="3.04" radius="0.385" spread="0.02" width="0.5" />
-               </effect>
-            </ImageView>
-         </graphic>
-      </JFXButton>
+      <AnchorPane layoutX="441.0" layoutY="68.0" prefHeight="321.0" prefWidth="475.0"
+                  style="-fx-background-color: transparent; -fx-background-radius: 30;">
+         <children>
+            <ImageView fx:id="roomImage" fitHeight="299.0" fitWidth="457.0" layoutX="9.0" layoutY="11.0"
+                       pickOnBounds="true" preserveRatio="true"/>
+         </children>
+         <effect>
+            <DropShadow/>
+         </effect>
+      </AnchorPane>
    </children>
 </AnchorPane>

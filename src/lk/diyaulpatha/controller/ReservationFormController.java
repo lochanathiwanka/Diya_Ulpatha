@@ -7,6 +7,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -25,8 +26,10 @@ import lk.diyaulpatha.bo.custom.CustomerBO;
 import lk.diyaulpatha.bo.custom.RoomBO;
 import lk.diyaulpatha.dto.*;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -37,7 +40,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -159,6 +161,7 @@ public class ReservationFormController implements Initializable {
         /*DateTimeFormatter dtf =  DateTimeFormatter.ofPattern("hh:mm:ss a");
         LocalTime localTime = LocalTime.parse(txtTime.getText(), dtf);
         //System.out.println(dtf.format(localTime.plusHours(2)));
+        String nowTime = dtf.format(localTime.plusHours(2));
 
         Date date = new Date() ;
         SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm:ss a") ;
@@ -166,11 +169,11 @@ public class ReservationFormController implements Initializable {
         //System.out.println(dateFormat.format(date));
 
         try {
-            if(dateFormat.parse(dateFormat.format(date)).after(dateFormat.parse("04:16:10 PM")))
+            if(dateFormat.parse(dateFormat.format(date)).after(dateFormat.parse(noewTime)))
             {
-                System.out.println("Current time is greater than 04:16:10 PM");
+                System.out.println("Current time is greater than noewTime");
             }else{
-                System.out.println("Current time is less than 04:16:10 PM");
+                System.out.println("Current time is less than nowTime");
             }
         } catch (ParseException e) {
             e.printStackTrace();
@@ -245,25 +248,44 @@ public class ReservationFormController implements Initializable {
             final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             @Override
             public String toString(LocalDate date) {
-                return (date!=null) ? dateFormatter.format(date) : "";
+                return (date != null) ? dateFormatter.format(date) : "";
             }
 
             @Override
             public LocalDate fromString(String string) {
-                return (string !=null && !string.isEmpty()) ? LocalDate.parse(string,dateFormatter) : null;
+                return (string != null && !string.isEmpty()) ? LocalDate.parse(string, dateFormatter) : null;
+            }
+        });
+
+        startDatePicker.setDayCellFactory(picker -> new DateCell() {
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                LocalDate today = LocalDate.now();
+
+                setDisable(empty || date.compareTo(today) < 0);
             }
         });
 
         endDatePicker.setConverter(new StringConverter<LocalDate>() {
             final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
             @Override
             public String toString(LocalDate date) {
-                return (date!=null) ? dateFormatter.format(date) : "";
+                return (date != null) ? dateFormatter.format(date) : "";
             }
 
             @Override
             public LocalDate fromString(String string) {
-                return (string !=null && !string.isEmpty()) ? LocalDate.parse(string,dateFormatter) : null;
+                return (string != null && !string.isEmpty()) ? LocalDate.parse(string, dateFormatter) : null;
+            }
+        });
+
+        endDatePicker.setDayCellFactory(picker -> new DateCell() {
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                LocalDate today = LocalDate.now();
+
+                setDisable(empty || date.compareTo(today) < 0);
             }
         });
     }
@@ -381,7 +403,17 @@ public class ReservationFormController implements Initializable {
         pagination.setPageCount(images.size());
         pagination.setPageFactory(n-> new ImageView(images.get(n)));*/
 
-        roomImage.setImage(new Image("/lk/diyaulpatha/asserts/rooms/"+path));
+        try {
+            File file = new File(path);
+            BufferedImage bufferedImage = null;
+            bufferedImage = ImageIO.read(file);
+            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+            roomImage.setImage(image);
+        } catch (IOException e) {
+
+        }
+
+        //roomImage.setImage(new Image("/lk/diyaulpatha/asserts/rooms/"+path));
     }
 
     public void cmbRoomOnAction(ActionEvent actionEvent) {
@@ -585,8 +617,8 @@ public class ReservationFormController implements Initializable {
         bookingDTO.setRoomList(roomDTOList);
 
             try {
-                if (txtNIC.getText().length()>0 && txtName.getText().length()>0 && txtAddress.getText().length()>0 && txtContact.getText().length()>0 &&
-                        txtGender.getText().length()>0 && txtTotalAmount.getText().length()>0) {
+                if (txtNIC.getText().length() > 0 && txtName.getText().length() > 0 && txtAddress.getText().length() > 0 && txtContact.getText().length() > 0 &&
+                        txtGender.getText().length() > 0) {
                     boolean isBooked = bookingBO.makeBooking(bookingDTO);
                     if (isBooked) {
                         new Alert(Alert.AlertType.CONFIRMATION, "Room(s) were succcessfully booked!", ButtonType.OK).show();

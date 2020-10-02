@@ -36,7 +36,7 @@
             <Image url="@../asserts/circle1.png" />
          </image>
       </ImageView>
-      <TableView fx:id="tblRoom" layoutX="16.0" layoutY="566.0" onMouseClicked="#tblRoomOnClicked" prefHeight="157.0" prefWidth="768.0">
+      <TableView fx:id="tblRoom" layoutX="16.0" layoutY="566.0" onMouseClicked="#tblRoomOnClicked" prefHeight="162.0" prefWidth="768.0" style="-fx-background-color: transparent;">
          <columns>
             <TableColumn fx:id="clmRoomID" prefWidth="84.0" text="Room ID" />
             <TableColumn fx:id="clmCode" prefWidth="138.0" text="Code" />

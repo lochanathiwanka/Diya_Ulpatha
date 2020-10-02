@@ -1,12 +1,16 @@
 package lk.diyaulpatha.controller;
 
+import animatefx.animation.ZoomIn;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import lk.diyaulpatha.bo.BOFactory;
 import lk.diyaulpatha.bo.custom.RoomBO;
@@ -29,6 +33,7 @@ public class UpdateRoomFormController implements Initializable {
     public JFXTextField txtImage;
     public JFXButton btnSelectPath;
     public JFXButton btnUpdate;
+    public ImageView roomImage;
 
     JFileChooser openFileChooser;
     private int[][] pixels;
@@ -134,23 +139,33 @@ public class UpdateRoomFormController implements Initializable {
     private void getValuesFromSearchField(){
         try {
             RoomDTO r = roomBO.searchRoom(txtSearchField.getText());
-            if (r!=null){
+            if (r != null) {
                 roomID = r.getRoomID();
                 txtDescription.setText(r.getDescription());
-                txtPrice.setText(r.getPrice()+"");
+                txtPrice.setText(r.getPrice() + "");
                 txtImage.setText(r.getImage());
                 btnUpdate.setDisable(false);
                 available = r.getAvailable();
+
+                File file = new File(txtImage.getText());
+                BufferedImage img = ImageIO.read(file);
+                Image image = SwingFXUtils.toFXImage(img, null);
+                roomImage.setImage(image);
+                new ZoomIn(roomImage).setSpeed(4).play();
+                roomImage.setVisible(true);
             }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        }catch (NullPointerException ex){
+        } catch (NullPointerException ex) {
             txtDescription.setText(null);
             txtPrice.setText(null);
             txtImage.setText(null);
             btnUpdate.setDisable(true);
+            roomImage.setVisible(false);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -159,5 +174,6 @@ public class UpdateRoomFormController implements Initializable {
         btnUpdate.setDisable(true);
         initializeOpenFileChooser();
         initializeSaveFileChooser();
+        roomImage.setVisible(false);
     }
 }

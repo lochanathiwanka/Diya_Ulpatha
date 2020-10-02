@@ -1,7 +1,5 @@
 package lk.diyaulpatha.entity;
 
-import javafx.collections.ObservableList;
-
 public class Booking {
     private String bookingID;
     private String customerID;
@@ -10,6 +8,10 @@ public class Booking {
     private String payment;
 
     public Booking() {
+    }
+
+    public Booking(String bookingID) {
+        this.bookingID = bookingID;
     }
 
     public Booking(String bookingID, String customerID, String date, String time, String payment) {

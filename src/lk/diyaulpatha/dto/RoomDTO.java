@@ -12,28 +12,34 @@ public class RoomDTO {
     public RoomDTO() {
     }
 
-    public RoomDTO(String roomID,String available) {
+    public RoomDTO(String roomID, String available) {
         this.roomID = roomID;
         this.available = available;
     }
 
-    public RoomDTO(String code, String description, double price, String available, String status,String image) {
+    public RoomDTO(String code, String description, double price) {
+        this.code = code;
+        this.description = description;
+        this.price = price;
+    }
+
+    public RoomDTO(String code, String description, double price, String available, String status, String image) {
         this.code = code;
         this.description = description;
         this.price = price;
         this.available = available;
         this.status = status;
-        this.image=image;
+        this.image = image;
     }
 
-    public RoomDTO(String roomID, String code, String description, double price, String available, String status,String image) {
+    public RoomDTO(String roomID, String code, String description, double price, String available, String status, String image) {
         this.roomID = roomID;
         this.code = code;
         this.description = description;
         this.price = price;
         this.available = available;
         this.status = status;
-        this.image=image;
+        this.image = image;
     }
 
     public String getRoomID() {

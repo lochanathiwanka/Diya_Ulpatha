@@ -80,6 +80,14 @@ public class CustomeDTO {
         this.totAmount = totAmount;
     }
 
+    public CustomeDTO(String code, String startDate, String endDate, String endTime, double totAmount) {
+        this.code = code;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.endTime = endTime;
+        this.totAmount = totAmount;
+    }
+
     public String getRoomID() {
         return roomID;
     }

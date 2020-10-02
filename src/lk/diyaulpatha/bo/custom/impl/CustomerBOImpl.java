@@ -31,10 +31,10 @@ public class CustomerBOImpl implements CustomerBO {
     }
 
     @Override
-    public CustomerDTO searchCustomer(String id) throws ClassNotFoundException, SQLException {
-        Customer c = custDAO.search(id);
-        return new CustomerDTO(c.getCustomerID(),c.getName(),c.getNic(),c.getAddress(),
-                c.getContact(),c.getGender());
+    public CustomerDTO searchCustomer(String value) throws ClassNotFoundException, SQLException {
+        Customer c = custDAO.search(value);
+        return new CustomerDTO(c.getCustomerID(), c.getName(), c.getNic(), c.getAddress(),
+                c.getContact(), c.getGender());
     }
 
     @Override

@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-
 <AnchorPane prefHeight="736.0" prefWidth="1201.0" style="-fx-background-color: #f1f2f6;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.diyaulpatha.controller.ManageRoomsFormController">
    <children>
       <AnchorPane fx:id="titlePane" prefHeight="79.0" prefWidth="1184.0">
@@ -79,13 +76,15 @@
          <graphic>
             <ImageView fitHeight="68.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../asserts/updateRoom2.png" />
+                  <Image url="@../asserts/updateRoom2.png"/>
                </image>
                <effect>
-                  <DropShadow />
+                  <DropShadow/>
                </effect>
             </ImageView>
          </graphic>
       </JFXButton>
+      <JFXButton fx:id="btnViewRooms" layoutX="800.0" layoutY="111.0" onAction="#btnViewRoomsOnAction"
+                 text="View Rooms"/>
    </children>
 </AnchorPane>

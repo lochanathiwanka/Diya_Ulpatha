@@ -110,12 +110,17 @@
     -fx-background-size: 55px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: 90%;
-    -fx-background-radius: 30;
+    /*-fx-background-radius: 30;*/
+}
+
+.btnReservation:hover
+{
+    -fx-background-color: #545456;
 }
 
 .btnReservation:pressed
 {
-    -fx-background-color: #cdc9c9;
+    -fx-background-color: #545456;
 }
 /*******************************************************************/
 
@@ -124,12 +129,17 @@
     -fx-background-size: 60px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: 0%;
-    -fx-background-radius: 30;
+    /*-fx-background-radius: 30;*/
+}
+
+.btnSignOut:hover
+{
+    -fx-background-color: #545456;
 }
 
 .btnSignOut:pressed
 {
-    -fx-background-color: #cdc9c9;
+    -fx-background-color: #545456;
 }
 /*******************************************************************/
 
@@ -138,11 +148,16 @@
     -fx-background-size: 60px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: 90%;
-    -fx-background-radius: 30;
+    /*-fx-background-radius: 30;*/
+}
+
+.btnReturnRoom:hover
+{
+    -fx-background-color: #545456;
 }
 
 .btnReturnRoom:pressed
 {
-    -fx-background-color: #cdc9c9;
+    -fx-background-color: #545456;
 }
 

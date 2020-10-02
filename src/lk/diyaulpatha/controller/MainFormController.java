@@ -1,34 +1,28 @@
 package lk.diyaulpatha.controller;
 
-import animatefx.animation.FadeIn;
-import animatefx.animation.FadeInUpBig;
-import animatefx.animation.ZoomIn;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import javafx.animation.FadeTransition;
-import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import lk.diyaulpatha.stages.StageList;
 import tray.animations.AnimationType;
 import tray.notification.NotificationType;
 import tray.notification.TrayNotification;
 
-import java.awt.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -65,6 +59,9 @@ public class MainFormController extends StageList implements Initializable {
 
     @FXML
     private AnchorPane slideLayer;
+
+    Parent root;
+    double xOffset, yOffset;
 
     /*@FXML
     void btnAboutMe1OnClicked(MouseEvent event) {
@@ -124,13 +121,32 @@ public class MainFormController extends StageList implements Initializable {
     public void btnSignInOnAction(ActionEvent actionEvent) throws Exception {
         if (txtUserName.getText().length()>0 && passWord.getText().length()>0){
             if (txtUserName.getText().equals("Admin") && passWord.getText().equals("1234")) {
-                Parent cashierStage = FXMLLoader.load(this.getClass().getResource("../view/AdminForm.fxml"));
-                Stage stage = new Stage();
-                stage.setScene(new Scene(FXMLLoader.load(this.getClass().getResource("../view/AdminForm.fxml"))));
-                stage.show();
-                stage.setResizable(false);
-                cashierFormStage = stage;
-                new FadeIn(cashierStage).play();
+                Stage original = new Stage();
+                original.initStyle(StageStyle.TRANSPARENT);
+                root = FXMLLoader.load(this.getClass().getResource("../view/AdminForm.fxml"));
+                original.setScene(new Scene(root));
+                original.show();
+
+                Stage transparentStage = new Stage();
+                transparentStage.initStyle(StageStyle.TRANSPARENT);
+                Scene scene = original.getScene();
+                scene.setFill(Color.TRANSPARENT);
+
+                root.setOnMousePressed(event -> {
+                    xOffset = event.getSceneX();
+                    yOffset = event.getSceneY();
+                });
+
+                root.setOnMouseDragged(event -> {
+                    transparentStage.setX(event.getScreenX() - xOffset);
+                    transparentStage.setY(event.getScreenY() - yOffset);
+                });
+
+                original.setScene(null);
+                transparentStage.setScene(scene);
+                transparentStage.show();
+                original.hide();
+                adminFormStage = transparentStage;
                 mainFormStage.close();
 
                 TrayNotification tray = new TrayNotification();
@@ -139,15 +155,35 @@ public class MainFormController extends StageList implements Initializable {
                 tray.setMessage("Successfull");
                 tray.setNotificationType(NotificationType.SUCCESS);
                 tray.showAndDismiss(Duration.millis(2000));
-            }else if (txtUserName.getText().equals("Lochana") && passWord.getText().equals("lochana")){
-                Parent cashierStage = FXMLLoader.load(this.getClass().getResource("../view/CashierForm.fxml"));
-                Stage stage = new Stage();
-                stage.setScene(new Scene(FXMLLoader.load(this.getClass().getResource("../view/CashierForm.fxml"))));
-                stage.show();
-                stage.setResizable(false);
-                cashierFormStage = stage;
-                new FadeIn(cashierStage).play();
+            } else if (txtUserName.getText().equals("Lochana") && passWord.getText().equals("lochana")) {
+                Stage original = new Stage();
+                original.initStyle(StageStyle.TRANSPARENT);
+                root = FXMLLoader.load(this.getClass().getResource("../view/CashierForm.fxml"));
+                original.setScene(new Scene(root));
+                original.show();
+
+                Stage transparentStage = new Stage();
+                transparentStage.initStyle(StageStyle.TRANSPARENT);
+                Scene scene = original.getScene();
+                scene.setFill(Color.TRANSPARENT);
+
+                root.setOnMousePressed(event -> {
+                    xOffset = event.getSceneX();
+                    yOffset = event.getSceneY();
+                });
+
+                root.setOnMouseDragged(event -> {
+                    transparentStage.setX(event.getScreenX() - xOffset);
+                    transparentStage.setY(event.getScreenY() - yOffset);
+                });
+
+                original.setScene(null);
+                transparentStage.setScene(scene);
+                transparentStage.show();
+                original.hide();
+                cashierFormStage = transparentStage;
                 mainFormStage.close();
+
 
                 TrayNotification tray = new TrayNotification();
                 tray.setAnimationType(AnimationType.POPUP);

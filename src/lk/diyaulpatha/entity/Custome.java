@@ -26,12 +26,20 @@ public class Custome {
     public Custome() {
     }
 
-    public Custome(String available,String endTime) {
+    public Custome(String available, String endTime) {
         this.available = available;
         this.endTime = endTime;
     }
 
-    public Custome(String roomID,String code, String description, double price, String available, String endTime) {
+    public Custome(String code, String startDate, String endDate, String endTime, double totAmount) {
+        this.code = code;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.endTime = endTime;
+        this.totAmount = totAmount;
+    }
+
+    public Custome(String roomID, String code, String description, double price, String available, String endTime) {
         this.roomID = roomID;
         this.code = code;
         this.description = description;

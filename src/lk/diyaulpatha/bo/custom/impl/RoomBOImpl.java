@@ -66,4 +66,9 @@ public class RoomBOImpl implements RoomBO {
     public int getRemovedRoomCount() throws ClassNotFoundException, SQLException {
         return roomDAO.getRemovedRoomCount();
     }
+
+    @Override
+    public String getRoomImage(String code) throws ClassNotFoundException, SQLException {
+        return roomDAO.getRoomImage(code);
+    }
 }

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="736.0" prefWidth="1201.0"
+            style="-fx-background-color: #f1f2f6;" xmlns="http://javafx.com/javafx/8.0.171"
+            fx:controller="lk.diyaulpatha.controller.ManageBookingsForm">
+   <children>
+      <AnchorPane fx:id="titlePane" prefHeight="79.0" prefWidth="1184.0">
+         <children>
+            <Pane layoutX="4.0" prefHeight="79.0" prefWidth="672.0"
+                  style="-fx-background-color: #6ec55d; -fx-background-radius: 30;">
+               <children>
+                  <Label layoutX="43.0" layoutY="6.0" text="Manage Bookings" textFill="WHITE">
+                     <font>
+                        <Font name="Dyuthi Regular" size="40.0"/>
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane layoutX="1031.0" prefHeight="79.0" prefWidth="163.0"
+                  style="-fx-background-color: #F6B905; -fx-background-radius: 30;"/>
+            <Pane layoutX="651.0" prefHeight="79.0" prefWidth="407.0" style="-fx-background-color: #7c8785;"/>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="childPane" layoutX="10.0" layoutY="156.0" prefHeight="575.0" prefWidth="1184.0"/>
+      <JFXButton fx:id="btnBookings" layoutX="436.0" layoutY="99.0" onAction="#btnBookingsOnAction" text="Bookings"/>
+      <JFXButton fx:id="btnCustomers" layoutX="552.0" layoutY="99.0" onAction="#btnCustomersOnAction" text="Customers"/>
+      <JFXButton fx:id="btnRooms" layoutX="664.0" layoutY="99.0" onAction="#btnRoomsOnAction" text="Rooms"/>
+   </children>
+</AnchorPane>

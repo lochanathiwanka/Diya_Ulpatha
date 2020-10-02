@@ -31,12 +31,12 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public Customer search(String id) throws ClassNotFoundException, SQLException {
-        String SQL = "SELECT * FROM Customer WHERE customerID = ?";
-        ResultSet rst = CrudUtil.executeQuery(SQL,id);
-        if (rst.next()){
-            return new Customer(rst.getString("customerID"),rst.getString("name"),rst.getString("nic"),
-                    rst.getString("address"),rst.getString("contact"),rst.getString("gender"));
+    public Customer search(String value) throws ClassNotFoundException, SQLException {
+        String SQL = "SELECT * FROM Customer WHERE (customerID = ? or name = ? or nic = ?)";
+        ResultSet rst = CrudUtil.executeQuery(SQL, value, value, value);
+        if (rst.next()) {
+            return new Customer(rst.getString("customerID"), rst.getString("name"), rst.getString("nic"),
+                    rst.getString("address"), rst.getString("contact"), rst.getString("gender"));
         }
         return null;
     }
