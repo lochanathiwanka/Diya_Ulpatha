@@ -15,4 +15,6 @@ public interface RoomDAO extends CrudDAO<Room, String> {
     boolean deleteRoom(Room r) throws ClassNotFoundException, SQLException;
 
     String getRoomImage(String code) throws ClassNotFoundException, SQLException;
+
+    String getRoomImageFromBookingID(String id) throws ClassNotFoundException, SQLException;
 }

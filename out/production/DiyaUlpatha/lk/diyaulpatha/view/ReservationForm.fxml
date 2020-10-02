@@ -1,24 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXDatePicker?>
-<?import com.jfoenix.controls.JFXRadioButton?>
-<?import com.jfoenix.controls.JFXTextField?>
-<?import java.lang.String?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Line?>
-<?import javafx.scene.text.Font?>
-
+<?import javafx.scene.text.*?>
+<?import java.lang.String?>
 <AnchorPane fx:id="pane" prefHeight="736.0" prefWidth="1201.0" style="-fx-background-color: #f1f2f6;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.diyaulpatha.controller.ReservationFormController">
    <children>
       <ImageView fitHeight="173.0" fitWidth="204.0" layoutX="605.0" layoutY="511.0" opacity="0.3" pickOnBounds="true" preserveRatio="true" rotate="105.9">
@@ -26,27 +16,32 @@
             <Image url="@../asserts/greenLeaf.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="354.0" fitWidth="421.0" layoutX="30.0" layoutY="326.0" opacity="0.3" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="354.0" fitWidth="421.0" layoutX="30.0" layoutY="326.0" opacity="0.3" pickOnBounds="true"
+                 preserveRatio="true">
          <image>
-            <Image url="@../asserts/circle1.png" />
+            <Image url="@../asserts/circle1.png"/>
          </image>
       </ImageView>
-      <ImageView fitHeight="273.0" fitWidth="284.0" layoutX="309.0" layoutY="59.0" opacity="0.29" pickOnBounds="true" preserveRatio="true" rotate="-71.2">
+      <ImageView fitHeight="273.0" fitWidth="284.0" layoutX="309.0" layoutY="59.0" opacity="0.29" pickOnBounds="true"
+                 preserveRatio="true" rotate="-71.2">
          <image>
-            <Image url="@../asserts/circle1.png" />
+            <Image url="@../asserts/circle1.png"/>
          </image>
       </ImageView>
-      <TableView fx:id="tblRoom" layoutX="16.0" layoutY="566.0" onMouseClicked="#tblRoomOnClicked" prefHeight="162.0" prefWidth="768.0" style="-fx-background-color: transparent;">
+      <TableView fx:id="tblRoom" layoutX="16.0" layoutY="566.0" onMouseClicked="#tblRoomOnClicked" prefHeight="162.0"
+                 prefWidth="768.0" style="-fx-background-color: transparent;">
          <columns>
-            <TableColumn fx:id="clmRoomID" prefWidth="84.0" text="Room ID" />
-            <TableColumn fx:id="clmCode" prefWidth="138.0" text="Code" />
-            <TableColumn fx:id="clmDescription" prefWidth="203.0" text="Description" />
-            <TableColumn fx:id="clmStartDate" prefWidth="123.0" text="Start Date" />
-            <TableColumn fx:id="clmEndDate" prefWidth="124.0" text="End Date" />
-            <TableColumn fx:id="clmTotAmount" prefWidth="95.0" text="Tot Price" />
+            <TableColumn fx:id="clmRoomID" prefWidth="84.0" text="Room ID"/>
+            <TableColumn fx:id="clmCode" prefWidth="138.0" text="Code"/>
+            <TableColumn fx:id="clmDescription" prefWidth="203.0" text="Description"/>
+            <TableColumn fx:id="clmStartDate" prefWidth="123.0" text="Start Date"/>
+            <TableColumn fx:id="clmEndDate" prefWidth="124.0" text="End Date"/>
+            <TableColumn fx:id="clmTotAmount" prefWidth="95.0" text="Tot Price"/>
          </columns>
       </TableView>
-      <JFXButton fx:id="btnBook" buttonType="RAISED" layoutX="977.0" layoutY="576.0" onAction="#btnBookOnAction" prefHeight="43.0" prefWidth="46.0" styleClass="btnAddBooking" stylesheets="@../css/SetButtonIcons.css" text=" " textFill="WHITE">
+      <JFXButton fx:id="btnBook" buttonType="RAISED" layoutX="977.0" layoutY="576.0" onAction="#btnBookOnAction"
+                 prefHeight="43.0" prefWidth="46.0" styleClass="btnAddBooking" stylesheets="@../css/SetButtonIcons.css"
+                 text=" " textFill="WHITE">
          <font>
             <Font name="Arial Rounded MT Bold" size="14.0" />
          </font>

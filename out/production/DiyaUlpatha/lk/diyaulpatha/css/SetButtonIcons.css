@@ -103,9 +103,10 @@
 {
     -fx-background-color: #cdc9c9;
 }
+
 /*******************************************************************/
 
-.btnReservation{
+.btnReservation {
     /*-fx-background-image: url("../asserts/reservation1.png");*/
     -fx-background-size: 55px;
     -fx-background-repeat: no-repeat;
@@ -113,18 +114,17 @@
     /*-fx-background-radius: 30;*/
 }
 
-.btnReservation:hover
-{
+.btnReservation:hover {
     -fx-background-color: #545456;
 }
 
-.btnReservation:pressed
-{
+.btnReservation:pressed {
     -fx-background-color: #545456;
 }
+
 /*******************************************************************/
 
-.btnSignOut{
+.btnSignOut {
     /*-fx-background-image: url("../asserts/signOut5.png");*/
     -fx-background-size: 60px;
     -fx-background-repeat: no-repeat;
@@ -132,18 +132,17 @@
     /*-fx-background-radius: 30;*/
 }
 
-.btnSignOut:hover
-{
+.btnSignOut:hover {
     -fx-background-color: #545456;
 }
 
-.btnSignOut:pressed
-{
+.btnSignOut:pressed {
     -fx-background-color: #545456;
 }
+
 /*******************************************************************/
 
-.btnReturnRoom{
+.btnReturnRoom {
     /*-fx-background-image: url("../asserts/returnRoom1.png");*/
     -fx-background-size: 60px;
     -fx-background-repeat: no-repeat;
@@ -151,13 +150,11 @@
     /*-fx-background-radius: 30;*/
 }
 
-.btnReturnRoom:hover
-{
+.btnReturnRoom:hover {
     -fx-background-color: #545456;
 }
 
-.btnReturnRoom:pressed
-{
+.btnReturnRoom:pressed {
     -fx-background-color: #545456;
 }
 

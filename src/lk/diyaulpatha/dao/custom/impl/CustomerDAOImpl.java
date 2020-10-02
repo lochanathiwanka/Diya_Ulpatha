@@ -66,10 +66,21 @@ public class CustomerDAOImpl implements CustomerDAO {
     @Override
     public Customer getValuesFromNIC(String NIC) throws ClassNotFoundException, SQLException {
         String SQL = "SELECT * FROM Customer WHERE nic = ?";
-        ResultSet rst = CrudUtil.executeQuery(SQL,NIC);
-        if (rst.next()){
-            return new Customer(rst.getString("customerID"),rst.getString("name"),rst.getString("nic"),
-                    rst.getString("address"),rst.getString("contact"),rst.getString("gender"));
+        ResultSet rst = CrudUtil.executeQuery(SQL, NIC);
+        if (rst.next()) {
+            return new Customer(rst.getString("customerID"), rst.getString("name"), rst.getString("nic"),
+                    rst.getString("address"), rst.getString("contact"), rst.getString("gender"));
+        }
+        return null;
+    }
+
+    @Override
+    public Customer getValuesFromBookingID(String id) throws ClassNotFoundException, SQLException {
+        String SQL = "SELECT c.customerID,name,nic,address,contact,gender FROM Customer c, Booking b WHERE (c.customerID=b.customerID) and b.bookingID = ?";
+        ResultSet rst = CrudUtil.executeQuery(SQL, id);
+        if (rst.next()) {
+            return new Customer(rst.getString(1), rst.getString(2), rst.getString(3),
+                    rst.getString(4), rst.getString(5), rst.getString(6));
         }
         return null;
     }

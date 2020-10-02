@@ -20,4 +20,6 @@ public interface CustomerBO extends SuperBO {
     int getCustomerRowCount() throws ClassNotFoundException, SQLException;
 
     CustomerDTO getValuesFromNIC(String NIC) throws ClassNotFoundException, SQLException;
+
+    CustomerDTO getValuesFromBookingID(String id) throws ClassNotFoundException, SQLException;
 }

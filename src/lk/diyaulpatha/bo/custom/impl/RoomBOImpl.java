@@ -71,4 +71,9 @@ public class RoomBOImpl implements RoomBO {
     public String getRoomImage(String code) throws ClassNotFoundException, SQLException {
         return roomDAO.getRoomImage(code);
     }
+
+    @Override
+    public String getRoomImageFromBookingID(String id) throws ClassNotFoundException, SQLException {
+        return roomDAO.getRoomImageFromBookingID(id);
+    }
 }

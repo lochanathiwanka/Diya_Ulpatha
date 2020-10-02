@@ -25,4 +25,6 @@ public interface RoomBO extends SuperBO {
     int getRemovedRoomCount() throws ClassNotFoundException, SQLException;
 
     String getRoomImage(String code) throws ClassNotFoundException, SQLException;
+
+    String getRoomImageFromBookingID(String id) throws ClassNotFoundException, SQLException;
 }

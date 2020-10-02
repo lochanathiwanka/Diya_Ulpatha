@@ -64,6 +64,16 @@ public class RoomDAOImpl implements RoomDAO {
     }
 
     @Override
+    public String getRoomImageFromBookingID(String id) throws ClassNotFoundException, SQLException {
+        String SQL = "SELECT image FROM Room r, BookingDetail bd WHERE (r.roomID=bd.roomID) and bd.bookingID = ?";
+        ResultSet rst = CrudUtil.executeQuery(SQL, id);
+        if (rst.next()) {
+            return rst.getString("image");
+        }
+        return null;
+    }
+
+    @Override
     public boolean update(Room r) throws ClassNotFoundException, SQLException {
         String SQL = "UPDATE Room SET code=?, description=?, price=?, status=?, image=? WHERE code=?";
         return CrudUtil.executeUpdate(SQL, r.getCode(), r.getDescription(), r.getPrice(), r.getStatus(), r.getImage(), r.getCode());

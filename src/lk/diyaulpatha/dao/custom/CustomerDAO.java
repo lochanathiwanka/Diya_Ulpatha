@@ -5,7 +5,10 @@ import lk.diyaulpatha.entity.Customer;
 
 import java.sql.SQLException;
 
-public interface CustomerDAO extends CrudDAO <Customer,String> {
+public interface CustomerDAO extends CrudDAO<Customer, String> {
     int getCustomerRowCount() throws ClassNotFoundException, SQLException;
+
     Customer getValuesFromNIC(String NIC) throws ClassNotFoundException, SQLException;
+
+    Customer getValuesFromBookingID(String id) throws ClassNotFoundException, SQLException;
 }

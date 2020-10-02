@@ -57,7 +57,13 @@ public class CustomerBOImpl implements CustomerBO {
     @Override
     public CustomerDTO getValuesFromNIC(String NIC) throws ClassNotFoundException, SQLException {
         Customer c = custDAO.getValuesFromNIC(NIC);
-        return new CustomerDTO(c.getCustomerID(),c.getName(),c.getNic(),c.getAddress(),
-                c.getContact(),c.getGender());
+        return new CustomerDTO(c.getCustomerID(), c.getName(), c.getNic(), c.getAddress(),
+                c.getContact(), c.getGender());
+    }
+
+    @Override
+    public CustomerDTO getValuesFromBookingID(String id) throws ClassNotFoundException, SQLException {
+        Customer cust = custDAO.getValuesFromBookingID(id);
+        return new CustomerDTO(cust.getCustomerID(), cust.getName(), cust.getNic(), cust.getAddress(), cust.getContact(), cust.getGender());
     }
 }
