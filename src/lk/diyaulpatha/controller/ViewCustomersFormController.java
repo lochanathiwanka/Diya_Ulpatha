@@ -45,6 +45,8 @@ public class ViewCustomersFormController implements Initializable {
     public TextField txtPayment;
     public TextField txtSearch;
     public JFXDatePicker datePicker;
+    public JFXDatePicker startDatePicker;
+    public JFXDatePicker endDatePicker;
     CustomerBO customerBO = (CustomerBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.CUSTOMER);
     RoomBO roomBO = (RoomBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.ROOM);
     BookingBO bookingBO = (BookingBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.BOOKING);
@@ -88,6 +90,34 @@ public class ViewCustomersFormController implements Initializable {
 
     private void convertDatePicker() {
         datePicker.setConverter(new StringConverter<LocalDate>() {
+            final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+            @Override
+            public String toString(LocalDate date) {
+                return (date != null) ? dateFormatter.format(date) : "";
+            }
+
+            @Override
+            public LocalDate fromString(String string) {
+                return (string != null && !string.isEmpty()) ? LocalDate.parse(string, dateFormatter) : null;
+            }
+        });
+
+        startDatePicker.setConverter(new StringConverter<LocalDate>() {
+            final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+            @Override
+            public String toString(LocalDate date) {
+                return (date != null) ? dateFormatter.format(date) : "";
+            }
+
+            @Override
+            public LocalDate fromString(String string) {
+                return (string != null && !string.isEmpty()) ? LocalDate.parse(string, dateFormatter) : null;
+            }
+        });
+
+        endDatePicker.setConverter(new StringConverter<LocalDate>() {
             final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
             @Override
@@ -284,6 +314,8 @@ public class ViewCustomersFormController implements Initializable {
         roomImage.setVisible(false);
         getCustomerDetails();
         datePicker.setDisable(true);
+        startDatePicker.getEditor().setText(null);
+        endDatePicker.getEditor().setText(null);
     }
 
     public void datePickerOnAction(ActionEvent actionEvent) {
@@ -319,5 +351,29 @@ public class ViewCustomersFormController implements Initializable {
             txtPayment.setText(null);
             roomImage.setVisible(false);
         }
+    }
+
+    private void getCustomerDetailsBetweenTwoDays() {
+        try {
+            ObservableList<CustomerDTO> list = customerBO.getCustomerDetailsBetweenTwoDays(startDatePicker.getValue().toString(),
+                    endDatePicker.getValue().toString());
+
+            tblCustomer.getItems().clear();
+            tblCustomer.setItems(list);
+            setTblCustomerCellValue();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (NullPointerException ex) {
+        }
+    }
+
+    public void startDatePickerOnAction(ActionEvent actionEvent) {
+        getCustomerDetailsBetweenTwoDays();
+    }
+
+    public void endDatePickerOnAction(ActionEvent actionEvent) {
+        getCustomerDetailsBetweenTwoDays();
     }
 }

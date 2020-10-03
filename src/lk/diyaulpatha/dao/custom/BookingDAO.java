@@ -14,4 +14,6 @@ public interface BookingDAO extends CrudDAO<Booking, String> {
     ObservableList<Booking> getAllBookingIDOnOneCustomer(String value) throws ClassNotFoundException, SQLException;
 
     Booking getBookingIDOnDate(String value, String name) throws ClassNotFoundException, SQLException;
+
+    ObservableList<Booking> getBookingIDBetweenTwoDays(String start, String end) throws ClassNotFoundException, SQLException;
 }

@@ -20,8 +20,16 @@
             <TableColumn fx:id="clmPayment" prefWidth="128.0" text="Payment"/>
          </columns>
       </TableView>
-      <JFXDatePicker fx:id="startDatePicker" layoutX="150.0" layoutY="429.0" onAction="#startDatePickerOnAction"/>
-      <JFXDatePicker fx:id="endDatePicker" layoutX="150.0" layoutY="488.0" onAction="#endDatePickerOnAction"/>
+      <JFXDatePicker fx:id="startDatePicker" layoutX="150.0" layoutY="429.0" onAction="#startDatePickerOnAction">
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+      </JFXDatePicker>
+      <JFXDatePicker fx:id="endDatePicker" layoutX="150.0" layoutY="488.0" onAction="#endDatePickerOnAction">
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+      </JFXDatePicker>
       <Label layoutX="100.0" layoutY="433.0" text="Start">
          <font>
             <Font size="14.0"/>

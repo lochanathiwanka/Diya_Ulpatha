@@ -32,23 +32,37 @@ public class BookingDAOImpl implements BookingDAO {
 
     @Override
     public ObservableList<Booking> getAllBookingIDOnOneCustomer(String value) throws ClassNotFoundException, SQLException {
-        String SQL = "SELECT bookingID FROM Booking b, Customer c WHERE (b.customerID=c.customerID) and c.name = ? ";
+        String SQL = "SELECT bookingID,b.customerID,date,time,payment FROM Booking b, Customer c WHERE (b.customerID=c.customerID) and c.name = ? ";
         ResultSet rst = CrudUtil.executeQuery(SQL, value);
         ObservableList<Booking> list = FXCollections.observableArrayList();
         while (rst.next()) {
-            list.add(new Booking(rst.getString("bookingID")));
+            list.add(new Booking(rst.getString("bookingID"), rst.getString("customerID"), rst.getString("date"),
+                    rst.getString("time"), rst.getString("payment")));
         }
         return list;
     }
 
     @Override
     public Booking getBookingIDOnDate(String value, String name) throws ClassNotFoundException, SQLException {
-        String SQL = "SELECT bookingID FROM Booking b, Customer c WHERE (b.customerID=c.customerID) and (b.date = ? && c.name = ?) ";
+        String SQL = "SELECT bookingID,b.customerID,date,time,payment FROM Booking b, Customer c WHERE (b.customerID=c.customerID) and (b.date = ? && c.name = ?) ";
         ResultSet rst = CrudUtil.executeQuery(SQL, value, name);
         if (rst.next()) {
-            return new Booking(rst.getString("bookingID"));
+            return new Booking(rst.getString("bookingID"), rst.getString("customerID"), rst.getString("date"),
+                    rst.getString("time"), rst.getString("payment"));
         }
         return null;
+    }
+
+    @Override
+    public ObservableList<Booking> getBookingIDBetweenTwoDays(String start, String end) throws ClassNotFoundException, SQLException {
+        String SQL = "SELECT bookingID,customerID,date,time,payment from Booking WHERE date between ? and ? ";
+        ResultSet rst = CrudUtil.executeQuery(SQL, start, end);
+        ObservableList<Booking> list = FXCollections.observableArrayList();
+        while (rst.next()) {
+            list.add(new Booking(rst.getString("bookingID"), rst.getString("customerID"), rst.getString("date"),
+                    rst.getString("time"), rst.getString("payment")));
+        }
+        return list;
     }
 
     @Override

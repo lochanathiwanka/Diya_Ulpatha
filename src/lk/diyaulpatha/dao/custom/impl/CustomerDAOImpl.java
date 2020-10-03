@@ -84,4 +84,18 @@ public class CustomerDAOImpl implements CustomerDAO {
         }
         return null;
     }
+
+    @Override
+    public ObservableList<Customer> getCustomerDetailsBetweenTwoDays(String start, String end) throws ClassNotFoundException, SQLException {
+        String SQL = "SELECT c.customerID,name,nic,address,contact,gender FROM Customer c, Booking b WHERE " +
+                "(c.customerID=b.customerID) and b.date between ? and ? ";
+
+        ResultSet rst = CrudUtil.executeQuery(SQL, start, end);
+        ObservableList<Customer> list = FXCollections.observableArrayList();
+        while (rst.next()) {
+            list.add(new Customer(rst.getString("customerID"), rst.getString("name"), rst.getString("nic"),
+                    rst.getString("address"), rst.getString("contact"), rst.getString("gender")));
+        }
+        return list;
+    }
 }

@@ -6,5 +6,5 @@ import lk.diyaulpatha.entity.BookingDetail;
 import java.sql.SQLException;
 
 public interface BookingDetailDAO extends CrudDAO <BookingDetail,String> {
-    boolean setEndTime(String endTime,String bookingID) throws ClassNotFoundException, SQLException;
+    boolean setEndTime(String endTime, String clearedDate, String bookingID) throws ClassNotFoundException, SQLException;
 }

@@ -21,14 +21,16 @@ public class CustomeDTO {
     private String startDate;
     private String endDate;
     private String endTime;
+    private String clearedDate;
     private double totAmount;
 
     public CustomeDTO() {
     }
 
-    public CustomeDTO(String available,String endTime) {
+    public CustomeDTO(String available, String endTime, String clearedDate) {
         this.available = available;
         this.endTime = endTime;
+        this.clearedDate = clearedDate;
     }
 
     public CustomeDTO(String roomID,String code, String description, double price, String available, String endTime) {
@@ -238,5 +240,13 @@ public class CustomeDTO {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getClearedDate() {
+        return clearedDate;
+    }
+
+    public void setClearedDate(String clearedDate) {
+        this.clearedDate = clearedDate;
     }
 }

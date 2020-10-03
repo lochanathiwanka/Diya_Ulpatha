@@ -3,7 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.Cursor?>
+<?import javafx.scene.*?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -41,11 +41,23 @@
         <ImageView fx:id="roomImage" fitHeight="299.0" fitWidth="443.0" layoutX="713.0" layoutY="266.0"
                    pickOnBounds="true" preserveRatio="true"/>
         <TextField fx:id="txtBookingDate" editable="false" layoutX="131.0" layoutY="321.0" prefHeight="26.0"
-                   prefWidth="109.0"/>
+                   prefWidth="109.0">
+            <cursor>
+                <Cursor fx:constant="DEFAULT"/>
+            </cursor>
+        </TextField>
         <TextField fx:id="txtBookingTime" editable="false" layoutX="256.0" layoutY="321.0" prefHeight="26.0"
-                   prefWidth="109.0"/>
+                   prefWidth="109.0">
+            <cursor>
+                <Cursor fx:constant="DEFAULT"/>
+            </cursor>
+        </TextField>
         <TextField fx:id="txtPayment" editable="false" layoutX="379.0" layoutY="321.0" prefHeight="26.0"
-                   prefWidth="109.0"/>
+                   prefWidth="109.0">
+            <cursor>
+                <Cursor fx:constant="DEFAULT"/>
+            </cursor>
+        </TextField>
         <TextField fx:id="txtSearch" layoutX="113.0" layoutY="23.0" onAction="#txtSearchOnAction"
                    onKeyReleased="#txtSearchKeyReleased" style="-fx-background-radius: 30;">
             <font>
@@ -64,6 +76,22 @@
                 <DropShadow/>
             </effect>
         </JFXButton>
-        <JFXDatePicker fx:id="datePicker" layoutX="946.0" layoutY="25.0" onAction="#datePickerOnAction"/>
+        <JFXDatePicker fx:id="datePicker" layoutX="946.0" layoutY="25.0" onAction="#datePickerOnAction">
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
+        </JFXDatePicker>
+        <JFXDatePicker fx:id="startDatePicker" layoutX="376.0" layoutY="24.0" onAction="#startDatePickerOnAction"/>
+        <Label layoutX="329.0" layoutY="30.0" text="Start">
+            <font>
+                <Font name="Arial Rounded MT Bold" size="14.0"/>
+            </font>
+        </Label>
+        <JFXDatePicker fx:id="endDatePicker" layoutX="641.0" layoutY="26.0" onAction="#endDatePickerOnAction"/>
+        <Label layoutX="594.0" layoutY="32.0" text="End">
+            <font>
+                <Font name="Arial Rounded MT Bold" size="14.0"/>
+            </font>
+        </Label>
     </children>
 </AnchorPane>

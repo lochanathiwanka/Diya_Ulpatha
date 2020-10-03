@@ -6,17 +6,19 @@ public class BookingDetail {
     private String startDate;
     private String endDate;
     private String endTime;
+    private String clearedDate;
     private double totalAmount;
 
     public BookingDetail() {
     }
 
-    public BookingDetail(String bookingID, String roomID, String startDate, String endDate, String endTime, double totalAmount) {
+    public BookingDetail(String bookingID, String roomID, String startDate, String endDate, String endTime, String clearedDate, double totalAmount) {
         this.bookingID = bookingID;
         this.roomID = roomID;
         this.startDate = startDate;
         this.endDate = endDate;
         this.endTime = endTime;
+        this.clearedDate = clearedDate;
         this.totalAmount = totalAmount;
     }
 
@@ -66,5 +68,13 @@ public class BookingDetail {
 
     public void setTotalAmount(double totalAmount) {
         this.totalAmount = totalAmount;
+    }
+
+    public String getClearedDate() {
+        return clearedDate;
+    }
+
+    public void setClearedDate(String clearedDate) {
+        this.clearedDate = clearedDate;
     }
 }

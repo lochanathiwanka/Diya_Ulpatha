@@ -54,7 +54,7 @@ public class RoomBOImpl implements RoomBO {
     @Override
     public CustomeDTO getRoomAvailability(String id) throws ClassNotFoundException, SQLException,NullPointerException {
         Custome custome = queryDAO.getRoomAvailability(id);
-        return new CustomeDTO(custome.getAvailable(),custome.getEndTime());
+        return new CustomeDTO(custome.getAvailable(), custome.getEndTime(), custome.getClearedDate());
     }
 
     @Override

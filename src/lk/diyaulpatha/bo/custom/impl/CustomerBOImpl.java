@@ -66,4 +66,14 @@ public class CustomerBOImpl implements CustomerBO {
         Customer cust = custDAO.getValuesFromBookingID(id);
         return new CustomerDTO(cust.getCustomerID(), cust.getName(), cust.getNic(), cust.getAddress(), cust.getContact(), cust.getGender());
     }
+
+    @Override
+    public ObservableList<CustomerDTO> getCustomerDetailsBetweenTwoDays(String start, String end) throws ClassNotFoundException, SQLException {
+        ObservableList<Customer> all = custDAO.getCustomerDetailsBetweenTwoDays(start, end);
+        ObservableList<CustomerDTO> list = FXCollections.observableArrayList();
+        for (Customer c : all) {
+            list.add(new CustomerDTO(c.getCustomerID(), c.getName(), c.getNic(), c.getAddress(), c.getContact(), c.getGender()));
+        }
+        return list;
+    }
 }

@@ -188,7 +188,7 @@ public class ReservationFormController implements Initializable {
             setFinalTotal();
             resetRoomDetailFields();
             setValuesTocmbRoom();
-            setPagination("room.png");
+            setPagination("/home/locha/Documents/Projects/IdeaProjects/JDBC/DiyaUlpatha/src/lk/diyaulpatha/asserts/rooms/room.png");
         }else if (count!=-1){
             new Alert(Alert.AlertType.WARNING,"Room is already in List!",ButtonType.OK).show();
             resetRoomDetailFields();
@@ -445,7 +445,6 @@ public class ReservationFormController implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }catch (NullPointerException ex){
-
         }catch (IllegalArgumentException ex){
         }
     }
@@ -454,21 +453,29 @@ public class ReservationFormController implements Initializable {
         startDatePicker.setDisable(false);
         try {
             CustomeDTO av = roomBO.getRoomAvailability(id);
-            if (av!=null){
-                DateTimeFormatter dtf =  DateTimeFormatter.ofPattern("hh:mm:ss a");
-                LocalTime localTime = LocalTime.parse(av.getEndTime(), dtf);
-                if (av.getAvailable().equals("Available") && av.getEndTime()!=null) {
-                    Date date = new Date() ;
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm:ss a") ;
-                    dateFormat.format(date);
+            if (av != null) {
+                if (av.getAvailable().equals("Available") && av.getEndTime() != null) {
+                    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("hh:mm:ss a");
+                    LocalTime localTime = LocalTime.parse(av.getEndTime(), dtf);
 
+                    Date date = new Date();
+                    SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss a");
+                    sdf.format(date);
                     String newTime = dtf.format(localTime.plusHours(2));
+
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss a");
+                    Date currentDateTime = new Date();
+
+                    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss a");
+                    LocalDateTime dateTime = LocalDateTime.parse(av.getClearedDate() + " " + av.getEndTime(), dateTimeFormatter);
+                    String newDateTime = dateTimeFormatter.format(dateTime.plusHours(2));
+
                     try {
-                        if(dateFormat.parse(dateFormat.format(date)).after(dateFormat.parse(newTime))){
+                        if (dateFormat.parse(dateFormat.format(currentDateTime)).after(dateFormat.parse(newDateTime))) {
                             txtAvailability.setText("Available");
                             startDatePicker.setDisable(false);
-                        }else{
-                            txtAvailability.setText("at "+newTime);
+                        } else {
+                            txtAvailability.setText("at " + newTime);
                             startDatePicker.setDisable(true);
                             endDatePicker.setDisable(true);
                             btnAdd.setDisable(true);
@@ -477,6 +484,9 @@ public class ReservationFormController implements Initializable {
                         e.printStackTrace();
                     }
                 }
+                if (av.getAvailable().equals("Available") && av.getEndTime() == null) {
+                    txtAvailability.setText("Available");
+                }
             }
 
         } catch (ClassNotFoundException e) {
@@ -484,7 +494,7 @@ public class ReservationFormController implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }catch (DateTimeParseException ex){
-            ex.getStackTrace();
+            ex.printStackTrace();
         }catch (NullPointerException ex){
             txtAvailability.setText("Available");
         }
@@ -603,14 +613,14 @@ public class ReservationFormController implements Initializable {
 
         ObservableList<BookingDetailDTO> bookingDetailDTOList = FXCollections.observableArrayList();
         ObservableList<RoomDTO> roomDTOList = FXCollections.observableArrayList();
-        for (int i=0;i<tblRoom.getItems().size();i++){
+        for (int i=0;i<tblRoom.getItems().size();i++) {
             String roomID = tblRoom.getItems().get(i).getRoomID();
             String startDate = tblRoom.getItems().get(i).getStartDate();
             String endDate = tblRoom.getItems().get(i).getEndDate();
             double totAmount = tblRoom.getItems().get(i).getTotAmount();
 
-            bookingDetailDTOList.add(new BookingDetailDTO(generateBookingID(),roomID,startDate,endDate," ",totAmount));
-            roomDTOList.add(new RoomDTO(tblRoom.getItems().get(i).getRoomID(),"Booked"));
+            bookingDetailDTOList.add(new BookingDetailDTO(generateBookingID(), roomID, startDate, endDate, "empty", "empty", totAmount));
+            roomDTOList.add(new RoomDTO(tblRoom.getItems().get(i).getRoomID(), "Booked"));
 
         }
         bookingDTO.setBookingDetailList(bookingDetailDTOList);
@@ -639,7 +649,7 @@ public class ReservationFormController implements Initializable {
                         rbDebit.setVisible(false);
                         btnPay.setVisible(false);
                         txtNIC.requestFocus();
-                    } else if (!isBooked) {
+                    } else {
                         new Alert(Alert.AlertType.WARNING, "Error", ButtonType.OK).show();
                         txtNIC.requestFocus();
                     }

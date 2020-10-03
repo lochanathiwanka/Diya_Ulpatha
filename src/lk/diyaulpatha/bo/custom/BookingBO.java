@@ -20,4 +20,6 @@ public interface BookingBO extends SuperBO {
     BookingDTO getBookingIDOnDate(String value, String name) throws ClassNotFoundException, SQLException;
 
     ObservableList<BookingDTO> getAll() throws ClassNotFoundException, SQLException;
+
+    ObservableList<BookingDTO> getBookingIDBetweenTwoDays(String start, String end) throws ClassNotFoundException, SQLException;
 }

@@ -12,10 +12,10 @@ import java.sql.SQLException;
 public class QueryDAOImpl implements QueryDAO {
     @Override
     public Custome getRoomAvailability(String id) throws ClassNotFoundException, SQLException, NullPointerException {
-        String SQL = "SELECT available,endTime FROM Room LEFT JOIN BookingDetail ON Room.roomID = BookingDetail.roomID WHERE Room.roomID = ? order by BookingDetail.bookingID desc limit 1";
-        ResultSet rst = CrudUtil.executeQuery(SQL,id);
-        if (rst.next()){
-            return new Custome(rst.getString("available"),rst.getString("endTime"));
+        String SQL = "SELECT available,endTime,clearedDate FROM Room LEFT JOIN BookingDetail ON Room.roomID = BookingDetail.roomID WHERE Room.roomID = ? order by BookingDetail.bookingID desc limit 1";
+        ResultSet rst = CrudUtil.executeQuery(SQL, id);
+        if (rst.next()) {
+            return new Custome(rst.getString("available"), rst.getString("endTime"), rst.getString("clearedDate"));
         }
         return null;
     }

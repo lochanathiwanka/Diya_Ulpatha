@@ -1,5 +1,6 @@
 package lk.diyaulpatha.dao.custom;
 
+import javafx.collections.ObservableList;
 import lk.diyaulpatha.dao.CrudDAO;
 import lk.diyaulpatha.entity.Customer;
 
@@ -11,4 +12,6 @@ public interface CustomerDAO extends CrudDAO<Customer, String> {
     Customer getValuesFromNIC(String NIC) throws ClassNotFoundException, SQLException;
 
     Customer getValuesFromBookingID(String id) throws ClassNotFoundException, SQLException;
+
+    ObservableList<Customer> getCustomerDetailsBetweenTwoDays(String start, String end) throws ClassNotFoundException, SQLException;
 }

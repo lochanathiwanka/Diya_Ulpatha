@@ -49,7 +49,7 @@ public class ReturnRoomBOImpl implements ReturnRoomBO {
             }
             if (isUpdatedRoomAvailable) {
                 for (BookingDetailDTO bdetail : bd) {
-                    boolean isUpdatedEndTime = bdDAO.setEndTime(bdetail.getEndTime(), bdetail.getBookingID());
+                    boolean isUpdatedEndTime = bdDAO.setEndTime(bdetail.getEndTime(), bdetail.getClearedDate(), bdetail.getBookingID());
                     if (!isUpdatedEndTime) {
                         connection.rollback();
                         return false;

@@ -22,4 +22,6 @@ public interface CustomerBO extends SuperBO {
     CustomerDTO getValuesFromNIC(String NIC) throws ClassNotFoundException, SQLException;
 
     CustomerDTO getValuesFromBookingID(String id) throws ClassNotFoundException, SQLException;
+
+    ObservableList<CustomerDTO> getCustomerDetailsBetweenTwoDays(String start, String end) throws ClassNotFoundException, SQLException;
 }

@@ -10,10 +10,6 @@ public class Booking {
     public Booking() {
     }
 
-    public Booking(String bookingID) {
-        this.bookingID = bookingID;
-    }
-
     public Booking(String bookingID, String customerID, String date, String time, String payment) {
         this.bookingID = bookingID;
         this.customerID = customerID;

@@ -91,16 +91,19 @@ public class ViewBookingsFormController implements Initializable {
         });
     }
 
+    private void setTblBookingCellValue() {
+        clmID.setCellValueFactory(new PropertyValueFactory<BookingDTO, String>("bookingID"));
+        clmDate.setCellValueFactory(new PropertyValueFactory<BookingDTO, String>("date"));
+        clmTime.setCellValueFactory(new PropertyValueFactory<BookingDTO, String>("time"));
+        clmPayment.setCellValueFactory(new PropertyValueFactory<BookingDTO, String>("payment"));
+    }
+
     private void getAllBookingDetails() {
         try {
             ObservableList<BookingDTO> list = bookingBO.getAll();
             tblBooking.getItems().clear();
             tblBooking.setItems(list);
-
-            clmID.setCellValueFactory(new PropertyValueFactory<BookingDTO, String>("bookingID"));
-            clmDate.setCellValueFactory(new PropertyValueFactory<BookingDTO, String>("date"));
-            clmTime.setCellValueFactory(new PropertyValueFactory<BookingDTO, String>("time"));
-            clmPayment.setCellValueFactory(new PropertyValueFactory<BookingDTO, String>("payment"));
+            setTblBookingCellValue();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException throwables) {
@@ -108,10 +111,38 @@ public class ViewBookingsFormController implements Initializable {
         }
     }
 
+    private void getBookingIDBetweenTwoDays() {
+        try {
+            endDatePicker.setDisable(false);
+            ObservableList<BookingDTO> list = bookingBO.getBookingIDBetweenTwoDays(startDatePicker.getValue().toString(),
+                    endDatePicker.getValue().toString());
+
+            tblBooking.setItems(list);
+            setTblBookingCellValue();
+            resetCustomerDetailFields();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (NullPointerException ex) {
+        }
+    }
+
+    private void resetCustomerDetailFields() {
+        txtNIC.setText(null);
+        txtName.setText(null);
+        txtAddress.setText(null);
+        txtContact.setText(null);
+        txtGender.setText(null);
+        roomImage.setVisible(false);
+    }
+
     public void startDatePickerOnAction(ActionEvent actionEvent) {
+        getBookingIDBetweenTwoDays();
     }
 
     public void endDatePickerOnAction(ActionEvent actionEvent) {
+        getBookingIDBetweenTwoDays();
     }
 
     private void getValuesFromBookingID() {
@@ -140,6 +171,7 @@ public class ViewBookingsFormController implements Initializable {
                 BufferedImage bufferedImage = ImageIO.read(file);
                 Image image = SwingFXUtils.toFXImage(bufferedImage, null);
                 roomImage.setImage(image);
+                roomImage.setVisible(true);
                 new ZoomIn(roomImage).setSpeed(4).play();
             }
         } catch (ClassNotFoundException e) {
@@ -148,6 +180,7 @@ public class ViewBookingsFormController implements Initializable {
             throwables.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (NullPointerException ex) {
         }
     }
 

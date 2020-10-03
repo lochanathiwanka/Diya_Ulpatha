@@ -26,6 +26,7 @@ import lk.diyaulpatha.dto.RoomDTO;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
@@ -137,8 +138,8 @@ public class ReturnRoomFormController implements Initializable {
         ObservableList<BookingDetailDTO> list = FXCollections.observableArrayList();
 
         for (int i = 0; i < tblRoom.getItems().size(); i++) {
-            room.add(new RoomDTO(tblRoom.getItems().get(i).getRoomID(),"Available"));
-            list.add(new BookingDetailDTO(txtBookingID.getText(), LocalTime.now().format(DateTimeFormatter.ofPattern("hh:mm:ss a"))));
+            room.add(new RoomDTO(tblRoom.getItems().get(i).getRoomID(), "Available"));
+            list.add(new BookingDetailDTO(txtBookingID.getText(), LocalTime.now().format(DateTimeFormatter.ofPattern("hh:mm:ss a")), LocalDate.now().toString()));
         }
 
         try {

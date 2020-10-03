@@ -39,21 +39,25 @@ public class BookingBOImpl implements BookingBO {
             if (custSearch!=null) {
                 boolean isAddedBooking = bookingDAO.add(new Booking(b.getBookingID(), b.getCustomerID(), b.getDate(), b.getTime(), b.getPayment()));
                 if (isAddedBooking) {
+                    System.out.println("Added to Booking");
                     boolean isAddedBookingDetail = false;
                     for (BookingDetailDTO bd : b.getBookingDetailList()) {
                         isAddedBookingDetail = bdetailsDAO.add(new BookingDetail(bd.getBookingID(), bd.getRoomID(), bd.getStartDate(),
-                                bd.getEndDate(), bd.getEndTime(), bd.getTotalAmount()));
+                                bd.getEndDate(), bd.getEndTime(), bd.getClearedDate(), bd.getTotalAmount()));
 
                         if (!isAddedBookingDetail) {
+                            System.out.println("Not Added to BookingDetail");
                             connection.rollback();
                             return false;
                         }
 
                     }
                     if (isAddedBookingDetail) {
+                        System.out.println("Added to BookingDetail");
                         for (RoomDTO r : b.getRoomList()) {
                             boolean isUpdatedRoom = roomDAO.updateRoomAvailable(r.getRoomID(), r.getAvailable());
                             if (!isUpdatedRoom) {
+                                System.out.println("Not Updated Room");
                                 connection.rollback();
                                 return false;
                             }
@@ -71,7 +75,7 @@ public class BookingBOImpl implements BookingBO {
                         boolean isAddedBookingDetail = false;
                         for (BookingDetailDTO bd : b.getBookingDetailList()) {
                             isAddedBookingDetail = bdetailsDAO.add(new BookingDetail(bd.getBookingID(), bd.getRoomID(), bd.getStartDate(),
-                                    bd.getEndDate(), bd.getEndTime(), bd.getTotalAmount()));
+                                    bd.getEndDate(), bd.getEndTime(), bd.getClearedDate(), bd.getTotalAmount()));
 
                             if (!isAddedBookingDetail) {
                                 connection.rollback();
@@ -100,6 +104,7 @@ public class BookingBOImpl implements BookingBO {
                 }
             }
         }catch (SQLException ex){
+            ex.printStackTrace();
             connection.rollback();
             return false;
         }
@@ -144,6 +149,16 @@ public class BookingBOImpl implements BookingBO {
     @Override
     public ObservableList<BookingDTO> getAll() throws ClassNotFoundException, SQLException {
         ObservableList<Booking> all = bookingDAO.getAll();
+        ObservableList<BookingDTO> list = FXCollections.observableArrayList();
+        for (Booking b : all) {
+            list.add(new BookingDTO(b.getBookingID(), b.getDate(), b.getTime(), b.getPayment()));
+        }
+        return list;
+    }
+
+    @Override
+    public ObservableList<BookingDTO> getBookingIDBetweenTwoDays(String start, String end) throws ClassNotFoundException, SQLException {
+        ObservableList<Booking> all = bookingDAO.getBookingIDBetweenTwoDays(start, end);
         ObservableList<BookingDTO> list = FXCollections.observableArrayList();
         for (Booking b : all) {
             list.add(new BookingDTO(b.getBookingID(), b.getDate(), b.getTime(), b.getPayment()));

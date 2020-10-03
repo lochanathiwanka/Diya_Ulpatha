@@ -10,8 +10,8 @@ import java.sql.SQLException;
 public class BookingDetailDAOImpl implements BookingDetailDAO {
     @Override
     public boolean add(BookingDetail bd) throws ClassNotFoundException, SQLException {
-        String SQL = "INSERT INTO BookingDetail (bookingID,roomID,startDate,endDate,endTime,totAmount) VALUES (?,?,?,?,?,?)";
-        return CrudUtil.executeUpdate(SQL,bd.getBookingID(),bd.getRoomID(),bd.getStartDate(),bd.getEndDate(),bd.getEndTime(),bd.getTotalAmount());
+        String SQL = "INSERT INTO BookingDetail (bookingID,roomID,startDate,endDate,endTime,clearedDate,totAmount) VALUES (?,?,?,?,?,?,?)";
+        return CrudUtil.executeUpdate(SQL, bd.getBookingID(), bd.getRoomID(), bd.getStartDate(), bd.getEndDate(), bd.getEndTime(), bd.getClearedDate(), bd.getTotalAmount());
     }
 
     @Override
@@ -35,8 +35,8 @@ public class BookingDetailDAOImpl implements BookingDetailDAO {
     }
 
     @Override
-    public boolean setEndTime(String endTime, String bookingID) throws ClassNotFoundException, SQLException {
-        String SQL = "UPDATE BookingDetail SET endTime=? WHERE bookingID=?";
-        return CrudUtil.executeUpdate(SQL,endTime,bookingID);
+    public boolean setEndTime(String endTime, String clearedDate, String bookingID) throws ClassNotFoundException, SQLException {
+        String SQL = "UPDATE BookingDetail SET endTime=?, clearedDate=? WHERE bookingID=?";
+        return CrudUtil.executeUpdate(SQL, endTime, clearedDate, bookingID);
     }
 }

@@ -21,14 +21,16 @@ public class Custome {
     private String startDate;
     private String endDate;
     private String endTime;
+    private String clearedDate;
     private double totAmount;
 
     public Custome() {
     }
 
-    public Custome(String available, String endTime) {
+    public Custome(String available, String endTime, String clearedDate) {
         this.available = available;
         this.endTime = endTime;
+        this.clearedDate = clearedDate;
     }
 
     public Custome(String code, String startDate, String endDate, String endTime, double totAmount) {
@@ -217,5 +219,13 @@ public class Custome {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getClearedDate() {
+        return clearedDate;
+    }
+
+    public void setClearedDate(String clearedDate) {
+        this.clearedDate = clearedDate;
     }
 }

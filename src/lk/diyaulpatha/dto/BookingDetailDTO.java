@@ -6,14 +6,16 @@ public class BookingDetailDTO {
     private String startDate;
     private String endDate;
     private String endTime;
+    private String clearedDate;
     private double totalAmount;
 
     public BookingDetailDTO() {
     }
 
-    public BookingDetailDTO(String bookingID, String endTime) {
+    public BookingDetailDTO(String bookingID, String endTime, String clearedDate) {
         this.bookingID = bookingID;
         this.endTime = endTime;
+        this.clearedDate = clearedDate;
     }
 
     public BookingDetailDTO(String bookingID, String roomID, String startDate, String endDate, double totalAmount) {
@@ -30,6 +32,16 @@ public class BookingDetailDTO {
         this.startDate = startDate;
         this.endDate = endDate;
         this.endTime = endTime;
+        this.totalAmount = totalAmount;
+    }
+
+    public BookingDetailDTO(String bookingID, String roomID, String startDate, String endDate, String endTime, String clearedDate, double totalAmount) {
+        this.bookingID = bookingID;
+        this.roomID = roomID;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.endTime = endTime;
+        this.clearedDate = clearedDate;
         this.totalAmount = totalAmount;
     }
 
@@ -79,5 +91,13 @@ public class BookingDetailDTO {
 
     public void setTotalAmount(double totalAmount) {
         this.totalAmount = totalAmount;
+    }
+
+    public String getClearedDate() {
+        return clearedDate;
+    }
+
+    public void setClearedDate(String clearedDate) {
+        this.clearedDate = clearedDate;
     }
 }
