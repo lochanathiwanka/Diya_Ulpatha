@@ -145,7 +145,7 @@ public class MainFormController extends StageList implements Initializable {
                 original.setScene(null);
                 transparentStage.setScene(scene);
                 transparentStage.show();
-                original.hide();
+                original.close();
                 adminFormStage = transparentStage;
                 mainFormStage.close();
 
@@ -180,7 +180,7 @@ public class MainFormController extends StageList implements Initializable {
                 original.setScene(null);
                 transparentStage.setScene(scene);
                 transparentStage.show();
-                original.hide();
+                original.close();
                 cashierFormStage = transparentStage;
                 mainFormStage.close();
 

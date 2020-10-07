@@ -59,6 +59,7 @@ public class ViewBookingsFormController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         getAllBookingDetails();
         convertDatePicker();
+        endDatePicker.setDisable(true);
     }
 
     private void convertDatePicker() {
@@ -138,6 +139,7 @@ public class ViewBookingsFormController implements Initializable {
     }
 
     public void startDatePickerOnAction(ActionEvent actionEvent) {
+        endDatePicker.setDisable(false);
         getBookingIDBetweenTwoDays();
     }
 
@@ -187,5 +189,9 @@ public class ViewBookingsFormController implements Initializable {
     public void tblBookingOnAction(MouseEvent mouseEvent) {
         getValuesFromBookingID();
         setRoomImageFromBookingID();
+        startDatePicker.setDisable(false);
+        startDatePicker.getEditor().setText(null);
+        endDatePicker.setDisable(true);
+        endDatePicker.getEditor().setText(null);
     }
 }

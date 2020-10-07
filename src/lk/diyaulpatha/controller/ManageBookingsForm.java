@@ -1,10 +1,13 @@
 package lk.diyaulpatha.controller;
 
 import animatefx.animation.FadeIn;
+import animatefx.animation.Pulse;
+import animatefx.animation.ZoomIn;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
@@ -22,6 +25,7 @@ public class ManageBookingsForm implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             setViewBookingsForm();
+            new ZoomIn(titlePane).setSpeed(0.6).play();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -32,6 +36,10 @@ public class ManageBookingsForm implements Initializable {
         AnchorPane pane = (AnchorPane) FXMLLoader.load(this.getClass().getResource("../view/ViewBookingsForm.fxml"));
         childPane.getChildren().setAll(pane.getChildren());
         new FadeIn(childPane).play();
+    }
+
+    public void btnBookingsMouseEntered(MouseEvent mouseEvent) {
+        new Pulse(btnBookings).setCycleCount(1).setSpeed(0.8).play();
     }
 
     private void setViewBookingsForm() throws IOException {
@@ -48,6 +56,18 @@ public class ManageBookingsForm implements Initializable {
         new FadeIn(childPane).play();
     }
 
-    public void btnRoomsOnAction(ActionEvent actionEvent) {
+    public void btnCustomersMouseEntered(MouseEvent mouseEvent) {
+        new Pulse(btnCustomers).setCycleCount(1).setSpeed(0.8).play();
+    }
+
+    public void btnRoomsOnAction(ActionEvent actionEvent) throws IOException {
+        childPane.getChildren().clear();
+        AnchorPane pane = (AnchorPane) FXMLLoader.load(this.getClass().getResource("../view/ViewRoomsAndBookingsForm.fxml"));
+        childPane.getChildren().setAll(pane.getChildren());
+        new FadeIn(childPane).play();
+    }
+
+    public void btnRoomsMouseEntered(MouseEvent mouseEvent) {
+        new Pulse(btnRooms).setCycleCount(1).setSpeed(0.8).play();
     }
 }

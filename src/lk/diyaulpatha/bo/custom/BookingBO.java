@@ -11,15 +11,19 @@ public interface BookingBO extends SuperBO {
 
     int getBookingRowCount() throws ClassNotFoundException, SQLException;
 
-    String getLastBookingID(String NIC, String name, String contact) throws ClassNotFoundException, SQLException;
+    ObservableList<String> getAllToBePayedBookingIDOnOneCustomer(String NIC, String name, String contact) throws ClassNotFoundException, SQLException;
 
     ObservableList<BookingDTO> getAllBookingIDOnOneCustomer(String name) throws ClassNotFoundException, SQLException;
 
     BookingDTO search(String bookingID) throws ClassNotFoundException, SQLException;
 
-    BookingDTO getBookingIDOnDate(String value, String name) throws ClassNotFoundException, SQLException;
+    ObservableList<BookingDTO> getBookingIDOnDate(String value, String name) throws ClassNotFoundException, SQLException;
 
     ObservableList<BookingDTO> getAll() throws ClassNotFoundException, SQLException;
 
     ObservableList<BookingDTO> getBookingIDBetweenTwoDays(String start, String end) throws ClassNotFoundException, SQLException;
+
+    ObservableList<BookingDTO> getAllBookingIDOnRoomCode(String code) throws ClassNotFoundException, SQLException;
+
+    ObservableList<BookingDTO> getAllBoookingDetailBetweenTwoDaysOnRoomCode(String code, String start, String end) throws ClassNotFoundException, SQLException;
 }

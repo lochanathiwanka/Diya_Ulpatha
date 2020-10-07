@@ -21,18 +21,20 @@ public class BookingDAOImpl implements BookingDAO {
     }
 
     @Override
-    public String getLastBookingID(String NIC, String name, String contact) throws ClassNotFoundException, SQLException {
-        String SQL = "select bookingID from Booking b,Customer c where (b.customerID=c.customerID) and (nic=? or name=? or contact=?) order by bookingID desc limit 1";
-        ResultSet rst = CrudUtil.executeQuery(SQL, NIC, name, contact);
-        if (rst.next()) {
-            return rst.getString("bookingID");
+    public ObservableList<String> getAllToBePayedBookingIDOnOneCustomer(String NIC, String name, String contact) throws ClassNotFoundException, SQLException {
+        String SQL = "SELECT DISTINCT b.bookingID FROM Booking b, BookingDetail bd, Customer c WHERE (b.bookingID=bd.bookingID && b.customerID=c.customerID) " +
+                "AND (nic=? OR name=? OR contact=?) AND bd.endTime=? ORDER BY bookingID";
+        ResultSet rst = CrudUtil.executeQuery(SQL, NIC, name, contact, "empty");
+        ObservableList<String> list = FXCollections.observableArrayList();
+        while (rst.next()) {
+            list.add(rst.getString("bookingID"));
         }
-        return null;
+        return list;
     }
 
     @Override
     public ObservableList<Booking> getAllBookingIDOnOneCustomer(String value) throws ClassNotFoundException, SQLException {
-        String SQL = "SELECT bookingID,b.customerID,date,time,payment FROM Booking b, Customer c WHERE (b.customerID=c.customerID) and c.name = ? ";
+        String SQL = "SELECT bookingID,b.customerID,date,time,payment FROM Booking b, Customer c WHERE (b.customerID=c.customerID) AND c.name = ? ";
         ResultSet rst = CrudUtil.executeQuery(SQL, value);
         ObservableList<Booking> list = FXCollections.observableArrayList();
         while (rst.next()) {
@@ -43,20 +45,45 @@ public class BookingDAOImpl implements BookingDAO {
     }
 
     @Override
-    public Booking getBookingIDOnDate(String value, String name) throws ClassNotFoundException, SQLException {
-        String SQL = "SELECT bookingID,b.customerID,date,time,payment FROM Booking b, Customer c WHERE (b.customerID=c.customerID) and (b.date = ? && c.name = ?) ";
+    public ObservableList<Booking> getBookingIDOnDate(String value, String name) throws ClassNotFoundException, SQLException {
+        String SQL = "SELECT bookingID,b.customerID,date,time,payment FROM Booking b, Customer c WHERE (b.customerID=c.customerID) AND (b.date = ? && c.name = ?) ";
         ResultSet rst = CrudUtil.executeQuery(SQL, value, name);
-        if (rst.next()) {
-            return new Booking(rst.getString("bookingID"), rst.getString("customerID"), rst.getString("date"),
-                    rst.getString("time"), rst.getString("payment"));
+        ObservableList<Booking> list = FXCollections.observableArrayList();
+        while (rst.next()) {
+            list.add(new Booking(rst.getString("bookingID"), rst.getString("customerID"), rst.getString("date"),
+                    rst.getString("time"), rst.getString("payment")));
         }
-        return null;
+        return list;
     }
 
     @Override
     public ObservableList<Booking> getBookingIDBetweenTwoDays(String start, String end) throws ClassNotFoundException, SQLException {
-        String SQL = "SELECT bookingID,customerID,date,time,payment from Booking WHERE date between ? and ? ";
+        String SQL = "SELECT bookingID,customerID,date,time,payment FROM Booking WHERE date BETWEEN ? AND ? ";
         ResultSet rst = CrudUtil.executeQuery(SQL, start, end);
+        ObservableList<Booking> list = FXCollections.observableArrayList();
+        while (rst.next()) {
+            list.add(new Booking(rst.getString("bookingID"), rst.getString("customerID"), rst.getString("date"),
+                    rst.getString("time"), rst.getString("payment")));
+        }
+        return list;
+    }
+
+    @Override
+    public ObservableList<Booking> getAllBookingIDOnRoomCode(String code) throws ClassNotFoundException, SQLException {
+        String SQL = "SELECT b.bookingID,customerID,date,time,payment FROM Booking b, BookingDetail bd, Room r WHERE (b.bookingID=bd.bookingID && r.roomID=bd.roomID) AND r.code=?";
+        ResultSet rst = CrudUtil.executeQuery(SQL, code);
+        ObservableList<Booking> list = FXCollections.observableArrayList();
+        while (rst.next()) {
+            list.add(new Booking(rst.getString(1), rst.getString(2), rst.getString(3),
+                    rst.getString(4), rst.getString(5)));
+        }
+        return list;
+    }
+
+    @Override
+    public ObservableList<Booking> getAllBoookingDetailBetweenTwoDaysOnRoomCode(String code, String start, String end) throws ClassNotFoundException, SQLException {
+        String SQL = "SELECT b.bookingID,customerID,date,time,payment from Booking b, BookingDetail bd, Room r WHERE (b.bookingID=bd.bookingID && r.roomID=bd.roomID) AND (r.code=? && date BETWEEN ? AND ?) ";
+        ResultSet rst = CrudUtil.executeQuery(SQL, code, start, end);
         ObservableList<Booking> list = FXCollections.observableArrayList();
         while (rst.next()) {
             list.add(new Booking(rst.getString("bookingID"), rst.getString("customerID"), rst.getString("date"),

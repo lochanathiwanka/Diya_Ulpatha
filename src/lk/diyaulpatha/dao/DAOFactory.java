@@ -14,18 +14,28 @@ public class DAOFactory {
         return daoFactory;
     }
 
-    public enum DAOTypes{
-        CUSTOMER, ROOM, BOOKING, BOOKINGDETAIL, QUERY;
-    }
-
     public SuperDAO getDAO(DAOTypes daoTypes){
         switch (daoTypes){
-            case CUSTOMER: return new CustomerDAOImpl();
-            case ROOM: return new RoomDAOImpl();
-            case BOOKING: return new BookingDAOImpl();
-            case BOOKINGDETAIL: return new BookingDetailDAOImpl();
-            case QUERY: return new QueryDAOImpl();
-            default: return null;
+            case CUSTOMER:
+                return new CustomerDAOImpl();
+            case ROOM:
+                return new RoomDAOImpl();
+            case BOOKING:
+                return new BookingDAOImpl();
+            case BOOKINGDETAIL:
+                return new BookingDetailDAOImpl();
+            case QUERY:
+                return new QueryDAOImpl();
+            case USER:
+                return new UserDAOImpl();
+            case EMPLOYEE:
+                return new EmployeeDAOImpl();
+            default:
+                return null;
         }
+    }
+
+    public enum DAOTypes {
+        CUSTOMER, ROOM, BOOKING, BOOKINGDETAIL, QUERY, USER, EMPLOYEE;
     }
 }

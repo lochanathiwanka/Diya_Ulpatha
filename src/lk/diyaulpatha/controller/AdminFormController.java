@@ -6,6 +6,7 @@ import animatefx.animation.ZoomIn;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -19,9 +20,11 @@ import javafx.stage.StageStyle;
 import lk.diyaulpatha.stages.StageList;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
-public class AdminFormController extends StageList {
+public class AdminFormController extends StageList implements Initializable {
 
     public AnchorPane menuPane;
     public JFXButton btnHome;
@@ -43,7 +46,7 @@ public class AdminFormController extends StageList {
         new Pulse(btnHome).setCycleCount(1).setSpeed(0.8).play();
     }
 
-    public void btnRoomsOnAction(ActionEvent actionEvent) throws IOException {
+    private void setRoomPane() throws IOException {
         new ZoomIn(btnRooms).setCycleCount(1).setSpeed(0.4).play();
         childPane.getChildren().clear();
         AnchorPane pane = (AnchorPane) FXMLLoader.load(this.getClass().getResource("../view/ManageRoomsForm.fxml"));
@@ -51,20 +54,20 @@ public class AdminFormController extends StageList {
         new FadeIn(childPane).play();
     }
 
+    public void btnRoomsOnAction(ActionEvent actionEvent) throws IOException {
+        setRoomPane();
+    }
+
     public void btnRoomsMouseEntered(MouseEvent mouseEvent) {
         new Pulse(btnRooms).setCycleCount(1).setSpeed(0.8).play();
     }
 
-    public void btnFoodsOnAction(ActionEvent actionEvent) {
-        new ZoomIn(btnFoods).setCycleCount(1).setSpeed(0.4).play();
-    }
-
-    public void btnFoodsMouseEntered(MouseEvent mouseEvent) {
-        new Pulse(btnFoods).setCycleCount(1).setSpeed(0.8).play();
-    }
-
-    public void btnEmployeesOnAction(ActionEvent actionEvent) {
+    public void btnEmployeesOnAction(ActionEvent actionEvent) throws IOException {
         new ZoomIn(btnEmployees).setCycleCount(1).setSpeed(0.4).play();
+        childPane.getChildren().clear();
+        AnchorPane pane = (AnchorPane) FXMLLoader.load(this.getClass().getResource("../view/ManageEmployeesForm.fxml"));
+        childPane.getChildren().setAll(pane.getChildren());
+        new FadeIn(childPane).play();
     }
 
     public void btnEmployeesMouseEntered(MouseEvent mouseEvent) {
@@ -113,7 +116,7 @@ public class AdminFormController extends StageList {
             original.setScene(null);
             transparentStage.setScene(scene);
             transparentStage.show();
-            original.hide();
+            original.close();
             mainFormStage = transparentStage;
             adminFormStage.close();
         } else if (result.get() == ButtonType.CANCEL) {
@@ -127,5 +130,14 @@ public class AdminFormController extends StageList {
 
     public void btnCloseOnAction(MouseEvent mouseEvent) {
         System.exit(0);
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        try {
+            setRoomPane();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

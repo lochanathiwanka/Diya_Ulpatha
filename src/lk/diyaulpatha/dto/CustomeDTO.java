@@ -24,6 +24,20 @@ public class CustomeDTO {
     private String clearedDate;
     private double totAmount;
 
+    private String employeeID;
+    private String employeeName;
+    private String employeeNic;
+    private String employeeAddress;
+    private String employeeDob;
+    private String employeeContact;
+    private String employeeEmail;
+    private String employeeGender;
+    private String employeeRole;
+
+    private String userID;
+    private String userName;
+    private String password;
+
     public CustomeDTO() {
     }
 
@@ -63,13 +77,7 @@ public class CustomeDTO {
         this.totAmount = totAmount;
     }
 
-    public CustomeDTO(String customerID, String name, String nic, String address, String contact, String gender, String bookingID, String date, String time, String payment, String startDate, String endDate, String roomID, String code, String description, double totAmount) {
-        this.customerID = customerID;
-        this.name = name;
-        this.nic = nic;
-        this.address = address;
-        this.contact = contact;
-        this.gender = gender;
+    public CustomeDTO(String bookingID, String date, String time, String payment, String startDate, String endDate, String roomID, String code, String description, double totAmount) {
         this.bookingID = bookingID;
         this.date = date;
         this.time = time;
@@ -88,6 +96,19 @@ public class CustomeDTO {
         this.endDate = endDate;
         this.endTime = endTime;
         this.totAmount = totAmount;
+    }
+
+    public CustomeDTO(String employeeName, String employeeNic, String employeeAddress, String employeeDob, String employeeContact, String employeeEmail, String employeeGender, String employeeRole, String userName, String password) {
+        this.employeeName = employeeName;
+        this.employeeNic = employeeNic;
+        this.employeeAddress = employeeAddress;
+        this.employeeDob = employeeDob;
+        this.employeeContact = employeeContact;
+        this.employeeEmail = employeeEmail;
+        this.employeeGender = employeeGender;
+        this.employeeRole = employeeRole;
+        this.userName = userName;
+        this.password = password;
     }
 
     public String getRoomID() {
@@ -248,5 +269,101 @@ public class CustomeDTO {
 
     public void setClearedDate(String clearedDate) {
         this.clearedDate = clearedDate;
+    }
+
+    public String getEmployeeID() {
+        return employeeID;
+    }
+
+    public void setEmployeeID(String employeeID) {
+        this.employeeID = employeeID;
+    }
+
+    public String getEmployeeName() {
+        return employeeName;
+    }
+
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
+    }
+
+    public String getEmployeeNic() {
+        return employeeNic;
+    }
+
+    public void setEmployeeNic(String employeeNic) {
+        this.employeeNic = employeeNic;
+    }
+
+    public String getEmployeeAddress() {
+        return employeeAddress;
+    }
+
+    public void setEmployeeAddress(String employeeAddress) {
+        this.employeeAddress = employeeAddress;
+    }
+
+    public String getEmployeeDob() {
+        return employeeDob;
+    }
+
+    public void setEmployeeDob(String employeeDob) {
+        this.employeeDob = employeeDob;
+    }
+
+    public String getEmployeeContact() {
+        return employeeContact;
+    }
+
+    public void setEmployeeContact(String employeeContact) {
+        this.employeeContact = employeeContact;
+    }
+
+    public String getEmployeeEmail() {
+        return employeeEmail;
+    }
+
+    public void setEmployeeEmail(String employeeEmail) {
+        this.employeeEmail = employeeEmail;
+    }
+
+    public String getEmployeeGender() {
+        return employeeGender;
+    }
+
+    public void setEmployeeGender(String employeeGender) {
+        this.employeeGender = employeeGender;
+    }
+
+    public String getEmployeeRole() {
+        return employeeRole;
+    }
+
+    public void setEmployeeRole(String employeeRole) {
+        this.employeeRole = employeeRole;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

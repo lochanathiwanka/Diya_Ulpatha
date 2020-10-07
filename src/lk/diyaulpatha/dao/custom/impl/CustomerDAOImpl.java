@@ -87,7 +87,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     @Override
     public ObservableList<Customer> getCustomerDetailsBetweenTwoDays(String start, String end) throws ClassNotFoundException, SQLException {
-        String SQL = "SELECT c.customerID,name,nic,address,contact,gender FROM Customer c, Booking b WHERE " +
+        String SQL = "SELECT DISTINCT c.customerID,name,nic,address,contact,gender FROM Customer c, Booking b WHERE " +
                 "(c.customerID=b.customerID) and b.date between ? and ? ";
 
         ResultSet rst = CrudUtil.executeQuery(SQL, start, end);

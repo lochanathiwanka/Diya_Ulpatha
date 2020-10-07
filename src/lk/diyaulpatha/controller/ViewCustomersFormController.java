@@ -326,10 +326,7 @@ public class ViewCustomersFormController implements Initializable {
             } else {
                 custName = txtSearch.getText();
             }
-            BookingDTO booking = bookingBO.getBookingIDOnDate(datePicker.getValue().toString(), custName);
-            ObservableList<BookingDTO> list = FXCollections.observableArrayList();
-            if (booking != null) {
-                list.add(new BookingDTO(booking.getBookingID()));
+            ObservableList<BookingDTO> list = bookingBO.getBookingIDOnDate(datePicker.getValue().toString(), custName);
                 tblBooking.getItems().clear();
                 tblBooking.setItems(list);
                 clmBookingID.setCellValueFactory(new PropertyValueFactory<BookingDTO, String>("bookingID"));
@@ -338,7 +335,6 @@ public class ViewCustomersFormController implements Initializable {
                 txtBookingTime.setText(null);
                 txtPayment.setText(null);
                 roomImage.setVisible(false);
-            }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException throwables) {

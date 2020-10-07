@@ -27,12 +27,14 @@ public class BOFactory {
                 return new ReturnRoomBOImpl();
             case BOOKINGDETAIL:
                 return new BookingDetailBOImpl();
+            case EMPLOYEE:
+                return new EmployeeBOImpl();
             default:
                 return null;
         }
     }
 
     public enum BOTypes {
-        CUSTOMER, ROOM, BOOKING, RETURNROOM, BOOKINGDETAIL
+        CUSTOMER, ROOM, BOOKING, RETURNROOM, BOOKINGDETAIL, EMPLOYEE
     }
 }

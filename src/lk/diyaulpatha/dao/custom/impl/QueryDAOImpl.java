@@ -21,18 +21,17 @@ public class QueryDAOImpl implements QueryDAO {
     }
 
     @Override
-    public ObservableList<Custome> getCustomerAndRoomBookingDetails(String id) throws ClassNotFoundException, SQLException {
-        String SQL = "SELECT c.customerID,name,nic,address,contact,gender,b.bookingID,date,time,payment,startDate,endDate,r.roomID,code,description,bd.totAmount\n" +
-                "FROM Customer c, Booking b, BookingDetail bd, Room r\n" +
-                "WHERE (c.customerID=b.customerID && b.bookingID=bd.bookingID && r.roomID=bd.roomID) AND (bd.bookingID=? && available=? && status=?) ORDER BY (b.date)";
+    public ObservableList<Custome> getRoomAndBookingDetails(String id) throws ClassNotFoundException, SQLException {
+        String SQL = "SELECT b.bookingID,date,time,payment,startDate,endDate,r.roomID,code,description,bd.totAmount\n" +
+                "FROM Booking b, BookingDetail bd, Room r\n" +
+                "WHERE (b.bookingID=bd.bookingID && r.roomID=bd.roomID) AND (bd.bookingID=? && available=? && status=?) ORDER BY (b.date)";
 
         ResultSet rst = CrudUtil.executeQuery(SQL, id, "Booked", "Exists");
         ObservableList<Custome> list = FXCollections.observableArrayList();
         while (rst.next()) {
             list.add(new Custome(rst.getString(1), rst.getString(2), rst.getString(3), rst.getString(4),
                     rst.getString(5), rst.getString(6), rst.getString(7), rst.getString(8),
-                    rst.getString(9), rst.getString(10), rst.getString(11), rst.getString(12),
-                    rst.getString(13), rst.getString(14), rst.getString(15), Double.parseDouble(rst.getString(16))));
+                    rst.getString(9), Double.parseDouble(rst.getString(10))));
         }
         return list;
     }
@@ -49,5 +48,33 @@ public class QueryDAOImpl implements QueryDAO {
                     Double.parseDouble(rst.getString(5))));
         }
         return list;
+    }
+
+    @Override
+    public Custome getValuesFromEmployeeName(String employeeName) throws ClassNotFoundException, SQLException {
+        String SQL = "SELECT employeeName,nic,address,contact,dob,email,gender,role,userName,password FROM Employee e LEFT JOIN User u " +
+                "on e.employeeID = u.employeeID WHERE employeeName=?";
+
+        ResultSet rst = CrudUtil.executeQuery(SQL, employeeName);
+        if (rst.next()) {
+            return new Custome(rst.getString("employeeName"), rst.getString("nic"), rst.getString("address"),
+                    rst.getString("dob"), rst.getString("contact"), rst.getString("email"),
+                    rst.getString("gender"), rst.getString("role"), rst.getString("userName"), rst.getString("password"));
+        }
+        return null;
+    }
+
+    @Override
+    public Custome getValuesFromEmployeeNIC(String nic) throws ClassNotFoundException, SQLException {
+        String SQL = "SELECT employeeName,nic,address,contact,dob,email,gender,role,userName,password FROM Employee e LEFT JOIN User u " +
+                "on e.employeeID = u.employeeID WHERE nic=?";
+
+        ResultSet rst = CrudUtil.executeQuery(SQL, nic);
+        if (rst.next()) {
+            return new Custome(rst.getString("employeeName"), rst.getString("nic"), rst.getString("address"),
+                    rst.getString("dob"), rst.getString("contact"), rst.getString("email"),
+                    rst.getString("gender"), rst.getString("role"), rst.getString("userName"), rst.getString("password"));
+        }
+        return null;
     }
 }

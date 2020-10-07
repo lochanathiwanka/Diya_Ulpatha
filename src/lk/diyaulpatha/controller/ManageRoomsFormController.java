@@ -1,5 +1,7 @@
 package lk.diyaulpatha.controller;
 
+import animatefx.animation.FadeIn;
+import animatefx.animation.ZoomIn;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +25,7 @@ public class ManageRoomsFormController implements Initializable {
         childPane.getChildren().clear();
         AnchorPane pane = (AnchorPane) FXMLLoader.load(this.getClass().getResource("../view/AddRoomForm.fxml"));
         childPane.getChildren().setAll(pane.getChildren());
+        new FadeIn(childPane).play();
     }
 
     public void btnAddRoomOnAction(ActionEvent actionEvent) {
@@ -37,18 +40,21 @@ public class ManageRoomsFormController implements Initializable {
         childPane.getChildren().clear();
         AnchorPane pane = (AnchorPane) FXMLLoader.load(this.getClass().getResource("../view/RemoveRoomForm.fxml"));
         childPane.getChildren().setAll(pane.getChildren());
+        new FadeIn(childPane).play();
     }
 
     public void btnUpdateRoomOnAction(ActionEvent actionEvent) throws IOException {
         childPane.getChildren().clear();
         AnchorPane pane = (AnchorPane) FXMLLoader.load(this.getClass().getResource("../view/UpdateRoomForm.fxml"));
         childPane.getChildren().setAll(pane.getChildren());
+        new FadeIn(childPane).play();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
             setAddRoomPane();
+            new ZoomIn(titlePane).setSpeed(0.6).play();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -58,5 +64,6 @@ public class ManageRoomsFormController implements Initializable {
         childPane.getChildren().clear();
         AnchorPane pane = (AnchorPane) FXMLLoader.load(this.getClass().getResource("../view/ViewRoomsForm.fxml"));
         childPane.getChildren().setAll(pane.getChildren());
+        new FadeIn(childPane).play();
     }
 }

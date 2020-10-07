@@ -1,4 +1,10 @@
 package lk.diyaulpatha.dao.custom;
 
-public interface UserDAO {
+import lk.diyaulpatha.dao.CrudDAO;
+import lk.diyaulpatha.entity.User;
+
+import java.sql.SQLException;
+
+public interface UserDAO extends CrudDAO<User, String> {
+    int getUserRowCount() throws ClassNotFoundException, SQLException;
 }

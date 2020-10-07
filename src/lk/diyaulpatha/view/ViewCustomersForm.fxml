@@ -5,6 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -39,7 +40,11 @@
             </columns>
         </TableView>
         <ImageView fx:id="roomImage" fitHeight="299.0" fitWidth="443.0" layoutX="713.0" layoutY="266.0"
-                   pickOnBounds="true" preserveRatio="true"/>
+                   pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../asserts/rooms/room.png"/>
+            </image>
+        </ImageView>
         <TextField fx:id="txtBookingDate" editable="false" layoutX="131.0" layoutY="321.0" prefHeight="26.0"
                    prefWidth="109.0">
             <cursor>
@@ -81,13 +86,21 @@
                 <Cursor fx:constant="HAND"/>
             </cursor>
         </JFXDatePicker>
-        <JFXDatePicker fx:id="startDatePicker" layoutX="376.0" layoutY="24.0" onAction="#startDatePickerOnAction"/>
+        <JFXDatePicker fx:id="startDatePicker" layoutX="376.0" layoutY="24.0" onAction="#startDatePickerOnAction">
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
+        </JFXDatePicker>
         <Label layoutX="329.0" layoutY="30.0" text="Start">
             <font>
                 <Font name="Arial Rounded MT Bold" size="14.0"/>
             </font>
         </Label>
-        <JFXDatePicker fx:id="endDatePicker" layoutX="641.0" layoutY="26.0" onAction="#endDatePickerOnAction"/>
+        <JFXDatePicker fx:id="endDatePicker" layoutX="641.0" layoutY="26.0" onAction="#endDatePickerOnAction">
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
+        </JFXDatePicker>
         <Label layoutX="594.0" layoutY="32.0" text="End">
             <font>
                 <Font name="Arial Rounded MT Bold" size="14.0"/>

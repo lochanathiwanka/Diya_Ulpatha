@@ -12,7 +12,7 @@
    <children>
       <AnchorPane prefHeight="736.0" prefWidth="1201.0" style="-fx-background-color: #f1f2f6;">
          <children>
-            <ImageView fitHeight="510.0" fitWidth="728.0" layoutX="410.0" layoutY="215.0" pickOnBounds="true"
+            <ImageView fitHeight="365.0" fitWidth="559.0" layoutX="567.0" layoutY="355.0" pickOnBounds="true"
                        preserveRatio="true">
                <image>
                   <Image url="@../asserts/returnRoomImg.png"/>
@@ -45,7 +45,7 @@
                         <Font size="16.0"/>
                      </font>
                      <cursor>
-                        <Cursor fx:constant="DEFAULT" />
+                        <Cursor fx:constant="DEFAULT"/>
                      </cursor>
                   </JFXTextField>
                   <JFXTextField fx:id="txtGender" editable="false" focusTraversable="false" labelFloat="true" layoutX="27.0" layoutY="354.0" promptText="Gender">
@@ -98,11 +98,8 @@
                      </effect>
                   </JFXButton>
                </children>
-               <effect>
-                  <DropShadow/>
-               </effect>
             </AnchorPane>
-            <TableView fx:id="tblRoom" layoutX="460.0" layoutY="184.0" onMouseClicked="#tblRoomOnClicked"
+            <TableView fx:id="tblRoom" layoutX="460.0" layoutY="280.0" onMouseClicked="#tblRoomOnClicked"
                        prefHeight="149.0" prefWidth="720.0"
                        style="-fx-font-size: 15; -fx-background-color: transparent;">
                <columns>
@@ -129,58 +126,64 @@
                   <Pane layoutX="651.0" prefHeight="79.0" prefWidth="407.0" style="-fx-background-color: #F6B905;" />
                </children>
             </AnchorPane>
-            <TextField fx:id="txtBookingID" editable="false" layoutX="460.0" layoutY="139.0" prefHeight="26.0" prefWidth="107.0" style="-fx-text-fill: red;">
+            <TextField fx:id="txtBookingID" editable="false" layoutX="460.0" layoutY="235.0" prefHeight="26.0"
+                       prefWidth="107.0" style="-fx-text-fill: red;">
                <font>
-                  <Font size="15.0" />
+                  <Font size="15.0"/>
                </font>
                <cursor>
-                  <Cursor fx:constant="DEFAULT" />
+                  <Cursor fx:constant="DEFAULT"/>
                </cursor>
             </TextField>
-            <Label layoutX="460.0" layoutY="120.0" text="Booking ID">
+            <Label layoutX="460.0" layoutY="216.0" text="Booking ID">
                <font>
-                  <Font size="15.0" />
+                  <Font size="15.0"/>
                </font>
             </Label>
-            <TextField fx:id="txtBookingDate" editable="false" layoutX="609.0" layoutY="139.0" prefHeight="26.0" prefWidth="107.0">
+            <TextField fx:id="txtBookingDate" editable="false" layoutX="609.0" layoutY="235.0" prefHeight="26.0"
+                       prefWidth="107.0">
                <font>
-                  <Font size="15.0" />
+                  <Font size="15.0"/>
                </font>
                <cursor>
-                  <Cursor fx:constant="DEFAULT" />
+                  <Cursor fx:constant="DEFAULT"/>
                </cursor>
             </TextField>
-            <Label layoutX="609.0" layoutY="120.0" text="Booking Date">
+            <Label layoutX="609.0" layoutY="216.0" text="Booking Date">
                <font>
-                  <Font size="15.0" />
+                  <Font size="15.0"/>
                </font>
             </Label>
-            <TextField fx:id="txtBookingTime" editable="false" layoutX="763.0" layoutY="139.0" prefHeight="29.0" prefWidth="119.0">
+            <TextField fx:id="txtBookingTime" editable="false" layoutX="763.0" layoutY="235.0" prefHeight="29.0"
+                       prefWidth="119.0">
                <font>
-                  <Font size="15.0" />
+                  <Font size="15.0"/>
                </font>
                <cursor>
-                  <Cursor fx:constant="DEFAULT" />
+                  <Cursor fx:constant="DEFAULT"/>
                </cursor>
             </TextField>
-            <Label layoutX="763.0" layoutY="120.0" text="Booking Time">
+            <Label layoutX="763.0" layoutY="216.0" text="Booking Time">
                <font>
-                  <Font size="15.0" />
+                  <Font size="15.0"/>
                </font>
             </Label>
-            <TextField fx:id="txtPayment" editable="false" layoutX="930.0" layoutY="139.0" prefHeight="29.0" prefWidth="107.0">
+            <TextField fx:id="txtPayment" editable="false" layoutX="930.0" layoutY="235.0" prefHeight="29.0"
+                       prefWidth="107.0">
                <font>
-                  <Font size="15.0" />
+                  <Font size="15.0"/>
                </font>
                <cursor>
-                  <Cursor fx:constant="DEFAULT" />
+                  <Cursor fx:constant="DEFAULT"/>
                </cursor>
             </TextField>
-            <Label layoutX="930.0" layoutY="120.0" text="Paymnet">
+            <Label layoutX="930.0" layoutY="216.0" text="Paymnet">
                <font>
-                  <Font size="15.0" />
+                  <Font size="15.0"/>
                </font>
             </Label>
+            <JFXComboBox fx:id="cmbBookingID" layoutX="460.0" layoutY="128.0" onAction="#cmbBookingIDOnAction"
+                         promptText="Select ID"/>
          </children>
       </AnchorPane>
    </children>

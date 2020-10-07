@@ -111,7 +111,7 @@ public class CashierFormController extends StageList implements Initializable {
             original.setScene(null);
             transparentStage.setScene(scene);
             transparentStage.show();
-            original.hide();
+            original.close();
             mainFormStage = transparentStage;
             cashierFormStage.close();
 

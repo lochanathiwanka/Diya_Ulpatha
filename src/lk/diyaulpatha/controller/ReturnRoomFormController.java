@@ -4,6 +4,7 @@ import animatefx.animation.Pulse;
 import animatefx.animation.ZoomIn;
 import com.jfoenix.controls.JFXAutoCompletePopup;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -45,6 +46,7 @@ public class ReturnRoomFormController implements Initializable {
     public TextField txtBookingDate;
     public TextField txtBookingTime;
     public TextField txtPayment;
+    public JFXComboBox cmbBookingID;
 
     @FXML
     private TableView<CustomeDTO> tblRoom;
@@ -76,6 +78,7 @@ public class ReturnRoomFormController implements Initializable {
         new ZoomIn(titlePane).setSpeed(0.6).play();
         setTextSuggesionsToSearchField();
         btnClear.setDisable(true);
+        cmbBookingID.setDisable(true);
     }
 
     private void setTextSuggesionsToSearchField(){
@@ -145,12 +148,14 @@ public class ReturnRoomFormController implements Initializable {
         try {
             boolean isReturnedRoom = returnRoomBO.returnRoom(room, list);
             if (isReturnedRoom) {
-                new Alert(Alert.AlertType.CONFIRMATION, "Rooms cleared!", ButtonType.OK).show();
+                new Alert(Alert.AlertType.CONFIRMATION, "Room is cleared!", ButtonType.OK).show();
                 btnClear.setDisable(true);
                 resetCustomerFields();
                 resetBookingFields();
                 tblRoom.getItems().clear();
                 txtSearch.setText("");
+                cmbBookingID.getItems().clear();
+                cmbBookingID.setDisable(true);
             }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -163,43 +168,35 @@ public class ReturnRoomFormController implements Initializable {
         new Pulse(btnClear).setCycleCount(1).setSpeed(0.8).play();
     }
 
-    public void setSearchField() throws SQLException, ClassNotFoundException,IndexOutOfBoundsException {
-        String bookingID = bookingBO.getLastBookingID(txtSearch.getText(),txtSearch.getText(),txtSearch.getText());
-        if (bookingID!=null) {
-            ObservableList<CustomeDTO> list = returnRoomBO.getCustomerAndRoomBookingDetails(bookingID);
-            if (list.size() > 0) {
+    private ObservableList<String> setValuesToCmbBookingID() throws SQLException, ClassNotFoundException {
+        ObservableList<String> all = bookingBO.getAllToBePayedBookingIDOnOneCustomer(txtSearch.getText(), txtSearch.getText(), txtSearch.getText());
+        cmbBookingID.getItems().setAll(all);
+        return all;
+    }
+
+    public void setSearchField() throws SQLException, ClassNotFoundException, IndexOutOfBoundsException {
+        ObservableList<String> all = setValuesToCmbBookingID();
+        if (all.size() > 0) {
+            CustomerDTO cust = customerBO.getValuesFromBookingID(all.get(0));
+            if (cust != null) {
                 btnClear.setDisable(false);
-                txtID.setText(list.get(0).getCustomerID());
-                txtName.setText(list.get(0).getName());
-                txtAddress.setText(list.get(0).getAddress());
-                txtContact.setText(list.get(0).getContact());
-                txtGender.setText(list.get(0).getGender());
-
-                txtBookingID.setText(list.get(0).getBookingID());
-                txtBookingDate.setText(list.get(0).getDate());
-                txtBookingTime.setText(list.get(0).getTime());
-                txtPayment.setText(list.get(0).getPayment());
-
-                ObservableList<CustomeDTO> rows = FXCollections.observableArrayList();
-                for (CustomeDTO c : list) {
-                    rows.add(new CustomeDTO(c.getRoomID(), c.getCode(), c.getDescription(), c.getStartDate(), c.getEndDate(), c.getTotAmount()));
-                }
-                tblRoom.setItems(rows);
-
-                clmRoomID.setCellValueFactory(new PropertyValueFactory<CustomeDTO, String>("roomID"));
-                clmCode.setCellValueFactory(new PropertyValueFactory<CustomeDTO, String>("code"));
-                clmDescription.setCellValueFactory(new PropertyValueFactory<CustomeDTO, String>("description"));
-                clmStartDate.setCellValueFactory(new PropertyValueFactory<CustomeDTO, String>("startDate"));
-                clmEndDate.setCellValueFactory(new PropertyValueFactory<CustomeDTO, String>("endDate"));
-                clmTotAmount.setCellValueFactory(new PropertyValueFactory<CustomeDTO, String>("totAmount"));
+                txtID.setText(cust.getCustomerID());
+                txtName.setText(cust.getName());
+                txtAddress.setText(cust.getAddress());
+                txtContact.setText(cust.getContact());
+                txtGender.setText(cust.getGender());
+                cmbBookingID.setDisable(false);
             } else {
                 btnClear.setDisable(true);
+                cmbBookingID.setDisable(true);
             }
         } else {
             btnClear.setDisable(true);
             resetCustomerFields();
             resetBookingFields();
             tblRoom.getItems().clear();
+            cmbBookingID.getItems().clear();
+            cmbBookingID.setDisable(true);
         }
     }
 
@@ -235,6 +232,31 @@ public class ReturnRoomFormController implements Initializable {
             throwables.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-        }catch (IndexOutOfBoundsException ex){}
+        } catch (IndexOutOfBoundsException ex) {
+        }
+    }
+
+    public void cmbBookingIDOnAction(ActionEvent actionEvent) {
+        try {
+            ObservableList<CustomeDTO> list = returnRoomBO.getRoomAndBookingDetails(cmbBookingID.getSelectionModel().getSelectedItem().toString());
+            txtBookingID.setText(list.get(0).getBookingID());
+            txtBookingDate.setText(list.get(0).getDate());
+            txtBookingTime.setText(list.get(0).getTime());
+            txtPayment.setText(list.get(0).getPayment());
+
+            tblRoom.setItems(list);
+
+            clmRoomID.setCellValueFactory(new PropertyValueFactory<CustomeDTO, String>("roomID"));
+            clmCode.setCellValueFactory(new PropertyValueFactory<CustomeDTO, String>("code"));
+            clmDescription.setCellValueFactory(new PropertyValueFactory<CustomeDTO, String>("description"));
+            clmStartDate.setCellValueFactory(new PropertyValueFactory<CustomeDTO, String>("startDate"));
+            clmEndDate.setCellValueFactory(new PropertyValueFactory<CustomeDTO, String>("endDate"));
+            clmTotAmount.setCellValueFactory(new PropertyValueFactory<CustomeDTO, String>("totAmount"));
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (NullPointerException ex) {
+        }
     }
 }

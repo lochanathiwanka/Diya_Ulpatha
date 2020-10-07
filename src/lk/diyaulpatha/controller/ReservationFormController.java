@@ -24,15 +24,18 @@ import lk.diyaulpatha.bo.BOFactory;
 import lk.diyaulpatha.bo.custom.BookingBO;
 import lk.diyaulpatha.bo.custom.CustomerBO;
 import lk.diyaulpatha.bo.custom.RoomBO;
+import lk.diyaulpatha.db.DBConnection;
 import lk.diyaulpatha.dto.*;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.view.JasperViewer;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -41,6 +44,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class ReservationFormController implements Initializable {
@@ -231,8 +235,6 @@ public class ReservationFormController implements Initializable {
             Date dateObj1 = sdf.parse(startDate);
             Date dateObj2 = sdf.parse(endDate);
 
-            DecimalFormat crunchifyFormatter = new DecimalFormat("###,###");
-
             long diff = dateObj2.getTime() - dateObj1.getTime();
 
             int diffDays = (int) (diff / (24 * 60 * 60 * 1000));
@@ -299,6 +301,7 @@ public class ReservationFormController implements Initializable {
             txtEndDate.setText("");
             resetPaymentOption();
         }catch (RuntimeException ex){
+            setPagination("room.png");
         }
     }
 
@@ -315,6 +318,7 @@ public class ReservationFormController implements Initializable {
             txtEndDate.setText("");
             resetPaymentOption();
             startDatePicker.setDisable(true);
+            setPagination("room.png");
         }catch (NullPointerException ex){
 
         }
@@ -613,34 +617,50 @@ public class ReservationFormController implements Initializable {
 
         ObservableList<BookingDetailDTO> bookingDetailDTOList = FXCollections.observableArrayList();
         ObservableList<RoomDTO> roomDTOList = FXCollections.observableArrayList();
+        String bookingID = generateBookingID();
         for (int i=0;i<tblRoom.getItems().size();i++) {
             String roomID = tblRoom.getItems().get(i).getRoomID();
             String startDate = tblRoom.getItems().get(i).getStartDate();
             String endDate = tblRoom.getItems().get(i).getEndDate();
             double totAmount = tblRoom.getItems().get(i).getTotAmount();
 
-            bookingDetailDTOList.add(new BookingDetailDTO(generateBookingID(), roomID, startDate, endDate, "empty", "empty", totAmount));
+            bookingDetailDTOList.add(new BookingDetailDTO(bookingID, roomID, startDate, endDate, "empty", "empty", totAmount));
             roomDTOList.add(new RoomDTO(tblRoom.getItems().get(i).getRoomID(), "Booked"));
 
         }
         bookingDTO.setBookingDetailList(bookingDetailDTOList);
         bookingDTO.setRoomList(roomDTOList);
 
-            try {
-                if (txtNIC.getText().length() > 0 && txtName.getText().length() > 0 && txtAddress.getText().length() > 0 && txtContact.getText().length() > 0 &&
-                        txtGender.getText().length() > 0) {
-                    boolean isBooked = bookingBO.makeBooking(bookingDTO);
-                    if (isBooked) {
-                        new Alert(Alert.AlertType.CONFIRMATION, "Room(s) were succcessfully booked!", ButtonType.OK).show();
-                        tblRoom.getItems().clear();
-                        generateCustomerID();
-                        generateBookingID();
-                        setPagination("room.png");
-                        resetRoomDetailFields();
-                        setValuesTocmbRoom();
-                        setValuesToCmbGender();
-                        resetCustomerDetailFields();
-                        txtAvailability.setText("");
+        InputStream is = this.getClass().getResourceAsStream("/lk/diyaulpatha/report/DiyaUlpathaJasperReport.jrxml");
+
+        try {
+            if (txtNIC.getText().length() > 0 && txtName.getText().length() > 0 && txtAddress.getText().length() > 0 && txtContact.getText().length() > 0 &&
+                    txtGender.getText().length() > 0) {
+                boolean isBooked = bookingBO.makeBooking(bookingDTO);
+                if (isBooked) {
+                    //new Alert(Alert.AlertType.CONFIRMATION, "Room(s) were succcessfully booked!", ButtonType.OK).show();
+                    JasperReport jr = JasperCompileManager.compileReport(is);
+                    HashMap hashMap = new HashMap();
+                    hashMap.put("custName", txtName.getText());
+                    hashMap.put("nic", txtNIC.getText());
+                    hashMap.put("contact", txtContact.getText());
+                    hashMap.put("bookingID", bookingID);
+                    hashMap.put("date", txtDate.getText());
+                    hashMap.put("time", txtTime.getText());
+                    hashMap.put("total", lblFinalTotal.getText() + "");
+
+                    JasperPrint jp = JasperFillManager.fillReport(jr, hashMap, DBConnection.getInstance().getConnection());
+                    JasperViewer.viewReport(jp, false);
+
+                    tblRoom.getItems().clear();
+                    generateCustomerID();
+                    generateBookingID();
+                    setPagination("room.png");
+                    resetRoomDetailFields();
+                    setValuesTocmbRoom();
+                    setValuesToCmbGender();
+                    resetCustomerDetailFields();
+                    txtAvailability.setText("");
                         txtNIC.setText(" ");
                         startDatePicker.setDisable(true);
                         lblFinalTotal.setText("0.0");
@@ -649,24 +669,28 @@ public class ReservationFormController implements Initializable {
                         rbDebit.setVisible(false);
                         btnPay.setVisible(false);
                         txtNIC.requestFocus();
-                    } else {
+
+
+                } else {
                         new Alert(Alert.AlertType.WARNING, "Error", ButtonType.OK).show();
                         txtNIC.requestFocus();
                     }
                 }else {
                     new Alert(Alert.AlertType.WARNING, "Fields cannot be empty!", ButtonType.OK).show();
                     resetPaymentOption();
-                    txtNIC.requestFocus();
-                }
-
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }catch (NullPointerException ex){
-                new Alert(Alert.AlertType.WARNING, "Fields cannot be empty!", ButtonType.OK).show();
-                resetPaymentOption();
+                txtNIC.requestFocus();
             }
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (NullPointerException ex) {
+            new Alert(Alert.AlertType.WARNING, "Fields cannot be empty!", ButtonType.OK).show();
+            resetPaymentOption();
+        } catch (JRException e) {
+            e.printStackTrace();
+        }
     }
 
    /* public void txtStartDateOnAction(ActionEvent actionEvent) {

@@ -2,6 +2,8 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="736.0" prefWidth="1201.0"
@@ -26,8 +28,46 @@
          </children>
       </AnchorPane>
       <AnchorPane fx:id="childPane" layoutX="10.0" layoutY="156.0" prefHeight="575.0" prefWidth="1184.0"/>
-      <JFXButton fx:id="btnBookings" layoutX="436.0" layoutY="99.0" onAction="#btnBookingsOnAction" text="Bookings"/>
-      <JFXButton fx:id="btnCustomers" layoutX="552.0" layoutY="99.0" onAction="#btnCustomersOnAction" text="Customers"/>
-      <JFXButton fx:id="btnRooms" layoutX="664.0" layoutY="99.0" onAction="#btnRoomsOnAction" text="Rooms"/>
+      <JFXButton fx:id="btnBookings" buttonType="RAISED" focusTraversable="false" layoutX="342.0" layoutY="87.0"
+                 onAction="#btnBookingsOnAction" onMouseEntered="#btnBookingsMouseEntered" text=" ">
+         <graphic>
+            <ImageView fitHeight="67.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../asserts/viewBookings.png"/>
+               </image>
+            </ImageView>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+      </JFXButton>
+      <JFXButton fx:id="btnCustomers" buttonType="RAISED" focusTraversable="false" layoutX="552.0" layoutY="87.0"
+                 onAction="#btnCustomersOnAction" onMouseEntered="#btnCustomersMouseEntered" prefHeight="53.0"
+                 prefWidth="100.0" text=" ">
+         <graphic>
+            <ImageView fitHeight="74.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../asserts/viewEmployees.png"/>
+               </image>
+            </ImageView>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+      </JFXButton>
+      <JFXButton fx:id="btnRooms" buttonType="RAISED" focusTraversable="false" layoutX="763.0" layoutY="83.0"
+                 onAction="#btnRoomsOnAction" onMouseEntered="#btnRoomsMouseEntered" prefHeight="54.0" prefWidth="71.0"
+                 text=" ">
+         <graphic>
+            <ImageView fitHeight="76.0" fitWidth="112.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../asserts/viewRooms.png"/>
+               </image>
+            </ImageView>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+      </JFXButton>
    </children>
 </AnchorPane>

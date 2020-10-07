@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="575.0" prefWidth="1184.0"
+            style="-fx-background-color: #f1f2f6;" xmlns="http://javafx.com/javafx/8.0.171"
+            fx:controller="lk.diyaulpatha.controller.ViewRoomsAndBookingsFormController">
+   <children>
+      <TableView fx:id="tblRoom" layoutX="39.0" layoutY="61.0" onMouseClicked="#tblRoomOnAction" prefHeight="220.0"
+                 prefWidth="607.0" style="-fx-background-color: transparent; -fx-font-size: 14;">
+         <columns>
+            <TableColumn fx:id="clmCode" prefWidth="155.0" text="Code"/>
+            <TableColumn fx:id="clmDescription" prefWidth="302.0" text="Description"/>
+            <TableColumn fx:id="clmPrice" prefWidth="149.0" text="Price"/>
+         </columns>
+      </TableView>
+      <ImageView fx:id="roomImage" fitHeight="299.0" fitWidth="443.0" layoutX="713.0" layoutY="20.0" pickOnBounds="true"
+                 preserveRatio="true">
+         <image>
+            <Image url="@../asserts/rooms/room.png"/>
+         </image>
+      </ImageView>
+      <TableView fx:id="tblBooking" layoutX="55.0" layoutY="375.0" onMouseClicked="#tblBookingOnAction"
+                 prefHeight="186.0" prefWidth="472.0" style="-fx-background-color: transparent;">
+         <columns>
+            <TableColumn fx:id="clmID" prefWidth="92.0" text="ID"/>
+            <TableColumn fx:id="clmDate" prefWidth="128.0" text="Date"/>
+            <TableColumn fx:id="clmTime" prefWidth="128.0" text="Time"/>
+            <TableColumn fx:id="clmPayment" prefWidth="128.0" text="Payment"/>
+         </columns>
+      </TableView>
+      <JFXDatePicker fx:id="startDatePicker" layoutX="104.0" layoutY="341.0" onAction="#startDatePickerOnAction"
+                     prefHeight="26.0" prefWidth="140.0">
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+      </JFXDatePicker>
+      <JFXDatePicker fx:id="endDatePicker" layoutX="343.0" layoutY="341.0" onAction="#endDatePickerOnAction"
+                     prefHeight="26.0" prefWidth="140.0">
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+      </JFXDatePicker>
+      <Label layoutX="55.0" layoutY="345.0" text="Start">
+         <font>
+            <Font size="14.0"/>
+         </font>
+      </Label>
+      <Label layoutX="310.0" layoutY="345.0" text="End">
+         <font>
+            <Font size="14.0"/>
+         </font>
+      </Label>
+      <AnchorPane layoutX="602.0" layoutY="341.0" prefHeight="220.0" prefWidth="568.0"
+                  style="-fx-background-color: #e0e0e0; -fx-background-radius: 30;">
+         <children>
+            <JFXTextField fx:id="txtName" cache="true" editable="false" labelFloat="true" layoutX="20.0" layoutY="101.0"
+                          promptText="Name">
+               <font>
+                  <Font size="16.0"/>
+               </font>
+            </JFXTextField>
+            <JFXTextField fx:id="txtNIC" editable="false" labelFloat="true" layoutX="20.0" layoutY="29.0"
+                          promptText="NIC">
+               <font>
+                  <Font size="16.0"/>
+               </font>
+            </JFXTextField>
+            <JFXTextField fx:id="txtAddress" editable="false" labelFloat="true" layoutX="313.0" layoutY="29.0"
+                          promptText="Address">
+               <font>
+                  <Font size="16.0"/>
+               </font>
+            </JFXTextField>
+            <JFXTextField fx:id="txtContact" editable="false" labelFloat="true" layoutX="313.0" layoutY="101.0"
+                          promptText="Contact">
+               <font>
+                  <Font size="16.0"/>
+               </font>
+            </JFXTextField>
+            <JFXTextField fx:id="txtGender" editable="false" labelFloat="true" layoutX="189.0" layoutY="175.0"
+                          promptText="Gender">
+               <font>
+                  <Font size="16.0"/>
+               </font>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT"/>
+               </cursor>
+            </JFXTextField>
+         </children>
+         <effect>
+            <DropShadow/>
+         </effect>
+      </AnchorPane>
+   </children>
+</AnchorPane>

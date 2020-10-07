@@ -120,8 +120,11 @@ public class BookingBOImpl implements BookingBO {
     }
 
     @Override
-    public String getLastBookingID(String NIC, String name, String contact) throws ClassNotFoundException, SQLException {
-        return bookingDAO.getLastBookingID(NIC, name, contact);
+    public ObservableList<String> getAllToBePayedBookingIDOnOneCustomer(String NIC, String name, String contact) throws ClassNotFoundException, SQLException {
+        ObservableList<String> all = bookingDAO.getAllToBePayedBookingIDOnOneCustomer(NIC, name, contact);
+        ObservableList<String> bookingIDList = FXCollections.observableArrayList();
+        bookingIDList.addAll(all);
+        return bookingIDList;
     }
 
     @Override
@@ -141,9 +144,13 @@ public class BookingBOImpl implements BookingBO {
     }
 
     @Override
-    public BookingDTO getBookingIDOnDate(String value, String name) throws ClassNotFoundException, SQLException {
-        Booking booking = bookingDAO.getBookingIDOnDate(value, name);
-        return new BookingDTO(booking.getBookingID());
+    public ObservableList<BookingDTO> getBookingIDOnDate(String value, String name) throws ClassNotFoundException, SQLException {
+        ObservableList<Booking> all = bookingDAO.getBookingIDOnDate(value, name);
+        ObservableList<BookingDTO> list = FXCollections.observableArrayList();
+        for (Booking b : all) {
+            list.add(new BookingDTO(b.getBookingID()));
+        }
+        return list;
     }
 
     @Override
@@ -159,6 +166,26 @@ public class BookingBOImpl implements BookingBO {
     @Override
     public ObservableList<BookingDTO> getBookingIDBetweenTwoDays(String start, String end) throws ClassNotFoundException, SQLException {
         ObservableList<Booking> all = bookingDAO.getBookingIDBetweenTwoDays(start, end);
+        ObservableList<BookingDTO> list = FXCollections.observableArrayList();
+        for (Booking b : all) {
+            list.add(new BookingDTO(b.getBookingID(), b.getDate(), b.getTime(), b.getPayment()));
+        }
+        return list;
+    }
+
+    @Override
+    public ObservableList<BookingDTO> getAllBookingIDOnRoomCode(String code) throws ClassNotFoundException, SQLException {
+        ObservableList<Booking> all = bookingDAO.getAllBookingIDOnRoomCode(code);
+        ObservableList<BookingDTO> list = FXCollections.observableArrayList();
+        for (Booking b : all) {
+            list.add(new BookingDTO(b.getBookingID(), b.getDate(), b.getTime(), b.getPayment()));
+        }
+        return list;
+    }
+
+    @Override
+    public ObservableList<BookingDTO> getAllBoookingDetailBetweenTwoDaysOnRoomCode(String code, String start, String end) throws ClassNotFoundException, SQLException {
+        ObservableList<Booking> all = bookingDAO.getAllBoookingDetailBetweenTwoDaysOnRoomCode(code, start, end);
         ObservableList<BookingDTO> list = FXCollections.observableArrayList();
         for (Booking b : all) {
             list.add(new BookingDTO(b.getBookingID(), b.getDate(), b.getTime(), b.getPayment()));

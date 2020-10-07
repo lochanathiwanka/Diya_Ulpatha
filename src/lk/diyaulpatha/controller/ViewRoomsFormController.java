@@ -80,6 +80,7 @@ public class ViewRoomsFormController implements Initializable {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (ArrayIndexOutOfBoundsException ex) {
         }
     }
 }

@@ -30,17 +30,19 @@
          </image>
       </ImageView>
       <AnchorPane fx:id="childPane" layoutX="10.0" layoutY="156.0" prefHeight="575.0" prefWidth="1184.0" />
-      <JFXButton fx:id="btnAddRoom" buttonType="RAISED" focusTraversable="false" layoutX="433.0" layoutY="82.0" onAction="#btnAddRoomOnAction" prefHeight="65.0" prefWidth="84.0" style="-fx-background-radius: 30;" text=" " textFill="#030101">
+      <JFXButton fx:id="btnAddRoom" buttonType="RAISED" focusTraversable="false" layoutX="377.0" layoutY="79.0"
+                 onAction="#btnAddRoomOnAction" prefHeight="65.0" prefWidth="84.0" style="-fx-background-radius: 30;"
+                 text=" " textFill="#030101">
          <font>
-            <Font name="Arial Rounded MT Bold" size="13.0" />
+            <Font name="Arial Rounded MT Bold" size="13.0"/>
          </font>
          <cursor>
-            <Cursor fx:constant="HAND" />
+            <Cursor fx:constant="HAND"/>
          </cursor>
          <graphic>
             <ImageView fitHeight="138.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../asserts/addRoom.png" />
+                  <Image url="@../asserts/addRoom.png"/>
                </image>
                <effect>
                   <DropShadow />
@@ -48,17 +50,19 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="btnRemoveRoom" buttonType="RAISED" focusTraversable="false" layoutX="556.0" layoutY="82.0" onAction="#btnRemoveRoomOnAction" prefHeight="67.0" prefWidth="68.0" style="-fx-background-radius: 30;" text=" ">
+      <JFXButton fx:id="btnRemoveRoom" buttonType="RAISED" focusTraversable="false" layoutX="500.0" layoutY="79.0"
+                 onAction="#btnRemoveRoomOnAction" prefHeight="67.0" prefWidth="68.0" style="-fx-background-radius: 30;"
+                 text=" ">
          <font>
-            <Font name="Arial Rounded MT Bold" size="13.0" />
+            <Font name="Arial Rounded MT Bold" size="13.0"/>
          </font>
          <cursor>
-            <Cursor fx:constant="HAND" />
+            <Cursor fx:constant="HAND"/>
          </cursor>
          <graphic>
             <ImageView fitHeight="138.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../asserts/removeRoom.png" />
+                  <Image url="@../asserts/removeRoom.png"/>
                </image>
                <effect>
                   <DropShadow />
@@ -66,12 +70,14 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="btnUpdateRoom" buttonType="RAISED" focusTraversable="false" layoutX="679.0" layoutY="86.0" onAction="#btnUpdateRoomOnAction" prefHeight="45.0" prefWidth="61.0" style="-fx-background-radius: 30;" text=" ">
+      <JFXButton fx:id="btnUpdateRoom" buttonType="RAISED" focusTraversable="false" layoutX="623.0" layoutY="83.0"
+                 onAction="#btnUpdateRoomOnAction" prefHeight="45.0" prefWidth="61.0" style="-fx-background-radius: 30;"
+                 text=" ">
          <font>
-            <Font name="Arial Rounded MT Bold" size="13.0" />
+            <Font name="Arial Rounded MT Bold" size="13.0"/>
          </font>
          <cursor>
-            <Cursor fx:constant="HAND" />
+            <Cursor fx:constant="HAND"/>
          </cursor>
          <graphic>
             <ImageView fitHeight="68.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
@@ -84,7 +90,19 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="btnViewRooms" layoutX="800.0" layoutY="111.0" onAction="#btnViewRoomsOnAction"
-                 text="View Rooms"/>
+      <JFXButton fx:id="btnViewRooms" buttonType="RAISED" focusTraversable="false" layoutX="735.0" layoutY="83.0"
+                 onAction="#btnViewRoomsOnAction" prefHeight="76.0" prefWidth="60.0" style="-fx-background-radius: 30;"
+                 text=" ">
+         <graphic>
+            <ImageView fitHeight="66.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../asserts/viewRooms2.png"/>
+               </image>
+            </ImageView>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+      </JFXButton>
    </children>
 </AnchorPane>

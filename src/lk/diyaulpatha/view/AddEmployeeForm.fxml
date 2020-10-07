@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="575.0" prefWidth="1184.0"
+            style="-fx-background-color: #f1f2f6;" xmlns="http://javafx.com/javafx/8.0.171"
+            fx:controller="lk.diyaulpatha.controller.AddEmployeeFormController">
+   <children>
+      <AnchorPane layoutX="75.0" layoutY="12.0" prefHeight="551.0" prefWidth="374.0"
+                  style="-fx-background-color: #e0e0e0; -fx-background-radius: 30;">
+         <children>
+            <TextField fx:id="txtEmployeeID" editable="false" layoutX="74.0" layoutY="14.0" prefHeight="32.0"
+                       prefWidth="148.0" style="-fx-background-radius: 30; -fx-background-color: #f5f6fa;">
+               <font>
+                  <Font size="16.0"/>
+               </font>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT"/>
+               </cursor>
+            </TextField>
+            <JFXTextField fx:id="txtName" cache="true" labelFloat="true" layoutX="20.0" layoutY="136.0"
+                          promptText="Name">
+               <font>
+                  <Font size="16.0"/>
+               </font>
+            </JFXTextField>
+            <JFXTextField fx:id="txtNIC" labelFloat="true" layoutX="20.0" layoutY="78.0"
+                          onKeyReleased="#txtNICOnKeyReleased" promptText="NIC">
+               <font>
+                  <Font size="16.0"/>
+               </font>
+            </JFXTextField>
+            <JFXTextField fx:id="txtAddress" labelFloat="true" layoutX="20.0" layoutY="194.0" promptText="Address">
+               <font>
+                  <Font size="16.0"/>
+               </font>
+            </JFXTextField>
+            <JFXTextField fx:id="txtContact" labelFloat="true" layoutX="20.0" layoutY="252.0" promptText="Contact">
+               <font>
+                  <Font size="16.0"/>
+               </font>
+            </JFXTextField>
+            <JFXTextField fx:id="txtGender" editable="false" labelFloat="true" layoutX="21.0" layoutY="426.0"
+                          promptText="Gender">
+               <font>
+                  <Font size="16.0"/>
+               </font>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT"/>
+               </cursor>
+            </JFXTextField>
+            <JFXComboBox fx:id="cmbGender" layoutX="247.0" layoutY="430.0" onAction="#cmbGenderOnAction"
+                         promptText="Select" style="-fx-font-size: 14;">
+               <cursor>
+                  <Cursor fx:constant="HAND"/>
+               </cursor>
+            </JFXComboBox>
+            <Pane layoutX="14.0" layoutY="14.0" prefHeight="32.0" prefWidth="60.0"
+                  style="-fx-background-color: #377D6A; -fx-background-radius: 30;">
+               <children>
+                  <Label layoutX="20.0" layoutY="7.0" text="ID" textFill="WHITE">
+                     <font>
+                        <Font size="14.0"/>
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <JFXTextField fx:id="txtDOB" labelFloat="true" layoutX="21.0" layoutY="310.0" promptText="Date of BirthDay">
+               <font>
+                  <Font size="16.0"/>
+               </font>
+            </JFXTextField>
+            <JFXTextField fx:id="txtEmail" labelFloat="true" layoutX="21.0" layoutY="368.0" prefHeight="32.0"
+                          prefWidth="262.0" promptText="Email">
+               <font>
+                  <Font size="16.0"/>
+               </font>
+            </JFXTextField>
+            <JFXTextField fx:id="txtRole" editable="false" labelFloat="true" layoutX="21.0" layoutY="484.0"
+                          promptText="Role">
+               <font>
+                  <Font size="16.0"/>
+               </font>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT"/>
+               </cursor>
+            </JFXTextField>
+            <JFXComboBox fx:id="cmbRole" layoutX="247.0" layoutY="488.0" onAction="#cmbRoleOnAction" promptText="Select"
+                         style="-fx-font-size: 14;">
+               <cursor>
+                  <Cursor fx:constant="HAND"/>
+               </cursor>
+            </JFXComboBox>
+            <JFXDatePicker fx:id="datePicker" layoutX="236.0" layoutY="314.0" onAction="#datePickerOnAction"
+                           prefHeight="28.0" prefWidth="124.0" style="-fx-font-size: 14;">
+               <cursor>
+                  <Cursor fx:constant="HAND"/>
+               </cursor>
+            </JFXDatePicker>
+         </children>
+      </AnchorPane>
+      <TextField fx:id="txtUserName" layoutX="668.0" layoutY="202.0" prefHeight="32.0" prefWidth="289.0"
+                 style="-fx-background-radius: 10;">
+         <font>
+            <Font size="16.0"/>
+         </font>
+         <cursor>
+            <Cursor fx:constant="TEXT"/>
+         </cursor>
+      </TextField>
+      <Pane fx:id="lblUserName" layoutX="555.0" layoutY="202.0" prefHeight="32.0" prefWidth="113.0"
+            style="-fx-background-color: #377D6A; -fx-background-radius: 10;">
+         <children>
+            <Label layoutX="20.0" layoutY="7.0" text="User Name" textFill="WHITE">
+               <font>
+                  <Font size="14.0"/>
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <TextField fx:id="txtPassword" layoutX="668.0" layoutY="264.0" prefHeight="32.0" prefWidth="289.0"
+                 style="-fx-background-radius: 10;">
+         <font>
+            <Font size="16.0"/>
+         </font>
+         <cursor>
+            <Cursor fx:constant="TEXT"/>
+         </cursor>
+      </TextField>
+      <Pane fx:id="lblPassword" layoutX="555.0" layoutY="264.0" prefHeight="32.0" prefWidth="113.0"
+            style="-fx-background-color: #377D6A; -fx-background-radius: 10;">
+         <children>
+            <Label layoutX="20.0" layoutY="7.0" text="Password" textFill="WHITE">
+               <font>
+                  <Font size="14.0"/>
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <JFXButton fx:id="btnAdd" buttonType="RAISED" layoutX="760.0" layoutY="338.0" onAction="#btnAddOnAction"
+                 onMouseEntered="#btnAddMouseEntered" style="-fx-background-color: black; -fx-background-radius: 30;"
+                 text="Add" textFill="WHITE">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="13.0"/>
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+      </JFXButton>
+      <JFXButton fx:id="btnCancel" buttonType="RAISED" layoutX="821.0" layoutY="338.0" onAction="#btnCancelOnAction"
+                 onMouseEntered="#btnCancelMouseEntered" style="-fx-background-color: black; -fx-background-radius: 30;"
+                 text="Cancel" textFill="WHITE">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="13.0"/>
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+      </JFXButton>
+      <JFXRadioButton fx:id="rbNo" layoutX="484.0" layoutY="99.0" onAction="#rbNoOnAction" text="No">
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+      </JFXRadioButton>
+      <JFXTextField editable="false" layoutX="475.0" layoutY="46.0" prefHeight="29.0" prefWidth="216.0"
+                    text="Add UserName &amp; Password">
+         <font>
+            <Font size="15.0"/>
+         </font>
+         <cursor>
+            <Cursor fx:constant="DEFAULT"/>
+         </cursor>
+      </JFXTextField>
+      <JFXRadioButton fx:id="rbYes" layoutX="484.0" layoutY="140.0" onAction="#rbYesOnAction" text="Yes">
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+      </JFXRadioButton>
+   </children>
+</AnchorPane>
