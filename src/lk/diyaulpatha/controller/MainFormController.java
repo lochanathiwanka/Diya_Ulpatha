@@ -211,6 +211,17 @@ public class MainFormController extends StageList implements Initializable {
     }
 
     public void btnCloseOnAction(MouseEvent mouseEvent) {
-        System.exit(0);
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(2000);
+                    System.exit(0);
+                } catch (InterruptedException ex) {
+                }
+            }
+        });
+
+        thread.start();
     }
 }

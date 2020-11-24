@@ -12,11 +12,12 @@ import java.sql.SQLException;
 
 public class CustomerBOImpl implements CustomerBO {
     CustomerDAO custDAO = (CustomerDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.CUSTOMER);
+    ;
 
     @Override
     public boolean addCustomer(CustomerDTO c) throws ClassNotFoundException, SQLException {
-        return custDAO.add(new Customer(c.getCustomerID(),c.getName(),c.getNic(),c.getAddress(),
-                c.getContact(),c.getGender()));
+        return custDAO.add(new Customer(c.getCustomerID(), c.getName(), c.getNic(), c.getAddress(),
+                c.getContact(), c.getGender()));
     }
 
     @Override

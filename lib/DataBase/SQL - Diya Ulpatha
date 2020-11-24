@@ -4,72 +4,120 @@ drop database DiyaUlpatha;
 create database DiyaUlpatha;
 use DiyaUlpatha;
 
-create table Customer(
-  customerID VARCHAR(10) NOT NULL,
-  name VARCHAR(20) NOT NULL,
-  nic VARCHAR(15) NOT NULL UNIQUE ,
-  address VARCHAR(20) NOT NULL,
-  contact VARCHAR(15) NOT NULL UNIQUE,
-  gender VARCHAR(10) NOT NULL,
-  CONSTRAINT PRIMARY KEY (customerID)
+create table Customer
+(
+    customerID VARCHAR(10) NOT NULL,
+    name       VARCHAR(20) NOT NULL,
+    nic        VARCHAR(15) NOT NULL UNIQUE,
+    address    VARCHAR(20) NOT NULL,
+    contact    VARCHAR(15) NOT NULL UNIQUE,
+    gender     VARCHAR(10) NOT NULL,
+    CONSTRAINT PRIMARY KEY (customerID)
 );
 
-create table Room(
-  roomID VARCHAR(10) NOT NULL,
-  description VARCHAR(20) NOT NULL,
-  price DECIMAL(10,2) NOT NULL,
-  available VARCHAR(10) DEFAULT 'Available',
-  status VARCHAR(10) DEFAULT 'Exists',
-  CONSTRAINT PRIMARY KEY (roomID)
+create table Room
+(
+    roomID      VARCHAR(10)    NOT NULL,
+    code        VARCHAR(10)    NOT NULL,
+    description VARCHAR(20)    NOT NULL,
+    price       DECIMAL(10, 2) NOT NULL,
+    available   VARCHAR(10) DEFAULT 'Available',
+    status      VARCHAR(10) DEFAULT 'Exists',
+    image       VARCHAR(300),
+    CONSTRAINT PRIMARY KEY (roomID)
 );
 
-create table Booking(
-  bookingID VARCHAR(10) NOT NULL,
-  customerID VARCHAR(10) NOT NULL,
-  date DATE NOT NULL,
-  time VARCHAR(15) NOT NULL,
-  payment DECIMAL(10,2) NOT NULL,
-  CONSTRAINT PRIMARY KEY (bookingID),
-  CONSTRAINT FOREIGN KEY (customerID) REFERENCES Customer(customerID)
+create table Booking
+(
+    bookingID  VARCHAR(10)    NOT NULL,
+    customerID VARCHAR(10)    NOT NULL,
+    date       DATE           NOT NULL,
+    time       VARCHAR(15)    NOT NULL,
+    payment    DECIMAL(10, 2) NOT NULL,
+    CONSTRAINT PRIMARY KEY (bookingID),
+    CONSTRAINT FOREIGN KEY (customerID) REFERENCES Customer (customerID)
         ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-create table BookingDetail(
-  bookingID VARCHAR(10) NOT NULL,
-  roomID VARCHAR(10) NOT NULL,
-  startDate DATE NOT NULL,
-  endDate DATE NOT NULL,
-  endTime VARCHAR(15),
-  totAmount DECIMAL(10,2) NOT NULL,
-  CONSTRAINT PRIMARY KEY (bookingID,roomID),
-  CONSTRAINT FOREIGN KEY (bookingID) REFERENCES Booking(bookingID)
+create table BookingDetail
+(
+    bookingID   VARCHAR(10)    NOT NULL,
+    roomID      VARCHAR(10)    NOT NULL,
+    startDate   DATE           NOT NULL,
+    endDate     DATE           NOT NULL,
+    endTime     VARCHAR(15),
+    clearedDate DATE,
+    totAmount   DECIMAL(10, 2) NOT NULL,
+    CONSTRAINT PRIMARY KEY (bookingID, roomID),
+    CONSTRAINT FOREIGN KEY (bookingID) REFERENCES Booking (bookingID)
         ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT FOREIGN KEY (roomID) REFERENCES Room(roomID)
-      ON DELETE CASCADE ON UPDATE CASCADE
+    CONSTRAINT FOREIGN KEY (roomID) REFERENCES Room (roomID)
+        ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+create table Employee
+(
+    employeeID   VARCHAR(10)  NOT NULL,
+    employeeName VARCHAR(20)  NOT NULL,
+    nic          VARCHAR(20)  NOT NULL,
+    address      VARCHAR(100) NOT NULL,
+    dob          VARCHAR(15)  NOT NULL,
+    contact      VARCHAR(15)  NOT NULL,
+    email        VARCHAR(20)  NOT NULL,
+    gender       VARCHAR(10)  NOT NULL,
+    role         VARCHAR(15)  NOT NULL,
+    CONSTRAINT PRIMARY KEY (employeeID)
+);
 
+create table User
+(
+    userID     VARCHAR(10) NOT NULL,
+    employeeID VARCHAR(10) NOT NULL,
+    userName   VARCHAR(20) NOT NULL,
+    password   VARCHAR(20) NOT NULL,
+    CONSTRAINT PRIMARY KEY (userID),
+    CONSTRAINT FOREIGN KEY (employeeID) REFERENCES Employee (employeeID)
+        ON DELETE CASCADE ON UPDATE CASCADE
+);
 
+insert into Customer
+VALUEs ('C001', 'Lochana Thiwanka', '200034403405', 'Panadura', '0715936850', 'Male');
+insert into Customer
+VALUEs ('C002', 'Dinura Ranthila', '200034403406', 'Dibbedda', '0784991063', 'Male');
 
-insert into Customer VALUEs ('C001','Lochana','200034403405','Panadura','0715936850','Male');
+insert into Room (roomID, code, description, price,image)
+VALUES ('R001','000001', 'Delux Room', 20000.00,'luxuryRoom.png');
 
-insert into Room (roomID, description, price) VALUES ('R001','Delux Room',20000.00);
-insert into Room (roomID, description, price) VALUES ('R002','High Room',30000.00);
-insert into Room (roomID, description, price) VALUES ('R003','Normal Room',10000.00);
+insert into Booking
+VALUES ('B001', 'C001', '2020-09-15', '01:44:22 PM', 20000.00);
+insert into Booking
+VALUES ('B002', 'C001', '2020-09-15', '01:44:22 PM', 30000.00);
 
-insert into Booking VALUES ('B001','C001','2020-09-15','01:44:22 PM',20000.00);
-insert into Booking VALUES ('B002','C001','2020-09-15','01:44:22 PM',30000.00);
+insert into BookingDetail (bookingID, roomID, totPrice, returnDate)
+VALUES ('B001', 'R001', 20000.00, '2020-09-17');
+insert into BookingDetail (bookingID, roomID, totPrice, returnDate)
+VALUES ('B001', 'R002', 30000.00, '2020-09-17');
 
-insert into BookingDetail (bookingID, roomID, totPrice,returnDate) VALUES ('B001','R001',20000.00,'2020-09-17');
-insert into BookingDetail (bookingID, roomID, totPrice,returnDate) VALUES ('B001','R002',30000.00,'2020-09-17');
+SELECT TIME_FORMAT(time, '%h:%i %p')
+from Booking;
 
-SELECT TIME_FORMAT(time,'%h:%i %p') from Booking;
+select *
+from BookingDetail;
 
-select * from BookingDetail;
+select r.roomID, description, price
+from Room r,
+     Booking b,
+     BookingDetail bd
+where (r.roomID = bd.roomID && b.bookingID = bd.bookingID)
+  and bd.roomID = 'R003';
 
-select r.roomID,description,price from Room r,Booking b,BookingDetail bd
-where (r.roomID=bd.roomID && b.bookingID=bd.bookingID) and bd.roomID='R003';
-
-select Room.roomID,description,price,available,endDate,endTime from Room left join BookingDetail on Room.roomID = BookingDetail.roomID;
-select * from Room where roomID='R001';
-update BookingDetail set returnDate='2020-09-20', returnTime='09:00:32 AM' where bookingID='B001';
+select Room.roomID, description, price, available, endDate, endTime
+from Room
+         left join BookingDetail on Room.roomID = BookingDetail.roomID;
+select *
+from Room
+where roomID = 'R001';
+update BookingDetail
+set returnDate='2020-09-20',
+    returnTime='09:00:32 AM'
+where bookingID = 'B001';

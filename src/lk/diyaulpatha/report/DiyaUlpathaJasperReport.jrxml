@@ -1,235 +1,254 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.14.0.final using JasperReports Library version 6.14.0-2ab0d8625be255bf609c78e1181801213e51db8f  -->
 <jasperReport xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-              xmlns="http://jasperreports.sourceforge.net/jasperreports"
-              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
-              name="DiyaUlpathaJasperReport" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20"
-              rightMargin="20" topMargin="20" bottomMargin="20" uuid="8e999462-50d0-498c-899f-d764fa59c741">
-    <property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-    <property name="com.jaspersoft.studio.data.defaultdataadapter" value="DiyaUlpathaAdapter"/>
-    <parameter name="total" class="java.lang.String"/>
-    <parameter name="time" class="java.lang.String"/>
-    <parameter name="date" class="java.lang.String"/>
-    <parameter name="bookingID" class="java.lang.String"/>
-    <parameter name="contact" class="java.lang.String"/>
-    <parameter name="nic" class="java.lang.String"/>
-    <parameter name="custName" class="java.lang.String"/>
-    <queryString language="SQL">
-        <![CDATA[select description ,startDate,endDate,totAmount
+			  xmlns="http://jasperreports.sourceforge.net/jasperreports"
+			  xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+			  name="DiyaUlpathaJasperReport" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20"
+			  rightMargin="20" topMargin="20" bottomMargin="20" uuid="8e999462-50d0-498c-899f-d764fa59c741">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DiyaUlpathaAdapter"/>
+	<parameter name="total" class="java.lang.String"/>
+	<parameter name="time" class="java.lang.String"/>
+	<parameter name="date" class="java.lang.String"/>
+	<parameter name="bookingID" class="java.lang.String"/>
+	<parameter name="contact" class="java.lang.String"/>
+	<parameter name="nic" class="java.lang.String"/>
+	<parameter name="custName" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[select description ,startDate,endDate,totAmount
 from Room r, BookingDetail bd where (r.roomID=bd.roomID)
 and bookingID=$P{bookingID}]]>
-    </queryString>
-    <field name="description" class="java.lang.String">
-        <property name="com.jaspersoft.studio.field.name" value="description"/>
-        <property name="com.jaspersoft.studio.field.label" value="description"/>
-        <property name="com.jaspersoft.studio.field.tree.path" value="Room"/>
-        <fieldDescription><![CDATA[]]></fieldDescription>
-    </field>
-    <field name="startDate" class="java.sql.Date">
-        <property name="com.jaspersoft.studio.field.name" value="startDate"/>
-        <property name="com.jaspersoft.studio.field.label" value="startDate"/>
-        <property name="com.jaspersoft.studio.field.tree.path" value="BookingDetail"/>
-        <fieldDescription><![CDATA[]]></fieldDescription>
-    </field>
-    <field name="endDate" class="java.sql.Date">
-        <property name="com.jaspersoft.studio.field.name" value="endDate"/>
-        <property name="com.jaspersoft.studio.field.label" value="endDate"/>
-        <property name="com.jaspersoft.studio.field.tree.path" value="BookingDetail"/>
-        <fieldDescription><![CDATA[]]></fieldDescription>
-    </field>
-    <field name="totAmount" class="java.math.BigDecimal">
-        <property name="com.jaspersoft.studio.field.name" value="totAmount"/>
-        <property name="com.jaspersoft.studio.field.label" value="totAmount"/>
-        <property name="com.jaspersoft.studio.field.tree.path" value="BookingDetail"/>
-        <fieldDescription><![CDATA[]]></fieldDescription>
-    </field>
-    <group name="description">
-        <groupExpression><![CDATA[$F{description}]]></groupExpression>
-    </group>
-    <background>
-        <band splitType="Stretch"/>
-    </background>
-    <title>
-        <band height="367" splitType="Stretch">
-            <image>
-                <reportElement x="230" y="0" width="140" height="120" uuid="ba688919-e981-4a4b-a002-a67a8e6bb945"/>
-                <imageExpression><![CDATA["/home/locha/Documents/Untitled.png"]]></imageExpression>
-            </image>
-            <textField>
-                <reportElement x="100" y="190" width="230" height="20" uuid="467bab9f-ab69-4990-9e5e-73b0ee6acc6b">
-                    <property name="com.jaspersoft.studio.unit.x" value="px"/>
-                </reportElement>
-                <textElement>
-                    <font size="14"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$P{custName}]]></textFieldExpression>
-            </textField>
-            <staticText>
-                <reportElement x="18" y="190" width="59" height="20" uuid="0aa91394-f542-44ab-9f92-8cd4f1598868"/>
-                <textElement>
-                    <font size="14"/>
-                </textElement>
-                <text><![CDATA[Name :]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="18" y="220" width="59" height="20" uuid="b2511c8c-2337-408f-a6fa-6dabdd5cea09"/>
-                <textElement>
-                    <font size="14"/>
-                </textElement>
-                <text><![CDATA[NIC :]]></text>
-            </staticText>
-            <textField>
-                <reportElement x="100" y="220" width="100" height="20" uuid="4b80c21c-47e3-4963-92a4-c57b82c233b8">
-                    <property name="com.jaspersoft.studio.unit.x" value="px"/>
-                </reportElement>
-                <textElement>
-                    <font size="14"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$P{nic}]]></textFieldExpression>
-            </textField>
-            <staticText>
-                <reportElement x="18" y="250" width="69" height="20" uuid="4d4d90a7-f55d-4956-b572-164566a39519"/>
-                <textElement>
-                    <font size="14"/>
-                </textElement>
-                <text><![CDATA[Contact :]]></text>
-            </staticText>
-            <textField>
-                <reportElement x="100" y="250" width="100" height="20" uuid="0204408d-8925-4394-a907-a0e9ec448e89"/>
-                <textElement>
-                    <font size="14"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$P{contact}]]></textFieldExpression>
-            </textField>
-            <staticText>
-                <reportElement x="362" y="190" width="90" height="20" uuid="d9126d93-4455-4ac6-9686-76014ad1b3ed"/>
-                <textElement>
-                    <font size="14"/>
-                </textElement>
-                <text><![CDATA[Booking ID :]]></text>
-            </staticText>
-            <textField>
-                <reportElement x="462" y="190" width="100" height="20" uuid="20448f6b-3565-4b8b-b07e-7864a599d9cc"/>
-                <textElement>
-                    <font size="14"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$P{bookingID}]]></textFieldExpression>
-            </textField>
-            <staticText>
-                <reportElement x="362" y="220" width="59" height="20" uuid="0fe05ff1-decd-4c57-bb38-603868ac7749"/>
-                <textElement>
-                    <font size="14"/>
-                </textElement>
-                <text><![CDATA[Date :]]></text>
-            </staticText>
-            <textField>
-                <reportElement x="462" y="220" width="100" height="20" uuid="eb0b3753-9314-4c67-91d4-48918f4c4416"/>
-                <textElement>
-                    <font size="14"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$P{date}]]></textFieldExpression>
-            </textField>
-            <staticText>
-                <reportElement x="362" y="250" width="59" height="20" uuid="ed30ec45-2833-440f-8f22-1be621e75b3d"/>
-                <textElement>
-                    <font size="14"/>
-                </textElement>
-                <text><![CDATA[Time :]]></text>
-            </staticText>
-            <textField>
-                <reportElement x="462" y="250" width="100" height="20" uuid="2d041888-fe3c-482c-8f1c-b79cba9f62fe"/>
-                <textElement>
-                    <font size="14"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$P{time}]]></textFieldExpression>
-            </textField>
-            <staticText>
-                <reportElement x="2" y="320" width="100" height="24" uuid="acb0272b-e4b1-47bf-9ed1-ebf74d51ec13">
-                    <property name="com.jaspersoft.studio.unit.x" value="px"/>
-                </reportElement>
-                <textElement>
-                    <font size="14" isBold="true" isUnderline="true"/>
-                </textElement>
-                <text><![CDATA[Description]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="150" y="320" width="96" height="24" uuid="e5aec06b-daac-4fc2-8463-0ca82dc4a4e9">
-                    <property name="com.jaspersoft.studio.unit.x" value="px"/>
-                </reportElement>
-                <textElement>
-                    <font size="14" isBold="true" isUnderline="true"/>
-                </textElement>
-                <text><![CDATA[Start Date]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="312" y="320" width="84" height="24" uuid="c4d55407-10c9-4e38-b92a-5774745fea5d">
-                    <property name="com.jaspersoft.studio.unit.x" value="px"/>
-                </reportElement>
-                <textElement>
-                    <font size="14" isBold="true" isUnderline="true"/>
-                </textElement>
-                <text><![CDATA[End Date]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="462" y="320" width="46" height="24" uuid="e22a74c4-db58-42d5-a17b-a6f8cc34770e">
-                    <property name="com.jaspersoft.studio.unit.x" value="px"/>
-                </reportElement>
-                <textElement>
-                    <font size="14" isBold="true" isUnderline="true"/>
-                </textElement>
-                <text><![CDATA[Price]]></text>
-            </staticText>
-        </band>
-    </title>
-    <detail>
-        <band height="40" splitType="Stretch">
-            <textField>
-                <reportElement x="0" y="10" width="100" height="20" uuid="c9d8e84a-cba5-469f-bf6a-c4ef7473916f"/>
-                <textElement>
-                    <font size="14"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
-            </textField>
-            <textField pattern="yyyy-MM-dd">
-                <reportElement x="148" y="10" width="100" height="20" uuid="bacbaf6c-227a-450d-a54e-88dc3bd9ef7a"/>
-                <textElement>
-                    <font size="14"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$F{startDate}]]></textFieldExpression>
-            </textField>
-            <textField pattern="yyyy-MM-dd">
-                <reportElement key="" x="310" y="10" width="100" height="20"
-                               uuid="1ed23b09-8ef4-4581-926a-64f2c3713513"/>
-                <textElement>
-                    <font size="14"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$F{endDate}]]></textFieldExpression>
-            </textField>
-            <textField>
-                <reportElement x="460" y="10" width="100" height="20" uuid="0723fb07-967a-48af-ad0c-df2397c15240"/>
-                <textElement>
-                    <font size="14"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$F{totAmount}]]></textFieldExpression>
-            </textField>
-        </band>
-    </detail>
-    <pageFooter>
-        <band height="23">
-            <staticText>
-                <reportElement x="385" y="0" width="59" height="20" uuid="268289b2-27ec-436c-87c4-a453374a7231"/>
-                <textElement>
-                    <font size="14" isBold="true"/>
-                </textElement>
-                <text><![CDATA[Total :]]></text>
-            </staticText>
-            <textField>
-                <reportElement x="460" y="0" width="100" height="20" uuid="d03f4099-502e-4333-9ea4-aefdd4a5c096"/>
-                <textElement>
-                    <font size="14"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$P{total}]]></textFieldExpression>
-            </textField>
-        </band>
-    </pageFooter>
+	</queryString>
+	<field name="description" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="description"/>
+		<property name="com.jaspersoft.studio.field.label" value="description"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Room"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="startDate" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="startDate"/>
+		<property name="com.jaspersoft.studio.field.label" value="startDate"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="BookingDetail"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="endDate" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="endDate"/>
+		<property name="com.jaspersoft.studio.field.label" value="endDate"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="BookingDetail"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="totAmount" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="totAmount"/>
+		<property name="com.jaspersoft.studio.field.label" value="totAmount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="BookingDetail"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="description">
+		<groupExpression><![CDATA[$F{description}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="367" splitType="Stretch">
+			<image>
+				<reportElement x="230" y="0" width="140" height="120" uuid="ba688919-e981-4a4b-a002-a67a8e6bb945"/>
+				<imageExpression><![CDATA["/home/lochanathiwanka/Documents/Untitled.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="100" y="190" width="230" height="20" uuid="467bab9f-ab69-4990-9e5e-73b0ee6acc6b">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{custName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="18" y="190" width="59" height="20" uuid="0aa91394-f542-44ab-9f92-8cd4f1598868"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Name :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="18" y="220" width="59" height="20" uuid="b2511c8c-2337-408f-a6fa-6dabdd5cea09"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[NIC :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="220" width="100" height="20" uuid="4b80c21c-47e3-4963-92a4-c57b82c233b8">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nic}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="18" y="250" width="69" height="20" uuid="4d4d90a7-f55d-4956-b572-164566a39519"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Contact :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="250" width="100" height="20" uuid="0204408d-8925-4394-a907-a0e9ec448e89"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{contact}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="362" y="190" width="90" height="20" uuid="d9126d93-4455-4ac6-9686-76014ad1b3ed"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Booking ID :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="462" y="190" width="100" height="20" uuid="20448f6b-3565-4b8b-b07e-7864a599d9cc"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{bookingID}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="362" y="220" width="59" height="20" uuid="0fe05ff1-decd-4c57-bb38-603868ac7749"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Date :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="462" y="220" width="100" height="20" uuid="eb0b3753-9314-4c67-91d4-48918f4c4416"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{date}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="362" y="250" width="59" height="20" uuid="ed30ec45-2833-440f-8f22-1be621e75b3d"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Time :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="462" y="250" width="100" height="20" uuid="2d041888-fe3c-482c-8f1c-b79cba9f62fe"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{time}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="320" width="100" height="24" uuid="acb0272b-e4b1-47bf-9ed1-ebf74d51ec13">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="14" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Description]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="150" y="320" width="96" height="24" uuid="e5aec06b-daac-4fc2-8463-0ca82dc4a4e9">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="14" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Start Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="312" y="320" width="84" height="24" uuid="c4d55407-10c9-4e38-b92a-5774745fea5d">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="14" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[End Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="462" y="320" width="46" height="24" uuid="e22a74c4-db58-42d5-a17b-a6f8cc34770e">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="14" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Price]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="48" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="10" width="100" height="20" uuid="c9d8e84a-cba5-469f-bf6a-c4ef7473916f"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
+			</textField>
+			<textField pattern="yyyy-MM-dd">
+				<reportElement x="148" y="10" width="100" height="20" uuid="bacbaf6c-227a-450d-a54e-88dc3bd9ef7a"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{startDate}]]></textFieldExpression>
+			</textField>
+			<textField pattern="yyyy-MM-dd">
+				<reportElement key="" x="310" y="10" width="100" height="20"
+							   uuid="1ed23b09-8ef4-4581-926a-64f2c3713513"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{endDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="460" y="10" width="100" height="20" uuid="0723fb07-967a-48af-ad0c-df2397c15240"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totAmount}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="101">
+			<staticText>
+				<reportElement x="385" y="0" width="59" height="20" uuid="268289b2-27ec-436c-87c4-a453374a7231"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="460" y="0" width="100" height="20" uuid="d03f4099-502e-4333-9ea4-aefdd4a5c096"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{total}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="-3" y="30" width="553" height="1" uuid="dfb7b5d1-7d7e-4c69-aa07-52efc1372c93">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement x="15" y="44" width="100" height="57" uuid="ce47b2e4-31b9-4b6f-8ceb-20839ac7cef0"/>
+				<text><![CDATA[Diya Ulpatha
+No 08,
+Horawala,Mathugama]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="44" width="127" height="16" uuid="30581cdf-2f23-43fe-bbd5-0210756ec019"/>
+				<text><![CDATA[Contact : 0715936850]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="60" width="205" height="30" uuid="8195be88-5da1-4c7c-af71-5da7150ef5af"/>
+				<text><![CDATA[E-mail : diyaulpatha123@gmail.com]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
 </jasperReport>

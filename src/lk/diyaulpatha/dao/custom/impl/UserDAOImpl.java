@@ -43,7 +43,7 @@ public class UserDAOImpl implements UserDAO {
         ResultSet rst = CrudUtil.executeQuery(SQL, id);
         if (rst.next()) {
             return new User(rst.getString("userID"), rst.getString("employeeID"),
-                    rst.getString("userName"), rst.getString("Password"));
+                    rst.getString("userName"), rst.getString("password"));
         }
         return null;
     }

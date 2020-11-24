@@ -46,7 +46,7 @@ public class AddRoomFormController implements Initializable {
     private BufferedImage newBI;
 
     private boolean addRoom() throws SQLException, ClassNotFoundException,NullPointerException {
-        String path = "/home/locha/Documents/Projects/IdeaProjects/JDBC/DiyaUlpatha/src/lk/diyaulpatha/asserts/rooms/";
+        String path = "/home/lochanathiwanka/Documents/Projects/IdeaProjects/JDBC/DiyaUlpatha/src/lk/diyaulpatha/asserts/rooms/";
         return roomBO.addRoom(new RoomDTO(txtRoomID.getText(), txtCode.getText(), txtDescription.getText(),
                 Double.parseDouble(txtPrice.getText()), "Available", "Exists", path + openFileChooser.getSelectedFile().getName()));
     }
@@ -108,7 +108,7 @@ public class AddRoomFormController implements Initializable {
         //int returnValue = saveFileChooser.showSaveDialog(null);
         //if (returnValue==JFileChooser.APPROVE_OPTION) {
         try {
-            File file = new File("/home/locha/Documents/Projects/IdeaProjects/JDBC/DiyaUlpatha/src/lk/diyaulpatha/asserts/rooms/" + txtImage.getText());
+            File file = new File("/home/lochanathiwanka/Documents/Projects/IdeaProjects/JDBC/DiyaUlpatha/src/lk/diyaulpatha/asserts/rooms/" + txtImage.getText());
             ImageIO.write(img, "png", file);
             System.out.println(saveFileChooser.getSelectedFile());
             System.out.println("Image successfully saved!");
@@ -146,12 +146,12 @@ public class AddRoomFormController implements Initializable {
     }
 
     private void initializeOpenFileChooser(){
-        openFileChooser = new JFileChooser("/home/locha/Documents/Projects/IdeaProjects/JDBC/DiyaUlpatha/src/lk/diyaulpatha/asserts/rooms");
+        openFileChooser = new JFileChooser("/home/lochanathiwanka/Documents/Projects/IdeaProjects/JDBC/DiyaUlpatha/src/lk/diyaulpatha/asserts/rooms");
         openFileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Image files", "png", "jpg", "jpeg", "gif"));
     }
 
     private void initializeSaveFileChooser(){
-        saveFileChooser = new JFileChooser("/home/locha/Documents/Projects/IdeaProjects/JDBC/DiyaUlpatha/src/lk/diyaulpatha/asserts/rooms");
+        saveFileChooser = new JFileChooser("/home/lochanathiwanka/Documents/Projects/IdeaProjects/JDBC/DiyaUlpatha/src/lk/diyaulpatha/asserts/rooms");
         saveFileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Image files", "png", "jpg", "jpeg", "gif"));
         saveFileChooser.setSelectedFile(new File(txtImage.getText()));
     }
