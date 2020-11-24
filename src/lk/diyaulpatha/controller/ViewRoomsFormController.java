@@ -66,7 +66,7 @@ public class ViewRoomsFormController implements Initializable {
             int selectedRow = tblRoom.getSelectionModel().getSelectedIndex();
             String imagePath = getAllRoomDetails().get(selectedRow).getImage();
 
-            File file = new File(imagePath);
+            File file = new File("/home/lochanathiwanka/Documents/Projects/JAVA/IdeaProjects/JDBC/DiyaUlpatha/src/lk/diyaulpatha/asserts/rooms/" + imagePath);
             BufferedImage bufferedImage = null;
             bufferedImage = ImageIO.read(file);
             Image image = SwingFXUtils.toFXImage(bufferedImage, null);

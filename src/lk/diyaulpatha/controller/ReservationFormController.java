@@ -192,7 +192,7 @@ public class ReservationFormController implements Initializable {
             setFinalTotal();
             resetRoomDetailFields();
             setValuesTocmbRoom();
-            setPagination("/home/locha/Documents/Projects/IdeaProjects/JDBC/DiyaUlpatha/src/lk/diyaulpatha/asserts/rooms/room.png");
+            setPagination("lk/diyaulpatha/asserts/rooms/room.png");
         }else if (count!=-1){
             new Alert(Alert.AlertType.WARNING,"Room is already in List!",ButtonType.OK).show();
             resetRoomDetailFields();
